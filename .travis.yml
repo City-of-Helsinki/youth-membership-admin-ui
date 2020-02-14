@@ -12,7 +12,7 @@ jobs:
   include:
     - stage: 'Test'
       name: 'Run code linting and test'
-      script: yarn lint && yarn ci
+      script: yarn lint && yarn test --coverage
     - stage: 'Build'
       name: 'Run (test) build'
       if: branch IN (master, develop)
