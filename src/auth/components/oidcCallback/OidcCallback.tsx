@@ -12,7 +12,6 @@ function OidcCallBack(props: RouteChildrenProps) {
   const notify = useNotify();
 
   const onSuccess = (user: User) => {
-    // TODO add fetchApiToken
     fetchApiToken(user.access_token)
       .then(apiToken => {
         localStorage.setItem('apiToken', apiToken);
