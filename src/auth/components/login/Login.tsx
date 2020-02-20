@@ -22,20 +22,20 @@ const useStyles = makeStyles({
 
 const LoginPageContent: React.FC = () => {
   const classes = useStyles();
-  const translate = useTranslate();
+  const t = useTranslate();
   return (
     <ThemeProvider theme={theme}>
       <Card>
         <CardContent>
           <div className={classes.container}>
-            <p>Jässäri admin</p>
+            <p>{t('dashboard.title')}</p>
             <Button
               className={classes.button}
               variant="contained"
               color="secondary"
               onClick={() => authenticate()}
             >
-              {translate('ra.auth.sign_in')}
+              {t('ra.auth.sign_in')}
             </Button>
           </div>
         </CardContent>

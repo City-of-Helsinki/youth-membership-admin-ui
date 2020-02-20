@@ -3,6 +3,7 @@ import fakeDataProvider from 'ra-data-fakerest'; // TODO replace with an actual 
 import { Admin, Resource } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
 
+import i18nProvider from './i18n/i18nProvider';
 import Login from './auth/components/login/Login';
 import AppRoutes from './routes';
 import authProvider from './auth/authProvider';
@@ -15,6 +16,7 @@ const App: React.FC = () => {
   return (
     <Admin
       dataProvider={fakeDataProvider({})}
+      i18nProvider={i18nProvider}
       history={history}
       authProvider={authProvider}
       theme={theme}

@@ -1,0 +1,8 @@
+{
+  "oidc": {
+    "authenticating": "Tunnistaudutaan..."
+  },
+  "dashboard": {
+    "title": "Jässäri ylläpito"
+  }
+}

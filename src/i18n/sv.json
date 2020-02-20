@@ -1,0 +1,8 @@
+{
+  "oidc": {
+    "authenticating": "Autentiserar..."
+  },
+  "dashboard": {
+    "title": "Jässäri admin"
+  }
+}

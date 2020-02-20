@@ -8788,6 +8788,16 @@ ra-language-english@^3.2.0:
   resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.2.0.tgz#2ca13b767d834b43fefd128f48e452449f812b61"
   integrity sha512-/XmwYWoQoB4MBkkzBCbg/ykCuRGjHQOHLk2ik6n1aM10AWHxiiJNyRw2aoLzH7Vc5rcp4BBJQCuhT+DgfYIJ2Q==
 
+ra-language-finnish@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ra-language-finnish/-/ra-language-finnish-3.2.0.tgz#568b5d888c3d4bd1499f3b21059a0db0770e02a8"
+  integrity sha512-+YenSVfKFRQ1kD6lGXTlVRyyXWU2S+/Afi8RtN3rmjrbJPGB9sfncQzVwx+QdFYvZ8v/eBjW5WgS/xz4DGjPsg==
+
+ra-language-swedish@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/ra-language-swedish/-/ra-language-swedish-1.0.0.tgz#6c7a22603b4b19bc17e223339f3e5c458d9e1f75"
+  integrity sha512-JwVPB9nP/stPT7R3C6T7NY917GC+cLVNSwYxHxWxUAAfZJ/tjZrJRrkskbM+ELz3EWfFP25YzUmQjCGSzGY1pw==
+
 ra-ui-materialui@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.2.1.tgz#8e0d9b74c36e9f800b8b766d67dfc720b821f561"

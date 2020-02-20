@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslate, useNotify } from 'react-admin';
 import { CallbackComponent } from 'redux-oidc';
 import { User } from 'oidc-client';
 import { RouteChildrenProps } from 'react-router';
@@ -7,6 +8,9 @@ import userManager from '../../userManager';
 import fetchApiToken from '../../fetchApiToken';
 
 function OidcCallBack(props: RouteChildrenProps) {
+  const t = useTranslate();
+  const notify = useNotify();
+
   const onSuccess = (user: User) => {
     // TODO add fetchApiToken
     fetchApiToken(user.access_token)
@@ -15,12 +19,14 @@ function OidcCallBack(props: RouteChildrenProps) {
         props.history.push('/');
       })
       .catch(error => {
-        // Todo add error handling & Sentry
+        notify(t('ra.message.error'), 'warning');
+        // Todo add Sentry
       });
   };
 
   const onError = (error: Error) => {
-    // Add error handling + Sentry
+    notify(t('ra.message.error'), 'warning');
+    // Todo add Sentry
   };
 
   return (
@@ -29,7 +35,7 @@ function OidcCallBack(props: RouteChildrenProps) {
       errorCallback={onError}
       userManager={userManager}
     >
-      <p>Tunnishayut</p>
+      <p>{t('oidc.authenticating')}</p>
     </CallbackComponent>
   );
 }
