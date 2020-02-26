@@ -1,0 +1,9 @@
+{
+  "oidc": {
+    "authenticating": "Authenticating..."
+  },
+  "dashboard": {
+    "title": "Jassari admin"
+  }
+}
+
