@@ -27,13 +27,28 @@ const YouthList = () => {
 
   const notify = useNotify();
   const t = useTranslate();
+
   const dataProvider = useDataProvider();
 
+  const transformData = () => {
+    const dataObject: DatagridData = {};
+    profiles.forEach((profile: Profile) => {
+      dataObject[profile.id] = profile;
+    });
+    return dataObject;
+  };
+
+  const checkSearchParams = () => {
+    return searchParams.firstName || searchParams.lastName;
+  };
+
+  // At this point we dont want search to return all found profiles,
+  // so to prevent that happening add dummy data to search parameters
   const getProfiles = () => {
     dataProvider
       .getList('youthProfiles', {
-        firstName: searchParams.firstName,
-        lastName: searchParams.lastName,
+        firstName: checkSearchParams() ? searchParams.firstName : 'dummy',
+        lastName: checkSearchParams() ? searchParams.lastName : 'data',
       })
       .then((result: { data: Array<Profile> }) => {
         setProfiles(result.data);
@@ -42,14 +57,6 @@ const YouthList = () => {
       .catch((error: Error) => {
         notify(t('ra.message.error'), 'warning');
       });
-  };
-
-  const transformData = () => {
-    const dataObject: DatagridData = {};
-    profiles.forEach((profile: Profile) => {
-      dataObject[profile.id] = profile;
-    });
-    return dataObject;
   };
 
   return (

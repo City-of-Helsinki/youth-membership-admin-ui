@@ -17,7 +17,6 @@ export type Method =
   | 'DELETE'
   | 'DELETE_MANY';
 
-
 export type MethodHandlersResponse = any;
 
 export type MethodHandler = (
