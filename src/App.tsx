@@ -1,6 +1,5 @@
 import React from 'react';
-import fakeDataProvider from 'ra-data-fakerest'; // TODO replace with an actual API data provider
-import { Admin, Resource } from 'react-admin';
+import { Admin, Resource, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
 
 import i18nProvider from './i18n/i18nProvider';
@@ -9,13 +8,16 @@ import AppRoutes from './routes';
 import authProvider from './auth/authProvider';
 import Dashboard from './pages/dashboard/Dashboard';
 import theme from './common/materialUI/themeConfig';
+import dataProvider from './graphql/dataProvider';
+import YouthList from './pages/youthProfiles/list/YouthList';
 
 const history = createHistory();
 
 const App: React.FC = () => {
+  const t = useTranslate();
   return (
     <Admin
-      dataProvider={fakeDataProvider({})}
+      dataProvider={dataProvider}
       i18nProvider={i18nProvider}
       history={history}
       authProvider={authProvider}
@@ -24,7 +26,11 @@ const App: React.FC = () => {
       dashboard={Dashboard}
       loginPage={Login}
     >
-      <Resource name="users" options={{ label: 'USERS' }} />
+      <Resource
+        name="youthProfiles"
+        list={YouthList}
+        options={{ label: t('youthProfiles.title') }}
+      />
     </Admin>
   );
 };

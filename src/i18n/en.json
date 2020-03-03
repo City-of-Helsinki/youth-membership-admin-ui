@@ -4,6 +4,17 @@
   },
   "dashboard": {
     "title": "Jassari admin"
+  },
+  "youthProfiles": {
+    "title": "Youth profiles",
+    "search": "Search",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "birthDate": "Birth date",
+    "membershipNumber": "Membership number",
+    "phone": "Phone number",
+    "photoUsage": "Photo usage",
+    "language": "Language"
   }
 }
 
