@@ -17,7 +17,7 @@ export type Method =
   | 'DELETE'
   | 'DELETE_MANY';
 
-// TODO: Replace this with better type from react-admin
+
 export type MethodHandlersResponse = any;
 
 export type MethodHandler = (
