@@ -4,5 +4,16 @@
   },
   "dashboard": {
     "title": "Jässäri admin"
+  },
+  "youthProfiles": {
+    "title": "Ungdomsprofiler",
+    "search": "Sök",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "birthDate": "Födelsedatum",
+    "membershipNumber": "Medlemsnummer",
+    "phone": "Telefonnummer",
+    "photoUsage": "Fotoanvändning",
+    "language": "Språk"
   }
 }

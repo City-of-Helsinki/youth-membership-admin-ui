@@ -4,5 +4,16 @@
   },
   "dashboard": {
     "title": "Jässäri ylläpito"
+  },
+  "youthProfiles": {
+    "title": "Nuorisoprofiilit",
+    "search": "Etsi",
+    "firstName": "Etunimi",
+    "lastName": "Sukunimi",
+    "birthDate": "Syntymäpäivä",
+    "membershipNumber": "Jäsennumero",
+    "phone": "Puhelinnumero",
+    "photoUsage": "Kuvauslupa",
+    "language": "Kieli"
   }
 }

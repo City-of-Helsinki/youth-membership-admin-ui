@@ -13,10 +13,12 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-router": "^5.1.4",
     "@types/react-router-dom": "^5.1.3",
+    "apollo-boost": "^0.4.7",
+    "axios": "^0.19.2",
+    "graphql": "^14.6.0",
     "history": "^4.10.1",
     "oidc-client": "^1.10.1",
     "prop-types": "^15.7.2",
-    "ra-data-fakerest": "^3.0.1",
     "ra-language-english": "^3.2.0",
     "ra-language-finnish": "^3.2.0",
     "ra-language-swedish": "^1.0.0",
@@ -33,7 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --ext js,ts,tsx src"
+    "lint": "eslint --ext js,ts,tsx src",
+    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://helsinkiprofile.test.kuva.hel.ninja/graphql/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "apollo": "^2.24.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^1.19.1"
