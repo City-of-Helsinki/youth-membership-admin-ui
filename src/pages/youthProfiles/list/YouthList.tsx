@@ -17,10 +17,15 @@ type DatagridData = {
   [key: string]: Profile;
 };
 
+type SearchParams = {
+  firstName: string;
+  lastName: string;
+};
+
 const YouthList = () => {
-  const [profiles, setProfiles] = useState<Array<Profile>>([]);
-  const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useState({
+  const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useState<SearchParams>({
     firstName: '',
     lastName: '',
   });
@@ -50,7 +55,7 @@ const YouthList = () => {
         firstName: checkSearchParams() ? searchParams.firstName : 'dummy',
         lastName: checkSearchParams() ? searchParams.lastName : 'data',
       })
-      .then((result: { data: Array<Profile> }) => {
+      .then((result: { data: Profile[] }) => {
         setProfiles(result.data);
         setLoading(false);
       })
