@@ -10,6 +10,7 @@ import {
   Loading,
 } from 'react-admin';
 import { TextField } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
 
@@ -30,6 +31,7 @@ const YouthList = () => {
     lastName: '',
   });
 
+  const history = useHistory();
   const notify = useNotify();
   const t = useTranslate();
 
@@ -86,6 +88,11 @@ const YouthList = () => {
           setLoading(true);
           getProfiles();
         }}
+      />
+
+      <Button
+        label="LUO"
+        onClick={() => history.push('/youthProfiles/create')}
       />
 
       {loading && <Loading />}

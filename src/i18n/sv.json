@@ -14,6 +14,24 @@
     "membershipNumber": "Medlemsnummer",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
-    "language": "Språk"
+    "language": "Språk",
+    "streetAddress": "Gatuadress",
+    "city": "Stad",
+    "postalCode": "Postnummer",
+    "email": "E-post",
+    "schoolName": "Skola",
+    "schoolClass": "Klass",
+    "languageAtHome": "Språk hemma",
+    "photoApprovedTrue": "Ja",
+    "photoApprovedFalse": "Nej"
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "Engelska",
+    "FINNISH": "Finska",
+    "SWEDISH": "Svenska",
+    "ARABIC": "Arabiska",
+    "ESTONIAN": "Estniska",
+    "RUSSIAN": "Ryska",
+    "SOMALI": "Somaliska"
   }
 }

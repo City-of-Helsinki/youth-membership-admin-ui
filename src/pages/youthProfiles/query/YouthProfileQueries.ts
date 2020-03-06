@@ -49,3 +49,13 @@ export const profileQuery = gql`
     }
   }
 `;
+
+export const createProfileMutation = gql`
+  mutation CreateProfile($input: CreateProfileMutationInput!) {
+    createProfile(input: $input) {
+      profile {
+        id
+      }
+    }
+  }
+`;

@@ -14,6 +14,24 @@
     "membershipNumber": "Jäsennumero",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",
-    "language": "Kieli"
+    "language": "Kieli",
+    "streetAddress": "Katuosoite",
+    "city": "Kaupunki",
+    "postalCode": "Postinumero",
+    "email": "Sähköposti",
+    "schoolName": "Koulu",
+    "schoolClass": "Luokka",
+    "languageAtHome": "Kotona puhuttu kieli",
+    "photoApprovedTrue": "Kyllä",
+    "photoApprovedFalse": "Ei"
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "Englanti",
+    "FINNISH": "Suomi",
+    "SWEDISH": "Ruotsi",
+    "ARABIC": "Arabia",
+    "ESTONIAN": "Eesti",
+    "RUSSIAN": "Venäjä",
+    "SOMALI": "Somali"
   }
 }

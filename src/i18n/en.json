@@ -14,7 +14,25 @@
     "membershipNumber": "Membership number",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
-    "language": "Language"
+    "language": "Language",
+    "streetAddress": "Street address",
+    "city": "City",
+    "postalCode": "Postal code",
+    "email": "Email",
+    "schoolName": "School",
+    "schoolClass": "Class",
+    "languageAtHome": "Language at home",
+    "photoApprovedTrue": "Yes",
+    "photoApprovedFalse": "No"
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "English",
+    "FINNISH": "Finnish",
+    "SWEDISH": "Swedish",
+    "ARABIC": "Arabic",
+    "ESTONIAN": "Estonian",
+    "RUSSIAN": "Russian",
+    "SOMALI": "Somali"
   }
 }
 

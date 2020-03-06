@@ -5897,6 +5897,20 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
+hds-core@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/hds-core/-/hds-core-0.4.2.tgz#f740068307dcc112168f27ee29c3afbc2927f005"
+  integrity sha512-/PZ17SkcsVk34+o1kI8FWuqKw6AEGE5700EK98ILm1sOqr0lyEQnvPUUmtP77sqOKRCfziagK+CErdAO29+APA==
+
+hds-react@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.yarnpkg.com/hds-react/-/hds-react-0.5.5.tgz#6f0d6f8deb71d6df1350eaf68eeda1c1511f1f18"
+  integrity sha512-lDXU6uiNck/rMWzXKAEwC3aot7Ai7eJ0k5wYgqY6T4XyxOPtAPfpABGGBsuIECXkiIPFfj5LQjBVTmmfJHx0Fw==
+  dependencies:
+    hds-core "^0.4.2"
+    lodash.uniqueid "^4.0.1"
+    react-spring "^8.0.27"
+
 he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -7676,6 +7690,11 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
+
+lodash.uniqueid@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/lodash.uniqueid/-/lodash.uniqueid-4.0.1.tgz#3268f26a7c88e4f4b1758d679271814e31fa5b26"
+  integrity sha1-MmjyanyI5PSxdY1nknGBTjH6WyY=
 
 lodash.xorby@^4.7.0:
   version "4.7.0"
@@ -9700,7 +9719,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.3"
 
-prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.0, prop-types@^15.7.2:
+prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.0, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10135,6 +10154,14 @@ react-scripts@3.3.1:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-spring@^8.0.27:
+  version "8.0.27"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
+  integrity sha512-nDpWBe3ZVezukNRandTeLSPcwwTMjNVu1IDq9qA/AMiUqHuRN4BeSWvKr3eIxxg1vtiYiOLy4FqdfCP5IoP77g==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    prop-types "^15.5.8"
 
 react-transition-group@^2.2.1:
   version "2.9.0"
