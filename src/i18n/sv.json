@@ -8,6 +8,9 @@
   "youthProfiles": {
     "title": "Ungdomsprofiler",
     "search": "Sök",
+    "basicInfo": "Grundläggande",
+    "extraInfo": "Ytterligare info",
+    "approverInfo": "Förälderinformation",
     "firstName": "Förnamn",
     "lastName": "Efternamn",
     "birthDate": "Födelsedatum",

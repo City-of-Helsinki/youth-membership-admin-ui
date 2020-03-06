@@ -1,19 +1,7 @@
 import React from 'react';
 import { Box, RadioGroup, Radio, FormControlLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { useField } from 'react-final-form';
-
-type Choice = {
-  id: string;
-  name: string;
-};
-
-type Props = {
-  initialValue: string;
-  name: string;
-  label: string;
-  choices: Choice[];
-};
+import { useInput } from 'react-admin';
 
 const useStyles = makeStyles({
   label: {
@@ -32,21 +20,33 @@ const useStyles = makeStyles({
   },
 });
 
-const RadioGroupInput = ({ initialValue, name, label, choices }: Props) => {
+type Choice = {
+  id: string;
+  name: string;
+};
+
+type Props = {
+  name: string;
+  label: string;
+  choices: Choice[];
+  initialValue?: string;
+};
+
+const RadioGroupInput = ({ name, label, choices, initialValue }: Props) => {
   const {
-    input: { onChange },
+    input,
     meta: { touched, error },
-  } = useField(name);
+  } = useInput({ name, type: 'radio' });
 
   const classes = useStyles();
   return (
     <Box mt="1rem">
       <p className={classes.label}>{label}</p>
       <RadioGroup
-        defaultValue={initialValue}
-        onChange={onChange}
         id={name}
         className={classes.control}
+        {...input}
+        defaultValue={initialValue}
       >
         {choices.map((choice: Choice) => (
           <FormControlLabel

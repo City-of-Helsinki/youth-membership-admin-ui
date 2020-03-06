@@ -52,7 +52,7 @@ const BirthDateInput = ({ inputName, label }: Props) => {
   // is set to ChangeEvent<Element> which doesn't contain
   // target.value
   const handleChange = (e: any, field: string) => {
-    setBirthDate({ ...birthDate, [field]: e.d });
+    setBirthDate({ ...birthDate, [field]: e.target.value });
   };
 
   return (

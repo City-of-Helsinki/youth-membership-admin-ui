@@ -8,6 +8,9 @@
   "youthProfiles": {
     "title": "Youth profiles",
     "search": "Search",
+    "basicInfo": "Basic info",
+    "extraInfo": "Additional info",
+    "approverInfo": "Parental information",
     "firstName": "First name",
     "lastName": "Last name",
     "birthDate": "Birth date",

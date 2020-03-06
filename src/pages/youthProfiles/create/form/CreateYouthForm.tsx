@@ -30,10 +30,11 @@ const CreateYouthForm: React.FC = (props: any) => {
   return (
     <FormWithRedirect
       {...props}
+      initialValues={{ languageAtHome: 'FINNISH', photoUsageApproved: 'false' }}
       render={(formProps: any) => (
         <form>
-          <Box ml="2rem" mt="2rem">
-            <p className={classes.title}>Perustiedot</p>
+          <Box m="2rem">
+            <p className={classes.title}>{t('youthProfiles.basicInfo')}</p>
             <Box display="flex" mt="1rem">
               <Box mr="1rem">
                 <TextInput
@@ -73,7 +74,7 @@ const CreateYouthForm: React.FC = (props: any) => {
           </Box>
 
           <Box ml="2rem" mt="1rem">
-            <p className={classes.title}>Lisätiedot</p>
+            <p className={classes.title}>{t('youthProfiles.extraInfo')}</p>
             <Box display="flex" mt="1rem">
               <Box mr="1rem">
                 <TextInput
@@ -88,9 +89,9 @@ const CreateYouthForm: React.FC = (props: any) => {
             </Box>
 
             <RadioGroupInput
+              initialValue={Language.FINNISH}
               label={t('youthProfiles.languageAtHome')}
               name="languageAtHome"
-              initialValue="FINNISH"
               choices={[
                 { id: Language.FINNISH, name: t('LANGUAGE_OPTIONS.FINNISH') },
                 { id: Language.ENGLISH, name: t('LANGUAGE_OPTIONS.ENGLISH') },
@@ -98,9 +99,9 @@ const CreateYouthForm: React.FC = (props: any) => {
               ]}
             />
             <RadioGroupInput
+              initialValue="false"
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
-              initialValue="false"
               choices={[
                 { id: 'true', name: 'Yes' },
                 { id: 'false', name: 'No' },
@@ -109,7 +110,7 @@ const CreateYouthForm: React.FC = (props: any) => {
           </Box>
 
           <Box ml="2rem" mt="1rem">
-            <p className={classes.title}>Huoltajan tiedot</p>
+            <p className={classes.title}>{t('youthProfiles.approverInfo')}</p>
             <Box display="flex" mt="1rem">
               <Box mr="1rem">
                 <TextInput
