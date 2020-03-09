@@ -13,7 +13,7 @@
     "approverInfo": "Parental information",
     "firstName": "First name",
     "lastName": "Last name",
-    "birthDate": "Birth date",
+    "birthDate": "Birth date (dd.mm.yyyy)",
     "membershipNumber": "Membership number",
     "phone": "Phone number",
     "photoUsage": "Photo usage",

@@ -51,6 +51,7 @@ const BirthDateInput = ({ inputName, label }: Props) => {
   // e type is set to any for now. Event type returned from hds
   // is set to ChangeEvent<Element> which doesn't contain
   // target.value
+  // tslint:disable-next-line
   const handleChange = (e: any, field: string) => {
     setBirthDate({ ...birthDate, [field]: e.target.value });
   };

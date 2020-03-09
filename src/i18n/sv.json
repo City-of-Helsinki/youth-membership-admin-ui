@@ -13,7 +13,7 @@
     "approverInfo": "Förälderinformation",
     "firstName": "Förnamn",
     "lastName": "Efternamn",
-    "birthDate": "Födelsedatum",
+    "birthDate": "Födelsedatum (dd.mm.yyyy)",
     "membershipNumber": "Medlemsnummer",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",

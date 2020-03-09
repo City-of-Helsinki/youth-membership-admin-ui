@@ -13,7 +13,7 @@
     "approverInfo": "Huoltajan tiedot",
     "firstName": "Etunimi",
     "lastName": "Sukunimi",
-    "birthDate": "Syntymäpäivä",
+    "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
     "membershipNumber": "Jäsennumero",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",

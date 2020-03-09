@@ -5,88 +5,81 @@ import {
   Toolbar,
   useTranslate,
 } from 'react-admin';
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 
+import styles from './CreateYouthForm.module.css';
 import { Language } from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
 
-const useStyles = makeStyles({
-  title: {
-    fontSize: 'var(--hds-text-xl)',
-    lineHeight: 'var(--hds-text-sm-line-height)',
-    fontFamily: 'var(--hds-theme-primary-font)',
-    fontWeight: 'bold',
-    margin: 0,
-  },
-});
-
 const CreateYouthForm: React.FC = (props: any) => {
   const t = useTranslate();
 
-  const classes = useStyles();
   return (
     <FormWithRedirect
       {...props}
       initialValues={{ languageAtHome: 'FINNISH', photoUsageApproved: 'false' }}
       render={(formProps: any) => (
         <form>
-          <Box m="2rem">
-            <p className={classes.title}>{t('youthProfiles.basicInfo')}</p>
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput
-                  name="firstName"
-                  label={t('youthProfiles.firstName')}
-                />
-              </Box>
+          <div className={styles.wrapper}>
+            <p className={styles.title}>{t('youthProfiles.basicInfo')}</p>
+            <div className={styles.rowContainer}>
+              <TextInput
+                name="firstName"
+                label={t('youthProfiles.firstName')}
+                className={styles.textField}
+              />
               <TextInput label={t('youthProfiles.lastName')} name="lastName" />
-            </Box>
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput
-                  label={t('youthProfiles.streetAddress')}
-                  name="address"
-                />
-              </Box>
-              <Box mr="1rem">
-                <TextInput label={t('youthProfiles.city')} name="city" />
-              </Box>
+            </div>
+            <div className={styles.rowContainer}>
+              <TextInput
+                label={t('youthProfiles.streetAddress')}
+                name="address"
+                className={styles.textField}
+              />
+
+              <TextInput
+                label={t('youthProfiles.city')}
+                name="city"
+                className={styles.textField}
+              />
+
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
               />
-            </Box>
+            </div>
 
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput label={t('youthProfiles.email')} name="email" />
-              </Box>
+            <div className={styles.rowContainer}>
+              <TextInput
+                label={t('youthProfiles.email')}
+                name="email"
+                className={styles.textField}
+              />
+
               <TextInput label={t('youthProfiles.phone')} name="phone" />
-            </Box>
+            </div>
 
             <BirthDateInput
               inputName="birthDate"
               label={t('youthProfiles.birthDate')}
             />
-          </Box>
+          </div>
 
-          <Box ml="2rem" mt="1rem">
-            <p className={classes.title}>{t('youthProfiles.extraInfo')}</p>
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput
-                  label={t('youthProfiles.schoolName')}
-                  name="schoolName"
-                />
-              </Box>
+          <div className={styles.infoContainer}>
+            <p className={styles.title}>{t('youthProfiles.extraInfo')}</p>
+            <div className={styles.rowContainer}>
+              <TextInput
+                label={t('youthProfiles.schoolName')}
+                name="schoolName"
+                className={styles.textField}
+              />
+
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
               />
-            </Box>
+            </div>
 
             <RadioGroupInput
               initialValue={Language.FINNISH}
@@ -107,35 +100,35 @@ const CreateYouthForm: React.FC = (props: any) => {
                 { id: 'false', name: 'No' },
               ]}
             />
-          </Box>
+          </div>
 
-          <Box ml="2rem" mt="1rem">
-            <p className={classes.title}>{t('youthProfiles.approverInfo')}</p>
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput
-                  label={t('youthProfiles.firstName')}
-                  name="approverFirstName"
-                />
-              </Box>
+          <div className={styles.infoContainer}>
+            <p className={styles.title}>{t('youthProfiles.approverInfo')}</p>
+            <div className={styles.rowContainer}>
+              <TextInput
+                label={t('youthProfiles.firstName')}
+                name="approverFirstName"
+                className={styles.textField}
+              />
+
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
               />
-            </Box>
-            <Box display="flex" mt="1rem">
-              <Box mr="1rem">
-                <TextInput
-                  label={t('youthProfiles.email')}
-                  name="approverEmail"
-                />
-              </Box>
+            </div>
+            <div className={styles.rowContainer}>
+              <TextInput
+                label={t('youthProfiles.email')}
+                name="approverEmail"
+                className={styles.textField}
+              />
+
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
               />
-            </Box>
-          </Box>
+            </div>
+          </div>
           <Toolbar>
             <SaveButton
               saving={formProps.saving}
