@@ -8,6 +8,7 @@
   "youthProfiles": {
     "title": "Nuorisoprofiilit",
     "search": "Etsi",
+    "create": "Lisää",
     "basicInfo": "Perustiedot",
     "extraInfo": "Lisätiedot",
     "approverInfo": "Huoltajan tiedot",

@@ -8,6 +8,7 @@
   "youthProfiles": {
     "title": "Ungdomsprofiler",
     "search": "Sök",
+    "create": "Skapa",
     "basicInfo": "Grundläggande",
     "extraInfo": "Ytterligare info",
     "approverInfo": "Förälderinformation",

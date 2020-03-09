@@ -91,7 +91,7 @@ const YouthList = () => {
       />
 
       <Button
-        label="LUO"
+        label={t('youthProfiles.create')}
         onClick={() => history.push('/youthProfiles/create')}
       />
 
