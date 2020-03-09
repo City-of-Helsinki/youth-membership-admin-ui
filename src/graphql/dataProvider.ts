@@ -4,12 +4,15 @@ import {
   Resource,
   DataProviderParams as Params,
 } from './types';
-import { createYouthProfile, getYouthProfiles } from '../pages/youthProfiles/api/YouthApi';
+import {
+  createYouthProfile,
+  getYouthProfiles,
+} from '../pages/youthProfiles/api/YouthApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   youthProfiles: {
     LIST: getYouthProfiles,
-    CREATE: createYouthProfile
+    CREATE: createYouthProfile,
   },
 };
 
@@ -40,9 +43,8 @@ const dataProvider = {
   },
   create: async (resource: Resource, params: Params) => {
     const data = await runHandler('CREATE', resource, params);
-    console.log("RESDATA", data)
     return { data };
-  }
+  },
 };
 
 export default dataProvider;

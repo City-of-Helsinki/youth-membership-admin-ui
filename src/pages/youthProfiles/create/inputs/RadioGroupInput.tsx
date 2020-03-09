@@ -33,10 +33,7 @@ type Props = {
 };
 
 const RadioGroupInput = ({ name, label, choices, initialValue }: Props) => {
-  const {
-    input,
-    meta: { touched, error },
-  } = useInput({ name, type: 'radio' });
+  const { input } = useInput({ name, type: 'radio' });
 
   const classes = useStyles();
   return (

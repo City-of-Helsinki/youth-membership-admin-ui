@@ -37,7 +37,6 @@ const BirthDateInput = ({ inputName, label }: Props) => {
 
   const {
     input: { onChange },
-    meta: { touched, error },
   } = useField(inputName);
 
   useEffect(() => {
@@ -51,9 +50,9 @@ const BirthDateInput = ({ inputName, label }: Props) => {
   // e type is set to any for now. Event type returned from hds
   // is set to ChangeEvent<Element> which doesn't contain
   // target.value
-  // tslint:disable-next-line
-  const handleChange = (e: any, field: string) => {
-    setBirthDate({ ...birthDate, [field]: e.target.value });
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  const handleChange = (e: any) => {
+    setBirthDate({ ...birthDate, [e.target.id]: e.target.value });
   };
 
   return (
@@ -64,19 +63,19 @@ const BirthDateInput = ({ inputName, label }: Props) => {
           id="day"
           className={classes.birthDate}
           value={birthDate.day}
-          onChange={e => handleChange(e, 'day')}
+          onChange={handleChange}
         />
         <TextInput
           id="month"
           className={classes.birthDate}
           value={birthDate.month}
-          onChange={e => handleChange(e, 'month')}
+          onChange={handleChange}
         />
         <TextInput
           id="year"
           className={classes.birthDate}
           value={birthDate.year}
-          onChange={e => handleChange(e, 'year')}
+          onChange={handleChange}
         />
       </Box>
     </Box>

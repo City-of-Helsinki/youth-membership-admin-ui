@@ -11,7 +11,6 @@ type Props = {
 const TextInput = ({ name, label, className }: Props) => {
   const {
     input: { onChange },
-    meta: { touched, error },
   } = useField(name);
 
   return (

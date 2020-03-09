@@ -1,6 +1,9 @@
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
-import { queryHandler, mutateHandler } from '../../../graphql/apiUtils';
-import { createProfileMutation, profilesQuery } from '../query/YouthProfileQueries';
+import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
+import {
+  createProfileMutation,
+  profilesQuery,
+} from '../query/YouthProfileQueries';
 import {
   AddressType,
   CreateProfileVariables,
@@ -67,16 +70,13 @@ const createYouthProfile: MethodHandler = async (
           approverPhone: params.data.phone,
         },
       },
-    }
+    },
   };
-  console.log("VARIABLES", variables);
-  const response = await mutateHandler({
+
+  return await mutateHandler({
     mutation: createProfileMutation,
     variables: variables,
-  }).catch(error => {
-    console.log("MUTATION ERROR", error)
   });
-  return response;
 };
 
 export { createYouthProfile, getYouthProfiles };
