@@ -11,7 +11,10 @@ import youthProfileConstants from '../constants/youthProfileConstants';
 /* Using a third party validation options (Yup & React Final Form) caused more problems than they solved.
  * This is why I wrote my own. It's a long way from perfect, but it gets the job done, for now at least.
  */
-const youthCreateFormValidator = (values: Values, schema: YouthSchema) => {
+const youthCreateFormValidator = (
+  values: Values,
+  schema: YouthSchema<ValidationOption>
+) => {
   const errors: Errors = {};
 
   const emailRegex = youthProfileConstants.PROFILE_CREATION.EMAIL_REGEX;

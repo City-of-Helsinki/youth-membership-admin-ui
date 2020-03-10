@@ -11,10 +11,14 @@ import { Language } from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
-import { Values, YouthSchema } from '../../types/youthProfileTypes';
+import {
+  ValidationOption,
+  Values,
+  YouthSchema,
+} from '../../types/youthProfileTypes';
 import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
 
-const schema: YouthSchema = {
+const schema: YouthSchema<ValidationOption> = {
   firstName: {
     min: 2,
     max: 255,

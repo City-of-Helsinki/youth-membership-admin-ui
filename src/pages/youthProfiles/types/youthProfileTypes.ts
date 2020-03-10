@@ -38,26 +38,14 @@ export type Errors = {
   photoUsagePhone?: string;
 };
 
-export type ValidationOption = {
+export interface ValidationOption {
   min?: number;
   max?: number;
   required?: boolean;
   email?: boolean;
   birthDate?: boolean;
-};
+}
 
-export type YouthSchema = {
-  [index: string]: ValidationOption;
-  firstName: ValidationOption;
-  lastName: ValidationOption;
-  phone: ValidationOption;
-  email: ValidationOption;
-  address: ValidationOption;
-  city: ValidationOption;
-  postalCode: ValidationOption;
-  birthDate: ValidationOption;
-  approverFirstName: ValidationOption;
-  approverLastName: ValidationOption;
-  approverEmail: ValidationOption;
-  approverPhone: ValidationOption;
+export type YouthSchema<T> = {
+  [index: string]: T;
 };
