@@ -29,6 +29,15 @@
     "photoApprovedTrue": "Ja",
     "photoApprovedFalse": "Nej"
   },
+  "validation": {
+    "tooLong": "För lång",
+    "tooShort": "För kort",
+    "required": "Nödvändig",
+    "phoneMin": "Minst sex tecken",
+    "email": "Ogiltig e-postadress",
+    "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
+    "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+  },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "Engelska",
     "FINNISH": "Finska",

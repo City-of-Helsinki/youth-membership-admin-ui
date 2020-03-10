@@ -3,6 +3,7 @@ import { TextInput } from 'hds-react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useField } from 'react-final-form';
+import { useTranslate } from 'react-admin';
 
 const useStyles = makeStyles({
   birthDate: { width: 91, marginRight: '1rem' },
@@ -12,6 +13,12 @@ const useStyles = makeStyles({
     fontFamily: 'var(--hds-theme-primary-font)',
     fontWeight: 'bold',
     margin: 0,
+  },
+  error: { color: '#c4123e' },
+  errorHelper: {
+    color: '#c4123e',
+    margin: '2px 0',
+    fontSize: '0.875rem',
   },
   container: { minWidth: 305 },
 });
@@ -37,6 +44,7 @@ const BirthDateInput = ({ inputName, label }: Props) => {
 
   const {
     input: { onChange },
+    meta: { touched, error },
   } = useField(inputName);
 
   useEffect(() => {
@@ -55,29 +63,39 @@ const BirthDateInput = ({ inputName, label }: Props) => {
     setBirthDate({ ...birthDate, [e.target.id]: e.target.value });
   };
 
+  const labelClass = `${classes.label} ${
+    touched && error ? classes.error : ''
+  }`;
+
+  const t = useTranslate();
+
   return (
     <Box className={classes.container} mt="1rem">
-      <p className={classes.label}>{label}</p>
+      <p className={labelClass}>{label}</p>
       <Box display="flex">
         <TextInput
           id="day"
           className={classes.birthDate}
           value={birthDate.day}
           onChange={handleChange}
+          invalid={touched && error}
         />
         <TextInput
           id="month"
           className={classes.birthDate}
           value={birthDate.month}
           onChange={handleChange}
+          invalid={touched && error}
         />
         <TextInput
           id="year"
           className={classes.birthDate}
           value={birthDate.year}
           onChange={handleChange}
+          invalid={touched && error}
         />
       </Box>
+      {touched && error && <p className={classes.errorHelper}>{t(error)}</p>}
     </Box>
   );
 };

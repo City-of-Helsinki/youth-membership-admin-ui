@@ -29,6 +29,15 @@
     "photoApprovedTrue": "Kyllä",
     "photoApprovedFalse": "Ei"
   },
+  "validation": {
+    "tooLong": "Liian pitkä",
+    "tooShort": "Liian lyhyt",
+    "required": "Vaadittu",
+    "phoneMin": "Vähimmäispituus kuusi merkkiä",
+    "email": "Virheellinen sähköpostiosoite",
+    "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
+    "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+  },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "Englanti",
     "FINNISH": "Suomi",

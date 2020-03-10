@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.1.3",
     "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",
+    "date-fns": "^2.10.0",
     "graphql": "^14.6.0",
     "hds-react": "^0.5.5",
     "history": "^4.10.1",

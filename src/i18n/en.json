@@ -29,6 +29,15 @@
     "photoApprovedTrue": "Yes",
     "photoApprovedFalse": "No"
   },
+  "validation": {
+    "tooLong": "Too long",
+    "tooShort": "Too short",
+    "required": "Required",
+    "phoneMin": "Min length six characters",
+    "email": "Invalid email",
+    "birthDate": "The birthday should be dd.mm.yyyy.",
+    "ageRestriction": "Only 8-25 years old can create youth profile."
+  },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "English",
     "FINNISH": "Finnish",

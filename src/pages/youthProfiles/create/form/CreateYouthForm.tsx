@@ -11,6 +11,57 @@ import { Language } from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
+import { Values, YouthSchema } from '../../types/youthProfileTypes';
+import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
+
+const schema: YouthSchema = {
+  firstName: {
+    min: 2,
+    max: 255,
+  },
+  lastName: {
+    min: 2,
+    max: 255,
+  },
+  phone: {
+    min: 2,
+    max: 255,
+  },
+  email: {
+    email: true,
+  },
+  address: {
+    min: 2,
+    max: 255,
+  },
+  city: {
+    min: 2,
+    max: 255,
+  },
+  postalCode: {
+    min: 5,
+    max: 5,
+  },
+  birthDate: {
+    birthDate: true,
+  },
+  approverFirstName: {
+    min: 2,
+    max: 255,
+  },
+  approverLastName: {
+    min: 2,
+    max: 255,
+  },
+  approverEmail: {
+    min: 2,
+    max: 255,
+  },
+  approverPhone: {
+    min: 2,
+    max: 255,
+  },
+};
 
 const CreateYouthForm: React.FC = (props: any) => {
   const t = useTranslate();
@@ -18,7 +69,23 @@ const CreateYouthForm: React.FC = (props: any) => {
   return (
     <FormWithRedirect
       {...props}
-      initialValues={{ languageAtHome: 'FINNISH', photoUsageApproved: 'false' }}
+      initialValues={{
+        firstName: '',
+        lastName: '',
+        address: '',
+        city: '',
+        postalCode: '',
+        email: '',
+        phone: '',
+        birthDate: '',
+        languageAtHome: 'FINNISH',
+        photoUsageApproved: 'false',
+        approverFirstName: '',
+        approverLastName: '',
+        approverEmail: '',
+        approverPhone: '',
+      }}
+      validate={(values: Values) => youthCreateFormValidator(values, schema)}
       render={(formProps: any) => (
         <form>
           <div className={styles.wrapper}>
