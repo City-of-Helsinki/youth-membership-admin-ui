@@ -1,10 +1,11 @@
+import { differenceInYears } from 'date-fns';
+
 import {
   Errors,
   Values,
   YouthSchema,
   ValidationOption,
 } from '../types/youthProfileTypes';
-import { differenceInYears } from 'date-fns';
 import youthProfileConstants from '../constants/youthProfileConstants';
 
 /* Using a third party validation options (Yup & React Final Form) caused more problems than they solved.
