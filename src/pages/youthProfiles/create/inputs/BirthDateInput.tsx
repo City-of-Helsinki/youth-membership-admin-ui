@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextInput } from 'hds-react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -47,20 +47,22 @@ const BirthDateInput = ({ inputName, label }: Props) => {
     meta: { touched, error },
   } = useField(inputName);
 
-  useEffect(() => {
-    onChange({
-      target: {
-        value: `${birthDate.year}-${birthDate.month}-${birthDate.day}`,
-      },
-    });
-  }, [birthDate, onChange]);
-
   // e type is set to any for now. Event type returned from hds
   // is set to ChangeEvent<Element> which doesn't contain
   // target.value
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   const handleChange = (e: any) => {
-    setBirthDate({ ...birthDate, [e.target.id]: e.target.value });
+    setBirthDate(previousBirthDate => ({
+      ...previousBirthDate,
+      [e.target.id]: e.target.value,
+    }));
+    onChange({
+      target: {
+        value: `${e.target.id === 'year' ? e.target.value : birthDate.year}-${
+          e.target.id === 'month' ? e.target.value : birthDate.month
+        }-${e.target.id === 'day' ? e.target.value : birthDate.day}`,
+      },
+    });
   };
 
   const labelClass = `${classes.label} ${
