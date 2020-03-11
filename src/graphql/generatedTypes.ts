@@ -144,9 +144,76 @@ export interface ProfileVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: CreateProfile
+// ====================================================
+
+export interface CreateProfile_createProfile_profile {
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
+}
+
+export interface CreateProfile_createProfile {
+  readonly profile: CreateProfile_createProfile_profile | null;
+}
+
+export interface CreateProfile {
+  readonly createProfile: CreateProfile_createProfile | null;
+}
+
+export interface CreateProfileVariables {
+  readonly input: CreateProfileMutationInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+export enum AddressType {
+  HOME = "HOME",
+  NONE = "NONE",
+  OTHER = "OTHER",
+  WORK = "WORK",
+}
+
+/**
+ * An enumeration.
+ */
+export enum ContactMethod {
+  EMAIL = "EMAIL",
+  SMS = "SMS",
+}
+
+export enum EmailType {
+  NONE = "NONE",
+  OTHER = "OTHER",
+  PERSONAL = "PERSONAL",
+  WORK = "WORK",
+}
+
+/**
+ * An enumeration.
+ */
+export enum Language {
+  ENGLISH = "ENGLISH",
+  FINNISH = "FINNISH",
+  SWEDISH = "SWEDISH",
+}
+
+export enum PhoneType {
+  HOME = "HOME",
+  MOBILE = "MOBILE",
+  NONE = "NONE",
+  OTHER = "OTHER",
+  WORK = "WORK",
+}
 
 export enum ServiceType {
   BERTH = "BERTH",
@@ -163,6 +230,72 @@ export enum YouthLanguage {
   RUSSIAN = "RUSSIAN",
   SOMALI = "SOMALI",
   SWEDISH = "SWEDISH",
+}
+
+export interface AddressInput {
+  readonly id?: string | null;
+  readonly address: string;
+  readonly postalCode: string;
+  readonly city: string;
+  readonly countryCode?: string | null;
+  readonly addressType: AddressType;
+  readonly primary?: boolean | null;
+}
+
+export interface CreateProfileMutationInput {
+  readonly serviceType: ServiceType;
+  readonly profile?: ProfileInput | null;
+  readonly clientMutationId?: string | null;
+}
+
+export interface EmailInput {
+  readonly id?: string | null;
+  readonly email?: string | null;
+  readonly emailType: EmailType;
+  readonly primary?: boolean | null;
+}
+
+export interface PhoneInput {
+  readonly id?: string | null;
+  readonly phone: string;
+  readonly phoneType: PhoneType;
+  readonly primary?: boolean | null;
+}
+
+export interface ProfileInput {
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly nickname?: string | null;
+  readonly image?: string | null;
+  readonly language?: Language | null;
+  readonly contactMethod?: ContactMethod | null;
+  readonly addEmails?: ReadonlyArray<(EmailInput | null)> | null;
+  readonly updateEmails?: ReadonlyArray<(EmailInput | null)> | null;
+  readonly removeEmails?: ReadonlyArray<(string | null)> | null;
+  readonly addPhones?: ReadonlyArray<(PhoneInput | null)> | null;
+  readonly updatePhones?: ReadonlyArray<(PhoneInput | null)> | null;
+  readonly removePhones?: ReadonlyArray<(string | null)> | null;
+  readonly addAddresses?: ReadonlyArray<(AddressInput | null)> | null;
+  readonly updateAddresses?: ReadonlyArray<(AddressInput | null)> | null;
+  readonly removeAddresses?: ReadonlyArray<(string | null)> | null;
+  readonly youthProfile?: YouthProfileFields | null;
+  readonly sensitivedata?: SensitiveDataFields | null;
+}
+
+export interface SensitiveDataFields {
+  readonly ssn?: string | null;
+}
+
+export interface YouthProfileFields {
+  readonly schoolName?: string | null;
+  readonly schoolClass?: string | null;
+  readonly languageAtHome?: YouthLanguage | null;
+  readonly approverFirstName?: string | null;
+  readonly approverLastName?: string | null;
+  readonly approverPhone?: string | null;
+  readonly approverEmail?: string | null;
+  readonly birthDate?: any | null;
+  readonly photoUsageApproved?: boolean | null;
 }
 
 //==============================================================

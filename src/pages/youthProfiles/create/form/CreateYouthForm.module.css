@@ -1,0 +1,26 @@
+.title {
+    font-size: 1.375rem;
+    line-height: 1.86;
+    font-family: HelsinkiGrotesk, serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+.wrapper {
+    margin: 2rem;
+}
+
+.infoContainer {
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+.rowContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.textField {
+    margin-right: 1rem;
+}

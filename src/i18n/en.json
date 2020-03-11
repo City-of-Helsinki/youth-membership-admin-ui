@@ -8,13 +8,44 @@
   "youthProfiles": {
     "title": "Youth profiles",
     "search": "Search",
+    "create": "Create",
+    "basicInfo": "Basic info",
+    "extraInfo": "Additional info",
+    "approverInfo": "Parental information",
     "firstName": "First name",
     "lastName": "Last name",
-    "birthDate": "Birth date",
+    "birthDate": "Birth date (dd.mm.yyyy)",
     "membershipNumber": "Membership number",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
-    "language": "Language"
+    "language": "Language",
+    "streetAddress": "Street address",
+    "city": "City",
+    "postalCode": "Postal code",
+    "email": "Email",
+    "schoolName": "School",
+    "schoolClass": "Class",
+    "languageAtHome": "Language at home",
+    "photoApprovedTrue": "Yes",
+    "photoApprovedFalse": "No"
+  },
+  "validation": {
+    "tooLong": "Too long",
+    "tooShort": "Too short",
+    "required": "Required",
+    "phoneMin": "Min length six characters",
+    "email": "Invalid email",
+    "birthDate": "The birthday should be dd.mm.yyyy.",
+    "ageRestriction": "Only 8-25 years olds can create youth profile."
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "English",
+    "FINNISH": "Finnish",
+    "SWEDISH": "Swedish",
+    "ARABIC": "Arabic",
+    "ESTONIAN": "Estonian",
+    "RUSSIAN": "Russian",
+    "SOMALI": "Somali"
   }
 }
 

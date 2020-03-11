@@ -8,12 +8,43 @@
   "youthProfiles": {
     "title": "Nuorisoprofiilit",
     "search": "Etsi",
+    "create": "Lisää",
+    "basicInfo": "Perustiedot",
+    "extraInfo": "Lisätiedot",
+    "approverInfo": "Huoltajan tiedot",
     "firstName": "Etunimi",
     "lastName": "Sukunimi",
-    "birthDate": "Syntymäpäivä",
+    "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
     "membershipNumber": "Jäsennumero",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",
-    "language": "Kieli"
+    "language": "Kieli",
+    "streetAddress": "Katuosoite",
+    "city": "Kaupunki",
+    "postalCode": "Postinumero",
+    "email": "Sähköposti",
+    "schoolName": "Koulu",
+    "schoolClass": "Luokka",
+    "languageAtHome": "Kotona puhuttu kieli",
+    "photoApprovedTrue": "Kyllä",
+    "photoApprovedFalse": "Ei"
+  },
+  "validation": {
+    "tooLong": "Liian pitkä",
+    "tooShort": "Liian lyhyt",
+    "required": "Vaadittu",
+    "phoneMin": "Vähimmäispituus kuusi merkkiä",
+    "email": "Virheellinen sähköpostiosoite",
+    "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
+    "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "Englanti",
+    "FINNISH": "Suomi",
+    "SWEDISH": "Ruotsi",
+    "ARABIC": "Arabia",
+    "ESTONIAN": "Eesti",
+    "RUSSIAN": "Venäjä",
+    "SOMALI": "Somali"
   }
 }
