@@ -1,41 +1,27 @@
+type Index =
+  | 'firstName'
+  | 'lastName'
+  | 'address'
+  | 'city'
+  | 'postalCode'
+  | 'email'
+  | 'phone'
+  | 'birthDate'
+  | 'schoolName'
+  | 'schoolClass'
+  | 'languageAtHome'
+  | 'photoUsageApproved'
+  | 'approverFirstName'
+  | 'approverLastName'
+  | 'approverEmail'
+  | 'approverPhone';
+
 export type Values = {
-  [index: string]: string;
-  firstName: string;
-  lastName: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-  schoolName: string;
-  schoolClass: string;
-  languageAtHome: string;
-  photoUsageApproved: string;
-  approverFirstName: string;
-  approverLastName: string;
-  approverEmail: string;
-  approverPhone: string;
+  [key in Index]: string;
 };
 
 export type Errors = {
-  [index: string]: string | undefined;
-  firstName?: string;
-  lastName?: string;
-  address?: string;
-  city?: string;
-  postalCode?: string;
-  email?: string;
-  phone?: string;
-  birthDate?: string;
-  schoolName?: string;
-  schoolClass?: string;
-  languageAtHome?: string;
-  photoUsageApproved?: string;
-  approverFirstName?: string;
-  approverLastName?: string;
-  approverEmail?: string;
-  photoUsagePhone?: string;
+  [key in Index]?: string;
 };
 
 export interface ValidationOption {
