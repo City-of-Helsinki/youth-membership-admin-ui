@@ -32,6 +32,8 @@ const schema: YouthSchema<ValidationOption> = {
     max: 255,
   },
   email: {
+    min: 2,
+    max: 255,
     email: true,
   },
   address: {
@@ -60,6 +62,7 @@ const schema: YouthSchema<ValidationOption> = {
   approverEmail: {
     min: 2,
     max: 255,
+    email: true,
   },
   approverPhone: {
     min: 2,
@@ -82,6 +85,8 @@ const CreateYouthForm: React.FC = (props: any) => {
         email: '',
         phone: '',
         birthDate: '',
+        schoolName: '',
+        schoolClass: '',
         languageAtHome: 'FINNISH',
         photoUsageApproved: 'false',
         approverFirstName: '',
