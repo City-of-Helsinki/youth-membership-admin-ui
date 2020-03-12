@@ -16,6 +16,7 @@
     "firstName": "Etunimi",
     "lastName": "Sukunimi",
     "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
+    "birthDateWithoutHelp": "Syntymäpäivä",
     "membershipNumber": "Jäsennumero",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",

@@ -16,6 +16,7 @@
     "firstName": "Förnamn",
     "lastName": "Efternamn",
     "birthDate": "Födelsedatum (dd.mm.yyyy)",
+    "birthDateWithoutHelp": "Födelsedatum",
     "membershipNumber": "Medlemsnummer",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",

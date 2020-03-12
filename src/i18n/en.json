@@ -16,6 +16,7 @@
     "firstName": "First name",
     "lastName": "Last name",
     "birthDate": "Birth date (dd.mm.yyyy)",
+    "birthDateWithoutHelp": "Birth date",
     "membershipNumber": "Membership number",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
