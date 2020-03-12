@@ -4,54 +4,12 @@ import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
 import { format } from 'date-fns';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
+import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
 
 const YouthDetails: React.FC = (props: any) => {
   const [profile, setProfile] = useState<Profile>();
   const [loading, setLoading] = useState<boolean>(true);
-
-  const t = useTranslate();
-  const notify = useNotify();
-  const dataProvider = useDataProvider();
-
-  const getName = (data: Profile | undefined, field: string) => {
-    const firstName =
-      field === 'youth'
-        ? data?.firstName
-        : data?.youthProfile?.approverFirstName;
-    const lastName =
-      field === 'youth' ? data?.lastName : data?.youthProfile?.approverLastName;
-
-    if (!firstName && !lastName) return ' - ';
-    return `${firstName} ${lastName}`;
-  };
-
-  const getAddress = () => {
-    if (!profile?.primaryAddress) return ' - ';
-    return `${profile?.primaryAddress?.address} ,  ${profile?.primaryAddress?.postalCode} ${profile?.primaryAddress?.city}`;
-  };
-
-  const getSchool = () => {
-    const schoolName = profile?.youthProfile?.schoolName;
-    const schoolClass = profile?.youthProfile?.schoolClass;
-    if (!schoolClass && !schoolName) return ' - ';
-    if (!schoolClass || !schoolName) return `${schoolName} ${schoolClass}`;
-    if (schoolClass && schoolName) return `${schoolName}, ${schoolClass}`;
-  };
-
-  type LabelProps = {
-    label: string;
-    value: string | undefined | null;
-  };
-
-  const Label = ({ value, label }: LabelProps) => {
-    return (
-      <div className={styles.label}>
-        <p className={styles.labelTitle}>{label}</p>
-        <p className={styles.labelValue}>{value}</p>
-      </div>
-    );
-  };
 
   useEffect(() => {
     dataProvider
@@ -67,12 +25,30 @@ const YouthDetails: React.FC = (props: any) => {
       });
   });
 
+  const t = useTranslate();
+  const notify = useNotify();
+  const dataProvider = useDataProvider();
+
+  type Label = {
+    label: string;
+    value: string | undefined | null;
+  };
+
+  const Label = ({ value, label }: Label) => {
+    return (
+      <div className={styles.label}>
+        <p className={styles.labelTitle}>{label}</p>
+        <p className={styles.labelValue}>{value}</p>
+      </div>
+    );
+  };
+
   if (loading) return <Loading />;
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
-        <button>
-          <ArrowBack />
+        <button className={styles.labelValue}>
+          <ArrowBack className={styles.icon} />
           {t('youthProfiles.back')}
         </button>
       </div>
@@ -83,7 +59,7 @@ const YouthDetails: React.FC = (props: any) => {
           value={getName(profile, 'youth')}
           label={t('youthProfiles.name')}
         />
-        <Label value={getAddress()} label={t('youthProfiles.address')} />
+        <Label value={getAddress(profile)} label={t('youthProfiles.address')} />
       </div>
 
       <div className={styles.row}>
@@ -109,7 +85,7 @@ const YouthDetails: React.FC = (props: any) => {
 
       <h3>{t('youthProfiles.extraInfo')}</h3>
       <div className={styles.row}>
-        <Label value={getSchool()} label={t('youthProfiles.school')} />
+        <Label value={getSchool(profile)} label={t('youthProfiles.school')} />
         <Label
           value={t(`LANGUAGE_OPTIONS.${profile?.youthProfile?.languageAtHome}`)}
           label={t('youthProfiles.languageAtHome')}
