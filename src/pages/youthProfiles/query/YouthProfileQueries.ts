@@ -40,11 +40,25 @@ export const profileQuery = gql`
       primaryPhone {
         phone
       }
+      primaryAddress {
+        address
+        city
+        postalCode
+      }
+      primaryEmail {
+        email
+      }
       youthProfile {
         birthDate
         photoUsageApproved
         membershipNumber
         languageAtHome
+        schoolName
+        schoolClass
+        approverFirstName
+        approverLastName
+        approverEmail
+        approverPhone
       }
     }
   }

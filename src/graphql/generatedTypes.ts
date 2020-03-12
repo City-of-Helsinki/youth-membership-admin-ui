@@ -89,6 +89,16 @@ export interface Profile_profile_primaryPhone {
   readonly phone: string | null;
 }
 
+export interface Profile_profile_primaryAddress {
+  readonly address: string;
+  readonly city: string;
+  readonly postalCode: string;
+}
+
+export interface Profile_profile_primaryEmail {
+  readonly email: string;
+}
+
 export interface Profile_profile_youthProfile {
   readonly birthDate: any;
   readonly photoUsageApproved: boolean | null;
@@ -100,6 +110,12 @@ export interface Profile_profile_youthProfile {
    * The language which is spoken in the youth's home.
    */
   readonly languageAtHome: YouthLanguage | null;
+  readonly schoolName: string;
+  readonly schoolClass: string;
+  readonly approverFirstName: string;
+  readonly approverLastName: string;
+  readonly approverEmail: string;
+  readonly approverPhone: string;
 }
 
 export interface Profile_profile {
@@ -113,6 +129,14 @@ export interface Profile_profile {
    * Convenience field for the phone which is marked as primary.
    */
   readonly primaryPhone: Profile_profile_primaryPhone | null;
+  /**
+   * Convenience field for the address which is marked as primary.
+   */
+  readonly primaryAddress: Profile_profile_primaryAddress | null;
+  /**
+   * Convenience field for the email which is marked as primary.
+   */
+  readonly primaryEmail: Profile_profile_primaryEmail | null;
   /**
    * The Youth membership data of the profile.
    */
