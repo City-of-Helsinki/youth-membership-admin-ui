@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDataProvider, useNotify, useTranslate, Loading } from 'react-admin';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
+import { useHistory } from 'react-router';
 import { format } from 'date-fns';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
@@ -28,6 +29,7 @@ const YouthDetails: React.FC = (props: any) => {
   const t = useTranslate();
   const notify = useNotify();
   const dataProvider = useDataProvider();
+  const history = useHistory();
 
   type Label = {
     label: string;
@@ -47,7 +49,10 @@ const YouthDetails: React.FC = (props: any) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
-        <button className={styles.labelValue}>
+        <button
+          className={styles.labelValue}
+          onClick={() => history.push('/youthProfiles')}
+        >
           <ArrowBack className={styles.icon} />
           {t('youthProfiles.back')}
         </button>
@@ -79,7 +84,7 @@ const YouthDetails: React.FC = (props: any) => {
             new Date(profile?.youthProfile?.birthDate),
             'dd.MM.yyyy'
           )}
-          label={t('youthProfiles.birthDate')}
+          label={t('youthProfiles.birthDateWithoutHelp')}
         />
       </div>
 
