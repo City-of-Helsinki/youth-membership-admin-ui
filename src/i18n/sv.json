@@ -12,6 +12,7 @@
     "basicInfo": "Grundläggande",
     "extraInfo": "Ytterligare info",
     "approverInfo": "Förälderinformation",
+    "name": "Namn",
     "firstName": "Förnamn",
     "lastName": "Efternamn",
     "birthDate": "Födelsedatum (dd.mm.yyyy)",
@@ -19,15 +20,19 @@
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
     "language": "Språk",
+    "address": "adress",
     "streetAddress": "Gatuadress",
     "city": "Stad",
     "postalCode": "Postnummer",
     "email": "E-post",
+    "school": "Skola och klass",
     "schoolName": "Skola",
     "schoolClass": "Klass",
     "languageAtHome": "Språk hemma",
     "photoApprovedTrue": "Ja",
-    "photoApprovedFalse": "Nej"
+    "photoApprovedFalse": "Nej",
+    "back": "Tillbaka till sökresultaten"
+
   },
   "validation": {
     "tooLong": "För lång",

@@ -10,6 +10,7 @@ import Dashboard from './pages/dashboard/Dashboard';
 import theme from './common/materialUI/themeConfig';
 import dataProvider from './graphql/dataProvider';
 import YouthList from './pages/youthProfiles/list/YouthList';
+import YouthDetails from './pages/youthProfiles/show/YouthDetails';
 
 const history = createHistory();
 
@@ -29,6 +30,7 @@ const App: React.FC = () => {
       <Resource
         name="youthProfiles"
         list={YouthList}
+        show={YouthDetails}
         options={{ label: t('youthProfiles.title') }}
       />
     </Admin>

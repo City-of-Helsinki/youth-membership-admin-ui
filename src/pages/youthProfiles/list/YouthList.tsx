@@ -102,6 +102,8 @@ const YouthList = () => {
           data={transformData()}
           ids={profiles.map(({ id }) => id)}
           currentSort={{ field: 'id', order: 'ASC' }}
+          basePath="/youthProfiles"
+          rowClick="show"
         >
           <Label source="firstName" label={t('youthProfiles.firstName')} />
           <Label source="lastName" label={t('youthProfiles.lastName')} />

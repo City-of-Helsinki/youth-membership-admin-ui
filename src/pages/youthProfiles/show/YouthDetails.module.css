@@ -1,0 +1,39 @@
+.wrapper {
+    margin: 2rem;
+}
+
+.wrapper h3 {
+    font-size: 2.25rem;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.goBack {
+    margin-bottom: 5rem;
+}
+
+.row {
+    display: flex;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.label {
+    width: 350px;
+}
+
+.labelTitle {
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+}
+
+.labelValue {
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.icon {
+    margin-right: 15px;
+}
