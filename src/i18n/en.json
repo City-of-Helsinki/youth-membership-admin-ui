@@ -19,6 +19,7 @@
     "membershipNumber": "Membership number",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
+    "photoUsageHelpText": "Pictures of my child can be taken and used for internal and external communications in the City of Helsinki.",
     "language": "Language",
     "address": "Address",
     "streetAddress": "Street address",

@@ -19,6 +19,7 @@
     "membershipNumber": "Medlemsnummer",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
+    "photoUsageHelpText": "Bilder av mitt barn kan tas och användas för intern och extern kommunikation i Helsingfors stad.",
     "language": "Språk",
     "address": "adress",
     "streetAddress": "Gatuadress",
