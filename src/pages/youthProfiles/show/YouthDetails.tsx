@@ -1,5 +1,6 @@
 import React from 'react';
 import { useQueryWithStore, useTranslate, Loading, Error } from 'react-admin';
+import { ReactAdminComponentPropsWithId } from 'ra-core';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import { format } from 'date-fns';
@@ -8,7 +9,7 @@ import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
 import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
 
-const YouthDetails: React.FC = (props: any) => {
+const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
   const { data, loading, error } = useQueryWithStore({
     type: 'getOne',
     resource: 'youthProfiles',
