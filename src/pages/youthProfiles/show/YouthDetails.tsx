@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useDataProvider, useNotify, useTranslate, Loading } from 'react-admin';
+import React from 'react';
+import { useQueryWithStore, useTranslate, Loading, Error } from 'react-admin';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import { format } from 'date-fns';
@@ -9,26 +9,13 @@ import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
 
 const YouthDetails: React.FC = (props: any) => {
-  const [profile, setProfile] = useState<Profile>();
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    dataProvider
-      .getOne('youthProfiles', {
-        id: props.id,
-      })
-      .then((result: { data: { data: { profile: Profile } } }) => {
-        setProfile(result.data.data.profile);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        notify(t('ra.message.error'), 'warning');
-      });
-  }, []);
+  const { data, loading, error } = useQueryWithStore({
+    type: 'getOne',
+    resource: 'youthProfiles',
+    payload: { id: props.id },
+  });
 
   const t = useTranslate();
-  const notify = useNotify();
-  const dataProvider = useDataProvider();
   const history = useHistory();
 
   type Label = {
@@ -46,6 +33,8 @@ const YouthDetails: React.FC = (props: any) => {
   };
 
   if (loading) return <Loading />;
+  if (error) return <Error error={error} />;
+  const profile: Profile = data?.data?.profile;
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
@@ -80,10 +69,10 @@ const YouthDetails: React.FC = (props: any) => {
 
       <div className={styles.row}>
         <Label
-          value={format(
-            new Date(profile?.youthProfile?.birthDate),
-            'dd.MM.yyyy'
-          )}
+          value={
+            profile?.youthProfile?.birthDate &&
+            format(new Date(profile?.youthProfile?.birthDate), 'dd.MM.yyyy')
+          }
           label={t('youthProfiles.birthDateWithoutHelp')}
         />
       </div>
