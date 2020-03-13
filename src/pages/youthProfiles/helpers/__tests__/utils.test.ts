@@ -105,7 +105,7 @@ describe('getAddress tests', () => {
     expect(school).toEqual('12345 ');
   });
 
-  test('has only city code', () => {
+  test('has only city', () => {
     const profile = getProfile({ primaryAddress: { city: 'TheCity' } });
     const school = getAddress(profile);
     expect(school).toEqual(' TheCity');

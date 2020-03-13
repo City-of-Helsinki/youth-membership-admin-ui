@@ -24,7 +24,7 @@ const YouthDetails: React.FC = (props: any) => {
       .catch((error: Error) => {
         notify(t('ra.message.error'), 'warning');
       });
-  });
+  }, []);
 
   const t = useTranslate();
   const notify = useNotify();
@@ -69,11 +69,11 @@ const YouthDetails: React.FC = (props: any) => {
 
       <div className={styles.row}>
         <Label
-          value={profile?.primaryEmail?.email}
+          value={profile?.primaryEmail?.email || ' - '}
           label={t('youthProfiles.email')}
         />
         <Label
-          value={profile?.primaryPhone?.phone}
+          value={profile?.primaryPhone?.phone || ' - '}
           label={t('youthProfiles.phone')}
         />
       </div>
