@@ -7,10 +7,12 @@ import {
 import {
   createYouthProfile,
   getYouthProfiles,
+  getYouthProfile,
 } from '../pages/youthProfiles/api/YouthApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
   youthProfiles: {
+    ONE: getYouthProfile,
     LIST: getYouthProfiles,
     CREATE: createYouthProfile,
   },
@@ -37,6 +39,10 @@ const runHandler = async (
 };
 
 const dataProvider = {
+  getOne: async (resource: Resource, params: Params) => {
+    const data = await runHandler('ONE', resource, params);
+    return { data };
+  },
   getList: async (resource: Resource, params: Params) => {
     const data = await runHandler('LIST', resource, params);
     return { data: data, total: data.length };

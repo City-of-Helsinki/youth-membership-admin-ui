@@ -3,6 +3,7 @@ import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
   createProfileMutation,
   profilesQuery,
+  profileQuery,
 } from '../query/YouthProfileQueries';
 import {
   AddressType,
@@ -12,6 +13,16 @@ import {
   Profiles_profiles as YouthProfiles,
   ServiceType,
 } from '../../../graphql/generatedTypes';
+
+const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
+  return await queryHandler({
+    query: profileQuery,
+    variables: {
+      ID: params.id,
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+    },
+  });
+};
 
 const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
   const response = await queryHandler({
@@ -79,4 +90,4 @@ const createYouthProfile: MethodHandler = async (
   });
 };
 
-export { createYouthProfile, getYouthProfiles };
+export { createYouthProfile, getYouthProfiles, getYouthProfile };
