@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
@@ -70,7 +72,7 @@ const createYouthProfile: MethodHandler = async (
           },
         ],
         youthProfile: {
-          birthDate: params.data.birthDate,
+          birthDate: format(new Date(params.data.birthDate), 'yyyy-MM-dd'),
           schoolName: params.data.schoolName,
           schoolClass: params.data.schoolClass,
           languageAtHome: params.data.languageAtHome,
