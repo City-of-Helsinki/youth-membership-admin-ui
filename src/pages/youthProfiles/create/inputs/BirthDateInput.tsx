@@ -52,6 +52,7 @@ const BirthDateInput = ({ inputName, label }: Props) => {
   // target.value
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   const handleChange = (e: any) => {
+    e.persist();
     setBirthDate(previousBirthDate => ({
       ...previousBirthDate,
       [e.target.id]: e.target.value,
