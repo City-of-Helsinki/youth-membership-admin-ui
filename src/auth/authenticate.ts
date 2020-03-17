@@ -1,6 +1,10 @@
+import * as Sentry from '@sentry/browser';
+
 import userManager from './userManager';
 
+
 export default function(): void {
-  // Todo add error handling
-  userManager.signinRedirect();
+  userManager.signinRedirect().catch((error: Error) => {
+    Sentry.captureException(error);
+  })
 }
