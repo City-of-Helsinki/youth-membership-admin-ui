@@ -94,7 +94,7 @@ const YouthList = () => {
       <div className={styles.actionRow}>
         <TextInput
           id="firstName"
-          className={styles.textField}
+          className={styles.textFieldFirstName}
           value={searchParams.firstName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
@@ -106,7 +106,7 @@ const YouthList = () => {
 
         <TextInput
           id="lastName"
-          className={styles.textField}
+          className={styles.textFieldLastName}
           value={searchParams.lastName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
@@ -135,47 +135,54 @@ const YouthList = () => {
       {loading && <Loading />}
 
       {!loading && profiles.length > 0 && (
-        <Datagrid
-          data={transformData()}
-          ids={profiles.map(({ id }) => id)}
-          currentSort={{ field: 'id', order: 'ASC' }}
-          basePath="/youthProfiles"
-          rowClick="show"
-        >
-          <Label source="firstName" label={t('youthProfiles.firstName')} />
-          <Label source="lastName" label={t('youthProfiles.lastName')} />
-          <DateField
-            source="youthProfile.birthDate"
-            label={t('youthProfiles.birthDateWithoutHelp')}
-            locales="fi-FI"
-          />
-          <Label
-            source="youthProfile.membershipNumber"
-            label={t('youthProfiles.membershipNumber')}
-          />
+        <div className={styles.dataGrid}>
+          <Datagrid
+            data={transformData()}
+            ids={profiles.map(({ id }) => id)}
+            currentSort={{ field: 'id', order: 'ASC' }}
+            basePath="/youthProfiles"
+            rowClick="show"
+            style={{ padding: '0 20px' }}
+          >
+            <Label source="firstName" label={t('youthProfiles.firstName')} />
+            <Label source="lastName" label={t('youthProfiles.lastName')} />
+            <DateField
+              source="youthProfile.birthDate"
+              label={t('youthProfiles.birthDateWithoutHelp')}
+              locales="fi-FI"
+            />
 
-          <Label
-            source="youthProfile.membershipStatus"
-            label={t('youthProfiles.membershipStatus')}
-          />
-          <Label source="primaryPhone.phone" label={t('youthProfiles.phone')} />
-          <Label
-            source="youthProfile.photoUsageApproved"
-            label={t('youthProfiles.photoUsage')}
-          />
-          <Label
-            source="youthProfile.languageAtHome"
-            label={t('youthProfiles.language')}
-          />
-        </Datagrid>
-      )}
+            <Label
+              source="youthProfile.membershipNumber"
+              label={t('youthProfiles.membershipNumber')}
+            />
 
-      {queryCount > 0 && (
-        <div className={styles.searchResultText}>
-          {t('youthProfiles.searchResults', {
-            /* eslint-disable @typescript-eslint/camelcase */
-            smart_count: profiles?.length,
-          })}
+            <Label
+              source="youthProfile.membershipStatus"
+              label={t('youthProfiles.membershipStatus')}
+            />
+            <Label
+              source="primaryPhone.phone"
+              label={t('youthProfiles.phone')}
+            />
+            <Label
+              source="youthProfile.photoUsageApproved"
+              label={t('youthProfiles.photoUsage')}
+            />
+            <Label
+              source="youthProfile.languageAtHome"
+              label={t('youthProfiles.language')}
+            />
+          </Datagrid>
+
+          {queryCount > 0 && (
+            <div className={styles.searchResultText}>
+              {t('youthProfiles.searchResults', {
+                /* eslint-disable @typescript-eslint/camelcase */
+                smart_count: profiles?.length,
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>
