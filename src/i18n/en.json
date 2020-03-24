@@ -18,8 +18,14 @@
     "birthDate": "Birth date (dd.mm.yyyy)",
     "birthDateWithoutHelp": "Birth date",
     "membershipNumber": "Membership number",
+    "membershipStatus": "Status",
+    "PENDING": "Pending",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
+    "approved": "Yes",
+    "denied": "No",
     "photoUsageHelpText": "Pictures of my child can be taken and used for internal and external communications in the City of Helsinki.",
     "language": "Language",
     "address": "Address",
@@ -33,7 +39,8 @@
     "languageAtHome": "Language at home",
     "photoApprovedTrue": "Yes",
     "photoApprovedFalse": "No",
-    "back": "Back to search results"
+    "back": "Back to search results",
+    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"
   },
   "validation": {
     "tooLong": "Too long",

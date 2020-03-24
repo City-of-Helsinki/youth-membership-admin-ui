@@ -18,8 +18,14 @@
     "birthDate": "Födelsedatum (dd.mm.yyyy)",
     "birthDateWithoutHelp": "Födelsedatum",
     "membershipNumber": "Medlemsnummer",
+    "membershipStatus": "Status",
+    "PENDING": "Väntar",
+    "ACTIVE": "Aktiva",
+    "EXPIRED": "Utgånget",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
+    "approved": "Ja",
+    "denied": "Nej",
     "photoUsageHelpText": "Bilder av mitt barn kan tas och användas för intern och extern kommunikation i Helsingfors stad.",
     "language": "Språk",
     "address": "adress",
@@ -33,8 +39,8 @@
     "languageAtHome": "Språk hemma",
     "photoApprovedTrue": "Ja",
     "photoApprovedFalse": "Nej",
-    "back": "Tillbaka till sökresultaten"
-
+    "back": "Tillbaka till sökresultaten",
+    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
   },
   "validation": {
     "tooLong": "För lång",

@@ -33,6 +33,7 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
       serviceType: ServiceType.YOUTH_MEMBERSHIP,
       ...params,
     },
+    fetchPolicy: 'network-only',
   });
   return (response.data.profiles as YouthProfiles).edges.map(edge => {
     return edge?.node;

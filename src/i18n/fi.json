@@ -18,8 +18,14 @@
     "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
     "birthDateWithoutHelp": "Syntymäpäivä",
     "membershipNumber": "Jäsennumero",
+    "membershipStatus": "Tila",
+    "PENDING": "Odottaa",
+    "ACTIVE": "Aktiivinen",
+    "EXPIRED": "Vanhentunut",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",
+    "approved": "Kyllä",
+    "denied": "Ei",
     "photoUsageHelpText": "Lapsestani saa ottaa kuvia ja niitä saa käyttää Helsingin kaupungin sisäisessä ja ulkoisessa viestinnässä.",
     "language": "Kieli",
     "address": "Osoite",
@@ -33,7 +39,8 @@
     "languageAtHome": "Kotona puhuttu kieli",
     "photoApprovedTrue": "Kyllä",
     "photoApprovedFalse": "Ei",
-    "back": "Takaisin hakutulokseen"
+    "back": "Takaisin hakutulokseen",
+    "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"
   },
   "validation": {
     "tooLong": "Liian pitkä",

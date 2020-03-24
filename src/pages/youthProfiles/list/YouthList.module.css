@@ -1,0 +1,27 @@
+.actionRow {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 50px;
+}
+
+.textField {
+    margin-right: 20px;
+}
+
+.create,
+.search {
+    background: #000000;
+    color: #FFFFFF;
+    height: 56px;
+    margin-top: 29px;
+    min-width: 100px;
+}
+
+.create {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.searchResultText {
+    margin-top: 20px;
+}
