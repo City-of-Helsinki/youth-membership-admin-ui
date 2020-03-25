@@ -47,10 +47,10 @@ const YouthList = () => {
           ...profile.youthProfile,
           membershipStatus:
             profile.youthProfile?.membershipStatus &&
-            t(`youthProfiles.${profile.youthProfile?.membershipStatus}`),
+            t(`PROFILE_STATUS.${profile.youthProfile?.membershipStatus}`),
           photoUsageApproved: profile.youthProfile?.photoUsageApproved
-            ? t('youthProfiles.approved')
-            : t('youthProfiles.denied'),
+            ? t('youthProfiles.photoUsageApproved')
+            : t('youthProfiles.photoUsageDenied'),
           languageAtHome:
             profile.youthProfile?.languageAtHome &&
             t(`LANGUAGE_OPTIONS.${profile.youthProfile?.languageAtHome}`),

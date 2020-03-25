@@ -19,13 +19,10 @@
     "birthDateWithoutHelp": "Födelsedatum",
     "membershipNumber": "Medlemsnummer",
     "membershipStatus": "Status",
-    "PENDING": "Väntar",
-    "ACTIVE": "Aktiva",
-    "EXPIRED": "Utgånget",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
-    "approved": "Ja",
-    "denied": "Nej",
+    "photoUsageApproved": "Ja",
+    "photoUsageDenied": "Nej",
     "photoUsageHelpText": "Bilder av mitt barn kan tas och användas för intern och extern kommunikation i Helsingfors stad.",
     "language": "Språk",
     "address": "adress",
@@ -50,6 +47,11 @@
     "email": "Ogiltig e-postadress",
     "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
     "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Väntar",
+    "ACTIVE": "Aktiva",
+    "EXPIRED": "Utgånget"
   },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "Engelska",

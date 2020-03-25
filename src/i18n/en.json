@@ -19,13 +19,10 @@
     "birthDateWithoutHelp": "Birth date",
     "membershipNumber": "Membership number",
     "membershipStatus": "Status",
-    "PENDING": "Pending",
-    "ACTIVE": "Active",
-    "EXPIRED": "Expired",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
-    "approved": "Yes",
-    "denied": "No",
+    "photoUsageApproved": "Yes",
+    "photoUsageDenied": "No",
     "photoUsageHelpText": "Pictures of my child can be taken and used for internal and external communications in the City of Helsinki.",
     "language": "Language",
     "address": "Address",
@@ -50,6 +47,11 @@
     "email": "Invalid email",
     "birthDate": "The birthday should be dd.mm.yyyy.",
     "ageRestriction": "Only 8-25 years olds can create youth profile."
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Pending",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired"
   },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "English",
