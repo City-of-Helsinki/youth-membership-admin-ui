@@ -20,6 +20,7 @@ export const profilesQuery = gql`
             phone
           }
           youthProfile {
+            membershipStatus
             birthDate
             photoUsageApproved
             membershipNumber
@@ -52,6 +53,7 @@ export const profileQuery = gql`
         birthDate
         photoUsageApproved
         membershipNumber
+        membershipStatus
         languageAtHome
         schoolName
         schoolClass

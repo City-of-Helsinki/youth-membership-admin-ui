@@ -12,6 +12,10 @@ export interface Profiles_profiles_edges_node_primaryPhone {
 }
 
 export interface Profiles_profiles_edges_node_youthProfile {
+  /**
+   * Membership status based on expiration and approved_time fields
+   */
+  readonly membershipStatus: MembershipStatus | null;
   readonly birthDate: any;
   readonly photoUsageApproved: boolean | null;
   /**
@@ -106,6 +110,10 @@ export interface Profile_profile_youthProfile {
    * Youth's membership number
    */
   readonly membershipNumber: string | null;
+  /**
+   * Membership status based on expiration and approved_time fields
+   */
+  readonly membershipStatus: MembershipStatus | null;
   /**
    * The language which is spoken in the youth's home.
    */
@@ -229,6 +237,13 @@ export enum Language {
   ENGLISH = "ENGLISH",
   FINNISH = "FINNISH",
   SWEDISH = "SWEDISH",
+}
+
+export enum MembershipStatus {
+  ACTIVE = "ACTIVE",
+  EXPIRED = "EXPIRED",
+  PENDING = "PENDING",
+  RENEWING = "RENEWING",
 }
 
 export enum PhoneType {

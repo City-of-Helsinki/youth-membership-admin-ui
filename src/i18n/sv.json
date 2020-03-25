@@ -18,8 +18,11 @@
     "birthDate": "Födelsedatum (dd.mm.yyyy)",
     "birthDateWithoutHelp": "Födelsedatum",
     "membershipNumber": "Medlemsnummer",
+    "membershipStatus": "Status",
     "phone": "Telefonnummer",
     "photoUsage": "Fotoanvändning",
+    "photoUsageApproved": "Ja",
+    "photoUsageDenied": "Nej",
     "photoUsageHelpText": "Bilder av mitt barn kan tas och användas för intern och extern kommunikation i Helsingfors stad.",
     "language": "Språk",
     "address": "adress",
@@ -33,8 +36,8 @@
     "languageAtHome": "Språk hemma",
     "photoApprovedTrue": "Ja",
     "photoApprovedFalse": "Nej",
-    "back": "Tillbaka till sökresultaten"
-
+    "back": "Tillbaka till sökresultaten",
+    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
   },
   "validation": {
     "tooLong": "För lång",
@@ -44,6 +47,11 @@
     "email": "Ogiltig e-postadress",
     "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
     "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Väntar",
+    "ACTIVE": "Aktiva",
+    "EXPIRED": "Utgånget"
   },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "Engelska",

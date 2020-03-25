@@ -18,8 +18,11 @@
     "birthDate": "Birth date (dd.mm.yyyy)",
     "birthDateWithoutHelp": "Birth date",
     "membershipNumber": "Membership number",
+    "membershipStatus": "Status",
     "phone": "Phone number",
     "photoUsage": "Photo usage",
+    "photoUsageApproved": "Yes",
+    "photoUsageDenied": "No",
     "photoUsageHelpText": "Pictures of my child can be taken and used for internal and external communications in the City of Helsinki.",
     "language": "Language",
     "address": "Address",
@@ -33,7 +36,8 @@
     "languageAtHome": "Language at home",
     "photoApprovedTrue": "Yes",
     "photoApprovedFalse": "No",
-    "back": "Back to search results"
+    "back": "Back to search results",
+    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"
   },
   "validation": {
     "tooLong": "Too long",
@@ -43,6 +47,11 @@
     "email": "Invalid email",
     "birthDate": "The birthday should be dd.mm.yyyy.",
     "ageRestriction": "Only 8-25 years olds can create youth profile."
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Pending",
+    "ACTIVE": "Active",
+    "EXPIRED": "Expired"
   },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "English",

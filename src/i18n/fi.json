@@ -18,8 +18,11 @@
     "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
     "birthDateWithoutHelp": "Syntymäpäivä",
     "membershipNumber": "Jäsennumero",
+    "membershipStatus": "Tila",
     "phone": "Puhelinnumero",
     "photoUsage": "Kuvauslupa",
+    "photoUsageApproved": "Kyllä",
+    "photoUsageDenied": "Ei",
     "photoUsageHelpText": "Lapsestani saa ottaa kuvia ja niitä saa käyttää Helsingin kaupungin sisäisessä ja ulkoisessa viestinnässä.",
     "language": "Kieli",
     "address": "Osoite",
@@ -33,7 +36,8 @@
     "languageAtHome": "Kotona puhuttu kieli",
     "photoApprovedTrue": "Kyllä",
     "photoApprovedFalse": "Ei",
-    "back": "Takaisin hakutulokseen"
+    "back": "Takaisin hakutulokseen",
+    "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"
   },
   "validation": {
     "tooLong": "Liian pitkä",
@@ -43,6 +47,11 @@
     "email": "Virheellinen sähköpostiosoite",
     "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
     "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Odottaa",
+    "ACTIVE": "Aktiivinen",
+    "EXPIRED": "Vanhentunut"
   },
   "LANGUAGE_OPTIONS": {
     "ENGLISH": "Englanti",
