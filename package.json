@@ -39,7 +39,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
-    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://helsinkiprofile.test.kuva.hel.ninja/graphql/"
+    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://profiili-api.test.kuva.hel.ninja/graphql/"
   },
   "eslintConfig": {
     "extends": "react-app"
