@@ -134,6 +134,15 @@ const YouthList = () => {
 
       {loading && <Loading />}
 
+      {!loading && queryCount > 0 && (
+        <div className={styles.searchResultText}>
+          {t('youthProfiles.searchResults', {
+            /* eslint-disable @typescript-eslint/camelcase */
+            smart_count: profiles?.length,
+          })}
+        </div>
+      )}
+
       {!loading && profiles.length > 0 && (
         <div className={styles.dataGrid}>
           <Datagrid
@@ -174,15 +183,6 @@ const YouthList = () => {
               label={t('youthProfiles.language')}
             />
           </Datagrid>
-
-          {queryCount > 0 && (
-            <div className={styles.searchResultText}>
-              {t('youthProfiles.searchResults', {
-                /* eslint-disable @typescript-eslint/camelcase */
-                smart_count: profiles?.length,
-              })}
-            </div>
-          )}
         </div>
       )}
     </div>
