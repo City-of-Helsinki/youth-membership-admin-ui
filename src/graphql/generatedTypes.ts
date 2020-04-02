@@ -104,6 +104,7 @@ export interface Profile_profile_primaryEmail {
 }
 
 export interface Profile_profile_youthProfile {
+  readonly expiration: any;
   readonly birthDate: any;
   readonly photoUsageApproved: boolean | null;
   /**

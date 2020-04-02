@@ -33,6 +33,8 @@
     "school": "School and class",
     "schoolName": "School",
     "schoolClass": "Class",
+    "membershipInformation": "Membership information",
+    "expirationDate": "Valid until",
     "languageAtHome": "Language at home",
     "photoApprovedTrue": "Yes",
     "photoApprovedFalse": "No",

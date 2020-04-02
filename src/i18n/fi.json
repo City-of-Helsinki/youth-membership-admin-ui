@@ -33,6 +33,8 @@
     "school": "Koulu ja luokka",
     "schoolName": "Koulu",
     "schoolClass": "Luokka",
+    "membershipInformation": "Jäsenyyden tiedot",
+    "expirationDate": "Voimassa",
     "languageAtHome": "Kotona puhuttu kieli",
     "photoApprovedTrue": "Kyllä",
     "photoApprovedFalse": "Ei",

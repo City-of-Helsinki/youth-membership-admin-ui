@@ -50,6 +50,7 @@ export const profileQuery = gql`
         email
       }
       youthProfile {
+        expiration
         birthDate
         photoUsageApproved
         membershipNumber

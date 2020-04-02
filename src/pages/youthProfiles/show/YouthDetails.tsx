@@ -87,6 +87,28 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
         />
       </div>
 
+      <h3>{t('youthProfiles.membershipInformation')}</h3>
+      <div className={styles.row}>
+        <Label
+          label={t('youthProfiles.membershipNumber')}
+          value={profile?.youthProfile?.membershipNumber}
+        />
+        <Label
+          label={t('youthProfiles.membershipStatus')}
+          value={t(`PROFILE_STATUS.${profile?.youthProfile?.membershipStatus}`)}
+        />
+      </div>
+
+      <div className={styles.row}>
+        <Label
+          label={t('youthProfiles.expirationDate')}
+          value={format(
+            new Date(profile?.youthProfile?.expiration),
+            'dd.MM.yyyy'
+          )}
+        />
+      </div>
+
       <h3>{t('youthProfiles.photoUsage')}</h3>
       <p>{t('youthProfiles.photoUsageHelpText')}</p>
       <div className={styles.row}>
