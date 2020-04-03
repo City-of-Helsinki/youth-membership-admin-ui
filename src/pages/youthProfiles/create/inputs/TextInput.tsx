@@ -7,12 +7,12 @@ type Props = {
   name: string;
   label: string;
   className?: string;
-  error?: string;
 };
 
-const TextInput = ({ name, label, className, error }: Props) => {
+const TextInput = ({ name, label, className }: Props) => {
   const {
     input: { onChange },
+    meta: { touched, error },
   } = useField(name);
   const t = useTranslate();
   return (
@@ -21,8 +21,8 @@ const TextInput = ({ name, label, className, error }: Props) => {
       onChange={onChange}
       labelText={label}
       className={className}
-      invalid={Boolean(error)}
-      invalidText={error && t(error)}
+      invalid={touched && error}
+      invalidText={touched && error && t(error)}
     />
   );
 };

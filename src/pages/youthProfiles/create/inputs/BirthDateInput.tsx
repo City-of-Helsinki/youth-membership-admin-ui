@@ -26,7 +26,6 @@ const useStyles = makeStyles({
 type Props = {
   inputName: string;
   label: string;
-  error?: string;
 };
 
 type BirthDate = {
@@ -35,7 +34,7 @@ type BirthDate = {
   year?: string;
 };
 
-const BirthDateInput = ({ inputName, label, error }: Props) => {
+const BirthDateInput = ({ inputName, label }: Props) => {
   const classes = useStyles();
   const [birthDate, setBirthDate] = useState<BirthDate>({
     day: '',
@@ -45,6 +44,7 @@ const BirthDateInput = ({ inputName, label, error }: Props) => {
 
   const {
     input: { onChange },
+    meta: { touched, error },
   } = useField(inputName);
 
   // e type is set to any for now. Event type returned from hds
@@ -66,7 +66,9 @@ const BirthDateInput = ({ inputName, label, error }: Props) => {
     });
   };
 
-  const labelClass = `${classes.label} ${error ? classes.error : ''}`;
+  const labelClass = `${classes.label} ${
+    touched && error ? classes.error : ''
+  }`;
 
   const t = useTranslate();
 
@@ -79,24 +81,24 @@ const BirthDateInput = ({ inputName, label, error }: Props) => {
           className={classes.birthDate}
           value={birthDate.day}
           onChange={handleChange}
-          invalid={Boolean(error)}
+          invalid={touched && error}
         />
         <TextInput
           id="month"
           className={classes.birthDate}
           value={birthDate.month}
           onChange={handleChange}
-          invalid={Boolean(error)}
+          invalid={touched && error}
         />
         <TextInput
           id="year"
           className={classes.birthDate}
           value={birthDate.year}
           onChange={handleChange}
-          invalid={Boolean(error)}
+          invalid={touched && error}
         />
       </Box>
-      {error && <p className={classes.errorHelper}>{t(error)}</p>}
+      {touched && error && <p className={classes.errorHelper}>{t(error)}</p>}
     </Box>
   );
 };

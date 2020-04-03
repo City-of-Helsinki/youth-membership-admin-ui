@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
-import { FormWithRedirect, Toolbar, useTranslate } from 'react-admin';
+import React from 'react';
+import {
+  FormWithRedirect,
+  SaveButton,
+  Toolbar,
+  useTranslate,
+} from 'react-admin';
 
 import styles from './CreateYouthForm.module.css';
-import { Language } from '../../../../graphql/generatedTypes';
+import {
+  CreateProfile_createProfile as CreateProfile,
+  Language,
+} from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
 import {
   ValidationOption,
-  Errors,
+  Values,
   YouthSchema,
 } from '../../types/youthProfileTypes';
-import SubmitForm from '../buttons/SubmitButton';
+import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {
@@ -76,8 +84,13 @@ const schema: YouthSchema<ValidationOption> = {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const CreateYouthForm: React.FC = (props: any) => {
-  const [errors, setErrors] = useState<Errors>();
   const t = useTranslate();
+
+  const redirect = (
+    basePath: string,
+    id: string,
+    data: { data: { createProfile: CreateProfile } }
+  ) => `/youthProfiles/${data?.data?.createProfile?.profile?.id}/show`;
 
   return (
     <FormWithRedirect
@@ -100,6 +113,7 @@ const CreateYouthForm: React.FC = (props: any) => {
         approverEmail: '',
         approverPhone: '',
       }}
+      validate={(values: Values) => youthCreateFormValidator(values, schema)}
       /* eslint-disable  @typescript-eslint/no-explicit-any */
       render={(formProps: any) => (
         <form>
@@ -110,33 +124,25 @@ const CreateYouthForm: React.FC = (props: any) => {
                 name="firstName"
                 label={t('youthProfiles.firstName')}
                 className={styles.textField}
-                error={errors?.firstName}
               />
-              <TextInput
-                label={t('youthProfiles.lastName')}
-                name="lastName"
-                error={errors?.lastName}
-              />
+              <TextInput label={t('youthProfiles.lastName')} name="lastName" />
             </div>
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.streetAddress')}
                 name="address"
                 className={styles.textField}
-                error={errors?.address}
               />
 
               <TextInput
                 label={t('youthProfiles.city')}
                 name="city"
                 className={styles.textField}
-                error={errors?.city}
               />
 
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
-                error={errors?.postalCode}
               />
             </div>
 
@@ -145,20 +151,14 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.email')}
                 name="email"
                 className={styles.textField}
-                error={errors?.email}
               />
 
-              <TextInput
-                label={t('youthProfiles.phone')}
-                name="phone"
-                error={errors?.phone}
-              />
+              <TextInput label={t('youthProfiles.phone')} name="phone" />
             </div>
 
             <BirthDateInput
               inputName="birthDate"
               label={t('youthProfiles.birthDate')}
-              error={errors?.birthDate}
             />
           </div>
 
@@ -169,13 +169,11 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.schoolName')}
                 name="schoolName"
                 className={styles.textField}
-                error={errors?.schoolName}
               />
 
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
-                error={errors?.schoolClass}
               />
             </div>
 
@@ -207,13 +205,11 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.firstName')}
                 name="approverFirstName"
                 className={styles.textField}
-                error={errors?.approverFirstName}
               />
 
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
-                error={errors?.approverLastName}
               />
             </div>
             <div className={styles.rowContainer}>
@@ -221,22 +217,19 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.email')}
                 name="approverEmail"
                 className={styles.textField}
-                error={errors?.approverEmail}
               />
 
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
-                error={errors?.approverPhone}
               />
             </div>
           </div>
           <Toolbar>
-            <SubmitForm
+            <SaveButton
               saving={formProps.saving}
-              redirect="show"
-              schema={schema}
-              errorCallBack={(errors: Errors) => setErrors(errors)}
+              redirect={redirect}
+              handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
             />
           </Toolbar>
         </form>
