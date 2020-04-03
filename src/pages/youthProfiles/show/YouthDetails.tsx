@@ -76,6 +76,11 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           }
           label={t('youthProfiles.birthDateWithoutHelp')}
         />
+
+        <Label
+          label={t('youthProfiles.profileLanguage')}
+          value={t(`LANGUAGE_OPTIONS.${profile?.language}`)}
+        />
       </div>
 
       <h3>{t('youthProfiles.extraInfo')}</h3>
@@ -84,6 +89,28 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
         <Label
           value={t(`LANGUAGE_OPTIONS.${profile?.youthProfile?.languageAtHome}`)}
           label={t('youthProfiles.languageAtHome')}
+        />
+      </div>
+
+      <h3>{t('youthProfiles.membershipInformation')}</h3>
+      <div className={styles.row}>
+        <Label
+          label={t('youthProfiles.membershipNumber')}
+          value={profile?.youthProfile?.membershipNumber}
+        />
+        <Label
+          label={t('youthProfiles.membershipStatus')}
+          value={t(`PROFILE_STATUS.${profile?.youthProfile?.membershipStatus}`)}
+        />
+      </div>
+
+      <div className={styles.row}>
+        <Label
+          label={t('youthProfiles.expirationDate')}
+          value={format(
+            new Date(profile?.youthProfile?.expiration),
+            'dd.MM.yyyy'
+          )}
         />
       </div>
 

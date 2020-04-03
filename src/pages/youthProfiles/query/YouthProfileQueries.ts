@@ -38,6 +38,7 @@ export const profileQuery = gql`
       firstName
       lastName
       id
+      language
       primaryPhone {
         phone
       }
@@ -50,6 +51,7 @@ export const profileQuery = gql`
         email
       }
       youthProfile {
+        expiration
         birthDate
         photoUsageApproved
         membershipNumber
