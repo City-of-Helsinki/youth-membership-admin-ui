@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 type Props = {
   inputName: string;
   label: string;
-  error: string;
+  error?: string;
 };
 
 type BirthDate = {

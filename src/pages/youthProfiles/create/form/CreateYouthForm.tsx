@@ -1,28 +1,17 @@
-import React, { useCallback, useState } from 'react';
-import {
-  FormWithRedirect,
-  SaveButton,
-  Toolbar,
-  useTranslate,
-  useDataProvider,
-} from 'react-admin';
-import { useFormState } from 'react-final-form';
-import { useHistory } from 'react-router';
+import React, { useState } from 'react';
+import { FormWithRedirect, Toolbar, useTranslate } from 'react-admin';
 
 import styles from './CreateYouthForm.module.css';
-import {
-  Language,
-  CreateProfile_createProfile as CreateProfile,
-} from '../../../../graphql/generatedTypes';
+import { Language } from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
 import {
   ValidationOption,
-  Values,
+  Errors,
   YouthSchema,
 } from '../../types/youthProfileTypes';
-import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
+import SubmitForm from '../buttons/SubmitButton';
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {
@@ -87,36 +76,8 @@ const schema: YouthSchema<ValidationOption> = {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const CreateYouthForm: React.FC = (props: any) => {
-  const [errors, setErrors] = useState();
+  const [errors, setErrors] = useState<Errors>();
   const t = useTranslate();
-
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  const SubmitForm = (props: any) => {
-    const formState = useFormState();
-    const dataProvider = useDataProvider();
-
-    const history = useHistory();
-
-    const handleClick = useCallback(() => {
-      const errors = youthCreateFormValidator(
-        formState.values as Values,
-        schema
-      );
-      setErrors(errors);
-      if (Object.keys(errors).length === 0) {
-        dataProvider
-          .create('youthProfiles', { data: { ...formState.values } })
-          .then(
-            (result: { data: { data: { createProfile: CreateProfile } } }) => {
-              const id = result?.data?.data?.createProfile?.profile?.id;
-              if (id) history.push(`/youthProfiles/${id}/show`);
-            }
-          );
-      }
-    }, [dataProvider, history, formState]);
-
-    return <SaveButton {...props} handleSubmitWithRedirect={handleClick} />;
-  };
 
   return (
     <FormWithRedirect
@@ -162,7 +123,7 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.streetAddress')}
                 name="address"
                 className={styles.textField}
-                error={errors?.streetAddress}
+                error={errors?.address}
               />
 
               <TextInput
@@ -271,7 +232,12 @@ const CreateYouthForm: React.FC = (props: any) => {
             </div>
           </div>
           <Toolbar>
-            <SubmitForm saving={formProps.saving} redirect="show" />
+            <SubmitForm
+              saving={formProps.saving}
+              redirect="show"
+              schema={schema}
+              errorCallBack={(errors: Errors) => setErrors(errors)}
+            />
           </Toolbar>
         </form>
       )}

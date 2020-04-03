@@ -7,7 +7,7 @@ type Props = {
   name: string;
   label: string;
   className?: string;
-  error: string;
+  error?: string;
 };
 
 const TextInput = ({ name, label, className, error }: Props) => {
