@@ -134,6 +134,7 @@ export interface Profile_profile {
    * The ID of the object.
    */
   readonly id: string;
+  readonly language: Language | null;
   /**
    * Convenience field for the phone which is marked as primary.
    */

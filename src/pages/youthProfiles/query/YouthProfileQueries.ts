@@ -38,6 +38,7 @@ export const profileQuery = gql`
       firstName
       lastName
       id
+      language
       primaryPhone {
         phone
       }

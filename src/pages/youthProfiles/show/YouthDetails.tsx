@@ -76,6 +76,11 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           }
           label={t('youthProfiles.birthDateWithoutHelp')}
         />
+
+        <Label
+          label={t('youthProfiles.profileLanguage')}
+          value={t(`LANGUAGE_OPTIONS.${profile?.language}`)}
+        />
       </div>
 
       <h3>{t('youthProfiles.extraInfo')}</h3>
