@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Datagrid,
   DateField,
@@ -9,7 +9,7 @@ import {
   useTranslate,
 } from 'react-admin';
 import { TextInput } from 'hds-react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import styles from './YouthList.module.css';
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
@@ -27,16 +27,69 @@ const YouthList = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [queryCount, setQueryCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<Error>();
   const [searchParams, setSearchParams] = useState<SearchParams>({
     firstName: '',
     lastName: '',
   });
 
   const history = useHistory();
+  const location = useLocation();
   const notify = useNotify();
   const t = useTranslate();
 
   const dataProvider = useDataProvider();
+
+  // At this point we dont want search to return all found profiles,
+  // so to prevent that happening add dummy data to search parameters
+  const getProfiles = useCallback(
+    (firstName?: string, lastName?: string) => {
+      const formSearchParams = () => {
+        if (firstName || lastName) return { firstName, lastName };
+        if (searchParams.firstName || searchParams.lastName)
+          return {
+            firstName: searchParams.firstName,
+            lastName: searchParams.lastName,
+          };
+        return { firstName: 'dummy', lastName: 'data' };
+      };
+
+      const params = formSearchParams();
+
+      dataProvider
+        .getList('youthProfiles', {
+          firstName: params.firstName,
+          lastName: params.lastName,
+        })
+        .then((result: { data: Profile[]; total: number }) => {
+          setProfiles(result.data);
+          setQueryCount(prevState => prevState + 1);
+          setLoading(false);
+        })
+        .catch((error: Error) => {
+          setError(error);
+          notify(t('ra.message.error'), 'warning');
+        });
+    },
+    [dataProvider, notify, searchParams.lastName, searchParams.firstName, t]
+  );
+
+  useEffect(() => {
+    const urlParameters = new URLSearchParams(location.search);
+    const firstName = urlParameters.get('firstName') || '';
+    const lastName = urlParameters.get('lastName') || '';
+
+    if (
+      (!searchParams.firstName && firstName) ||
+      (!searchParams.lastName && lastName)
+    ) {
+      setSearchParams({
+        firstName,
+        lastName,
+      });
+      getProfiles(firstName, lastName);
+    }
+  }, [location.search, getProfiles, searchParams]);
 
   const transformData = () => {
     const dataObject: DatagridData = {};
@@ -60,34 +113,15 @@ const YouthList = () => {
     return dataObject;
   };
 
-  const checkSearchParams = () => {
-    return searchParams.firstName || searchParams.lastName;
-  };
-
-  // At this point we dont want search to return all found profiles,
-  // so to prevent that happening add dummy data to search parameters
-  const getProfiles = () => {
-    dataProvider
-      .getList('youthProfiles', {
-        firstName: checkSearchParams() ? searchParams.firstName : 'dummy',
-        lastName: checkSearchParams() ? searchParams.lastName : 'data',
-      })
-      .then((result: { data: Profile[]; total: number }) => {
-        setProfiles(result.data);
-        setQueryCount(prevState => prevState + 1);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        notify(t('ra.message.error'), 'warning');
-      });
-  };
-
   const onChange = (value: string, field: string) => {
     setSearchParams(prevState => ({
       ...prevState,
       [field]: value,
     }));
   };
+
+  const show = (id: string) =>
+    `/youthProfiles/${id}/show?firstName=${searchParams.firstName}&lastName=${searchParams.lastName}`;
 
   return (
     <div>
@@ -132,7 +166,7 @@ const YouthList = () => {
         </button>
       </div>
 
-      {loading && <Loading />}
+      {loading && !error && <Loading />}
 
       {!loading && queryCount > 0 && (
         <div className={styles.searchResultText}>
@@ -150,7 +184,7 @@ const YouthList = () => {
             ids={profiles.map(({ id }) => id)}
             currentSort={{ field: 'id', order: 'ASC' }}
             basePath="/youthProfiles"
-            rowClick="show"
+            rowClick={show}
             style={{ padding: '0 20px' }}
           >
             <Label source="firstName" label={t('youthProfiles.firstName')} />
