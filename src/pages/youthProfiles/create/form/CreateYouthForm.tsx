@@ -7,7 +7,10 @@ import {
 } from 'react-admin';
 
 import styles from './CreateYouthForm.module.css';
-import { Language } from '../../../../graphql/generatedTypes';
+import {
+  CreateProfile_createProfile as CreateProfile,
+  Language,
+} from '../../../../graphql/generatedTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
@@ -50,6 +53,13 @@ const schema: YouthSchema<ValidationOption> = {
   },
   birthDate: {
     birthDate: true,
+    required: true,
+  },
+  schoolName: {
+    max: 128,
+  },
+  schoolClass: {
+    max: 10,
   },
   approverFirstName: {
     min: 2,
@@ -70,8 +80,15 @@ const schema: YouthSchema<ValidationOption> = {
   },
 };
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 const CreateYouthForm: React.FC = (props: any) => {
   const t = useTranslate();
+
+  const redirect = (
+    basePath: string,
+    id: string,
+    data: { data: { createProfile: CreateProfile } }
+  ) => `/youthProfiles/${data?.data?.createProfile?.profile?.id}/show`;
 
   return (
     <FormWithRedirect
@@ -95,6 +112,7 @@ const CreateYouthForm: React.FC = (props: any) => {
         approverPhone: '',
       }}
       validate={(values: Values) => youthCreateFormValidator(values, schema)}
+      /* eslint-disable  @typescript-eslint/no-explicit-any */
       render={(formProps: any) => (
         <form>
           <div className={styles.wrapper}>
@@ -208,6 +226,7 @@ const CreateYouthForm: React.FC = (props: any) => {
           <Toolbar>
             <SaveButton
               saving={formProps.saving}
+              redirect={redirect}
               handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
             />
           </Toolbar>
