@@ -56,11 +56,9 @@ const schema: YouthSchema<ValidationOption> = {
     required: true,
   },
   schoolName: {
-    min: 1,
     max: 128,
   },
   schoolClass: {
-    min: 1,
     max: 10,
   },
   approverFirstName: {
