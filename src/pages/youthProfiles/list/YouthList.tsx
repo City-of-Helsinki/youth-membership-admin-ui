@@ -18,20 +18,11 @@ type DatagridData = {
   [key: string]: Profile;
 };
 
-type SearchParams = {
-  firstName: string;
-  lastName: string;
-};
-
 const YouthList = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [queryCount, setQueryCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    firstName: '',
-    lastName: '',
-  });
 
   const history = useHistory();
   const location = useLocation();
@@ -40,56 +31,44 @@ const YouthList = () => {
 
   const dataProvider = useDataProvider();
 
+  const urlParameters = new URLSearchParams(location.search);
+  const firstName = urlParameters.get('firstName') || '';
+  const lastName = urlParameters.get('lastName') || '';
+
+  const onChange = (value: string, field: string) => {
+    history.replace(
+      `/youthProfiles?firstName=${
+        field === 'firstName' ? value : firstName
+      }&lastName=${field === 'lastName' ? value : lastName}`
+    );
+  };
+
   // At this point we dont want search to return all found profiles,
   // so to prevent that happening add dummy data to search parameters
-  const getProfiles = useCallback(
-    (firstName?: string, lastName?: string) => {
-      const formSearchParams = () => {
-        if (firstName || lastName) return { firstName, lastName };
-        if (searchParams.firstName || searchParams.lastName)
-          return {
-            firstName: searchParams.firstName,
-            lastName: searchParams.lastName,
-          };
-        return { firstName: 'dummy', lastName: 'data' };
-      };
-
-      const params = formSearchParams();
-
-      dataProvider
-        .getList('youthProfiles', {
-          firstName: params.firstName,
-          lastName: params.lastName,
-        })
-        .then((result: { data: Profile[]; total: number }) => {
-          setProfiles(result.data);
-          setQueryCount(prevState => prevState + 1);
-          setLoading(false);
-        })
-        .catch((error: Error) => {
-          setError(error);
-          notify(t('ra.message.error'), 'warning');
-        });
-    },
-    [dataProvider, notify, searchParams.lastName, searchParams.firstName, t]
-  );
+  const getProfiles = useCallback(() => {
+    const checkSearchParams = () => firstName || lastName;
+    dataProvider
+      .getList('youthProfiles', {
+        firstName: checkSearchParams() ? firstName : 'dummy',
+        lastName: checkSearchParams() ? lastName : 'data',
+      })
+      .then((result: { data: Profile[]; total: number }) => {
+        setProfiles(result.data);
+        setQueryCount(prevState => prevState + 1);
+        setLoading(false);
+      })
+      .catch((error: Error) => {
+        setError(error);
+        notify(t('ra.message.error'), 'warning');
+      });
+  }, [dataProvider, firstName, lastName, notify, t]);
 
   useEffect(() => {
-    const urlParameters = new URLSearchParams(location.search);
-    const firstName = urlParameters.get('firstName') || '';
-    const lastName = urlParameters.get('lastName') || '';
-
-    if (
-      (!searchParams.firstName && firstName) ||
-      (!searchParams.lastName && lastName)
-    ) {
-      setSearchParams({
-        firstName,
-        lastName,
-      });
-      getProfiles(firstName, lastName);
+    // Using query count triggers getProfiles only once
+    if (queryCount === 0) {
+      getProfiles();
     }
-  }, [location.search, getProfiles, searchParams]);
+  }, [firstName, lastName, queryCount, getProfiles]);
 
   const transformData = () => {
     const dataObject: DatagridData = {};
@@ -113,15 +92,7 @@ const YouthList = () => {
     return dataObject;
   };
 
-  const onChange = (value: string, field: string) => {
-    setSearchParams(prevState => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
-
-  const show = (id: string) =>
-    `/youthProfiles/${id}/show?firstName=${searchParams.firstName}&lastName=${searchParams.lastName}`;
+  const show = (id: string) => `/youthProfiles/${id}/show${location.search}`;
 
   return (
     <div>
@@ -129,7 +100,7 @@ const YouthList = () => {
         <TextInput
           id="firstName"
           className={styles.textFieldFirstName}
-          value={searchParams.firstName}
+          value={firstName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
@@ -141,7 +112,7 @@ const YouthList = () => {
         <TextInput
           id="lastName"
           className={styles.textFieldLastName}
-          value={searchParams.lastName}
+          value={lastName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
