@@ -2,7 +2,7 @@ import React from 'react';
 import { useQueryWithStore, useTranslate, Loading, Error } from 'react-admin';
 import { ReactAdminComponentPropsWithId } from 'ra-core';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { format } from 'date-fns';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
@@ -18,6 +18,7 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
 
   const t = useTranslate();
   const history = useHistory();
+  const location = useLocation();
 
   type Label = {
     label: string;
@@ -41,7 +42,7 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       <div className={styles.goBack}>
         <button
           className={styles.labelValue}
-          onClick={() => history.push('/youthProfiles')}
+          onClick={() => history.push(`/youthProfiles${location.search}`)}
         >
           <ArrowBack className={styles.icon} />
           {t('youthProfiles.back')}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Datagrid,
   DateField,
@@ -9,7 +9,7 @@ import {
   useTranslate,
 } from 'react-admin';
 import { TextInput } from 'hds-react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import styles from './YouthList.module.css';
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
@@ -18,25 +18,57 @@ type DatagridData = {
   [key: string]: Profile;
 };
 
-type SearchParams = {
-  firstName: string;
-  lastName: string;
-};
-
 const YouthList = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [queryCount, setQueryCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    firstName: '',
-    lastName: '',
-  });
+  const [error, setError] = useState<Error>();
 
   const history = useHistory();
+  const location = useLocation();
   const notify = useNotify();
   const t = useTranslate();
 
   const dataProvider = useDataProvider();
+
+  const urlParameters = new URLSearchParams(location.search);
+  const firstName = urlParameters.get('firstName') || '';
+  const lastName = urlParameters.get('lastName') || '';
+
+  const onChange = (value: string, field: string) => {
+    history.replace(
+      `/youthProfiles?firstName=${
+        field === 'firstName' ? value : firstName
+      }&lastName=${field === 'lastName' ? value : lastName}`
+    );
+  };
+
+  // At this point we dont want search to return all found profiles,
+  // so to prevent that happening add dummy data to search parameters
+  const getProfiles = useCallback(() => {
+    const checkSearchParams = () => firstName || lastName;
+    dataProvider
+      .getList('youthProfiles', {
+        firstName: checkSearchParams() ? firstName : 'dummy',
+        lastName: checkSearchParams() ? lastName : 'data',
+      })
+      .then((result: { data: Profile[]; total: number }) => {
+        setProfiles(result.data);
+        setQueryCount(prevState => prevState + 1);
+        setLoading(false);
+      })
+      .catch((error: Error) => {
+        setError(error);
+        notify(t('ra.message.error'), 'warning');
+      });
+  }, [dataProvider, firstName, lastName, notify, t]);
+
+  useEffect(() => {
+    // Using query count triggers getProfiles only once
+    if (queryCount === 0) {
+      getProfiles();
+    }
+  }, [firstName, lastName, queryCount, getProfiles]);
 
   const transformData = () => {
     const dataObject: DatagridData = {};
@@ -60,34 +92,7 @@ const YouthList = () => {
     return dataObject;
   };
 
-  const checkSearchParams = () => {
-    return searchParams.firstName || searchParams.lastName;
-  };
-
-  // At this point we dont want search to return all found profiles,
-  // so to prevent that happening add dummy data to search parameters
-  const getProfiles = () => {
-    dataProvider
-      .getList('youthProfiles', {
-        firstName: checkSearchParams() ? searchParams.firstName : 'dummy',
-        lastName: checkSearchParams() ? searchParams.lastName : 'data',
-      })
-      .then((result: { data: Profile[]; total: number }) => {
-        setProfiles(result.data);
-        setQueryCount(prevState => prevState + 1);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        notify(t('ra.message.error'), 'warning');
-      });
-  };
-
-  const onChange = (value: string, field: string) => {
-    setSearchParams(prevState => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
+  const show = (id: string) => `/youthProfiles/${id}/show${location.search}`;
 
   return (
     <div>
@@ -95,7 +100,7 @@ const YouthList = () => {
         <TextInput
           id="firstName"
           className={styles.textFieldFirstName}
-          value={searchParams.firstName}
+          value={firstName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
@@ -107,7 +112,7 @@ const YouthList = () => {
         <TextInput
           id="lastName"
           className={styles.textFieldLastName}
-          value={searchParams.lastName}
+          value={lastName}
           onChange={e => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
@@ -132,7 +137,7 @@ const YouthList = () => {
         </button>
       </div>
 
-      {loading && <Loading />}
+      {loading && !error && <Loading />}
 
       {!loading && queryCount > 0 && (
         <div className={styles.searchResultText}>
@@ -150,7 +155,7 @@ const YouthList = () => {
             ids={profiles.map(({ id }) => id)}
             currentSort={{ field: 'id', order: 'ASC' }}
             basePath="/youthProfiles"
-            rowClick="show"
+            rowClick={show}
             style={{ padding: '0 20px' }}
           >
             <Label source="firstName" label={t('youthProfiles.firstName')} />
