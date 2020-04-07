@@ -49,6 +49,7 @@ const createYouthProfile: MethodHandler = async (
       profile: {
         firstName: params.data.firstName,
         lastName: params.data.lastName,
+        language: params.data.profileLanguage,
         addAddresses: [
           {
             address: params.data.address,
