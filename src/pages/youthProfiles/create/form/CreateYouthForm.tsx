@@ -14,6 +14,7 @@ import {
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
+import SelectInput from '../inputs/SelectInput';
 import {
   ValidationOption,
   Values,
@@ -105,6 +106,7 @@ const CreateYouthForm: React.FC = (props: any) => {
         schoolName: '',
         schoolClass: '',
         languageAtHome: 'FINNISH',
+        profileLanguage: 'FINNISH',
         photoUsageApproved: 'false',
         approverFirstName: '',
         approverLastName: '',
@@ -151,7 +153,31 @@ const CreateYouthForm: React.FC = (props: any) => {
                 className={styles.textField}
               />
 
-              <TextInput label={t('youthProfiles.phone')} name="phone" />
+              <TextInput
+                label={t('youthProfiles.phone')}
+                name="phone"
+                className={styles.textField}
+              />
+
+              <SelectInput
+                name="profileLanguage"
+                labelText={t('youthProfiles.profileLanguage')}
+                options={[
+                  {
+                    value: Language.FINNISH,
+                    label: t('LANGUAGE_OPTIONS.FINNISH'),
+                  },
+                  {
+                    value: Language.ENGLISH,
+                    label: t('LANGUAGE_OPTIONS.ENGLISH'),
+                  },
+                  {
+                    value: Language.SWEDISH,
+                    label: t('LANGUAGE_OPTIONS.SWEDISH'),
+                  },
+                ]}
+                className={styles.select}
+              />
             </div>
 
             <BirthDateInput
@@ -190,8 +216,8 @@ const CreateYouthForm: React.FC = (props: any) => {
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
               choices={[
-                { id: 'true', name: 'Yes' },
-                { id: 'false', name: 'No' },
+                { id: 'true', name: t('youthProfiles.photoApprovedTrue') },
+                { id: 'false', name: t('youthProfiles.photoApprovedFalse') },
               ]}
             />
           </div>

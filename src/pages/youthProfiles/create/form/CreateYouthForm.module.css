@@ -24,3 +24,7 @@
 .textField {
     margin-right: 1rem;
 }
+
+.select {
+    max-width: 305px;
+}
