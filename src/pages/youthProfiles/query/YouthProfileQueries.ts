@@ -63,6 +63,7 @@ export const profileQuery = gql`
         approverLastName
         approverEmail
         approverPhone
+        renewable
       }
     }
   }
@@ -73,6 +74,16 @@ export const createProfileMutation = gql`
     createProfile(input: $input) {
       profile {
         id
+      }
+    }
+  }
+`;
+
+export const renewYouthProfileMutation = gql`
+  mutation RenewYouthProfile($input: RenewYouthProfileMutationInput!) {
+    renewYouthProfile(input: $input) {
+      youthProfile {
+        expiration
       }
     }
   }

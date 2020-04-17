@@ -15,7 +15,8 @@ export type Method =
   | 'UPDATE'
   | 'UPDATE_MANY'
   | 'DELETE'
-  | 'DELETE_MANY';
+  | 'DELETE_MANY'
+  | 'RENEW';
 
 export type MethodHandlersResponse = any;
 

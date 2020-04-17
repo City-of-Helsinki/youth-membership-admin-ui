@@ -7,7 +7,7 @@ import {
 import {
   createYouthProfile,
   getYouthProfiles,
-  getYouthProfile,
+  getYouthProfile, renewYouthProfile,
 } from '../pages/youthProfiles/api/YouthApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
@@ -15,6 +15,7 @@ const METHOD_HANDLERS: MethodHandlers = {
     ONE: getYouthProfile,
     LIST: getYouthProfiles,
     CREATE: createYouthProfile,
+    RENEW: renewYouthProfile
   },
 };
 
@@ -51,6 +52,10 @@ const dataProvider = {
     const data = await runHandler('CREATE', resource, params);
     return { data };
   },
+  renew: async (resource: Resource, params: Params) => {
+    const data = await runHandler('RENEW', resource, params);
+    return {  data };
+  }
 };
 
 export default dataProvider;

@@ -125,6 +125,10 @@ export interface Profile_profile_youthProfile {
   readonly approverLastName: string;
   readonly approverEmail: string;
   readonly approverPhone: string;
+  /**
+   * Tells if the membership is currently renewable or not
+   */
+  readonly renewable: boolean | null;
 }
 
 export interface Profile_profile {
@@ -199,6 +203,42 @@ export interface CreateProfile {
 
 export interface CreateProfileVariables {
   readonly input: CreateProfileMutationInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: RenewYouthProfile
+// ====================================================
+
+export interface RenewYouthProfile_renewYouthProfile_youthProfile {
+  readonly expiration: any;
+}
+
+export interface RenewYouthProfile_renewYouthProfile {
+  readonly youthProfile: RenewYouthProfile_renewYouthProfile_youthProfile | null;
+}
+
+export interface RenewYouthProfile {
+  /**
+   * Renews the youth profile. Renewing can only be done once per season.
+   * 
+   * Requires Authentication.
+   * 
+   * Possible error codes:
+   * 
+   * * `CANNOT_RENEW_YOUTH_PROFILE_ERROR`: Returned if the youth profile is already renewed or not in the renew window
+   * 
+   * * `TODO`
+   */
+  readonly renewYouthProfile: RenewYouthProfile_renewYouthProfile | null;
+}
+
+export interface RenewYouthProfileVariables {
+  readonly input: RenewYouthProfileMutationInput;
 }
 
 /* tslint:disable */
@@ -285,7 +325,7 @@ export interface AddressInput {
 
 export interface CreateProfileMutationInput {
   readonly serviceType: ServiceType;
-  readonly profile?: ProfileInput | null;
+  readonly profile: ProfileInput;
   readonly clientMutationId?: string | null;
 }
 
@@ -319,12 +359,24 @@ export interface ProfileInput {
   readonly addAddresses?: ReadonlyArray<(AddressInput | null)> | null;
   readonly updateAddresses?: ReadonlyArray<(AddressInput | null)> | null;
   readonly removeAddresses?: ReadonlyArray<(string | null)> | null;
+  readonly subscriptions?: ReadonlyArray<(SubscriptionInputType | null)> | null;
   readonly youthProfile?: YouthProfileFields | null;
   readonly sensitivedata?: SensitiveDataFields | null;
 }
 
+export interface RenewYouthProfileMutationInput {
+  readonly serviceType: ServiceType;
+  readonly profileId: string;
+  readonly clientMutationId?: string | null;
+}
+
 export interface SensitiveDataFields {
   readonly ssn?: string | null;
+}
+
+export interface SubscriptionInputType {
+  readonly subscriptionTypeId: string;
+  readonly enabled: boolean;
 }
 
 export interface YouthProfileFields {

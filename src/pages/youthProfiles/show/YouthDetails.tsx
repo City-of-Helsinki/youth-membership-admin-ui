@@ -1,5 +1,12 @@
-import React from 'react';
-import { useQueryWithStore, useTranslate, Loading, Error } from 'react-admin';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  useDataProvider,
+  useMutation,
+  useNotify,
+  useTranslate,
+  Loading,
+  Error,
+} from 'react-admin';
 import { ReactAdminComponentPropsWithId } from 'ra-core';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router';
@@ -10,15 +17,51 @@ import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
 
 const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
-  const { data, loading, error } = useQueryWithStore({
-    type: 'getOne',
-    resource: 'youthProfiles',
-    payload: { id: props.id },
-  });
+  const [profile, setProfile] = useState<Profile>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error>();
 
+  const notify = useNotify();
   const t = useTranslate();
   const history = useHistory();
   const location = useLocation();
+  const dataProvider = useDataProvider();
+
+  const getProfile = useCallback(() => {
+    dataProvider
+      .getOne('youthProfiles', {
+        id: props.id,
+      })
+      .then((result: { data: { data: { profile: Profile } } }) => {
+        setProfile(result.data.data.profile);
+        setLoading(false);
+      })
+      .catch((error: Error) => {
+        setError(error);
+      });
+  }, [dataProvider, props.id]);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
+
+  const [renewMembership, { loading: renewing }] = useMutation(
+    {
+      type: 'renew',
+      resource: 'youthProfiles',
+      payload: { id: props.id },
+    },
+    {
+      onSuccess: () => {
+        setLoading(true);
+        getProfile();
+        notify('Update successful', 'success');
+      },
+      onFailure: (error: Error) => {
+        notify('Something went wrong', 'warning');
+      },
+    }
+  );
 
   type Label = {
     label: string;
@@ -34,9 +77,9 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
     );
   };
 
-  if (loading) return <Loading />;
+  if (loading || renewing) return <Loading />;
   if (error) return <Error error={error} />;
-  const profile: Profile = data?.data?.profile;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
@@ -48,7 +91,9 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           {t('youthProfiles.back')}
         </button>
       </div>
-
+      {profile?.youthProfile?.renewable && (
+        <button onClick={renewMembership}>RENEW</button>
+      )}
       <h3>{t('youthProfiles.basicInfo')}</h3>
       <div className={styles.row}>
         <Label
@@ -108,10 +153,10 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       <div className={styles.row}>
         <Label
           label={t('youthProfiles.expirationDate')}
-          value={format(
-            new Date(profile?.youthProfile?.expiration),
-            'dd.MM.yyyy'
-          )}
+          value={
+            profile?.youthProfile?.expiration &&
+            format(new Date(profile?.youthProfile?.expiration), 'dd.MM.yyyy')
+          }
         />
       </div>
 
