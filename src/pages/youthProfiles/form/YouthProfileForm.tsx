@@ -6,22 +6,22 @@ import {
   useTranslate,
 } from 'react-admin';
 
-import styles from './CreateYouthForm.module.css';
+import styles from './YouthProfileFormm.module.css';
 import {
   CreateProfile_createProfile as CreateProfile,
   Language,
-} from '../../../../graphql/generatedTypes';
-import { FormValues } from '../../types/youthProfileTypes';
-import TextInput from '../inputs/TextInput';
-import RadioGroupInput from '../inputs/RadioGroupInput';
-import BirthDateInput from '../inputs/BirthDateInput';
-import SelectInput from '../inputs/SelectInput';
+} from '../../../graphql/generatedTypes';
+import { FormValues } from '../types/youthProfileTypes';
+import TextInput from './inputs/TextInput';
+import RadioGroupInput from './inputs/RadioGroupInput';
+import BirthDateInput from './inputs/BirthDateInput';
+import SelectInput from './inputs/SelectInput';
 import {
   ValidationOption,
   Values,
   YouthSchema,
-} from '../../types/youthProfileTypes';
-import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
+} from '../types/youthProfileTypes';
+import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {
@@ -89,7 +89,7 @@ type Props = {
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-const CreateYouthForm = (props: Props) => {
+const YouthProfileForm = (props: Props) => {
   const t = useTranslate();
 
   const redirect = (
@@ -271,4 +271,4 @@ const CreateYouthForm = (props: Props) => {
   );
 };
 
-export default CreateYouthForm;
+export default YouthProfileForm;

@@ -2,7 +2,7 @@ import React from 'react';
 import { Loading, Error, useQuery, useEditController } from 'react-admin';
 import { useParams } from 'react-router';
 
-import CreateYouthForm from '../create/form/CreateYouthForm';
+import YouthProfileForm from '../form/YouthProfileForm';
 
 type Params = {
   id?: string;
@@ -30,7 +30,7 @@ const EditYouthProfile: React.FC = () => {
   const profile = data?.data?.profile;
   console.log(profile);
   return (
-    <CreateYouthForm
+    <YouthProfileForm
       save={save}
       saving={saving}
       record={{

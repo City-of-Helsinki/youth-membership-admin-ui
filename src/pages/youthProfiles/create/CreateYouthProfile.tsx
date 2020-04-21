@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCreateController } from 'react-admin';
 
-import CreateYouthForm from './form/CreateYouthForm';
+import YouthProfileForm from '../form/YouthProfileForm';
 
 const CreateYouthProfile: React.FC = () => {
   const fakeProps = {
@@ -11,7 +11,7 @@ const CreateYouthProfile: React.FC = () => {
 
   const { save, saving } = useCreateController(fakeProps);
 
-  return <CreateYouthForm save={save} saving={saving} />;
+  return <YouthProfileForm save={save} saving={saving} />;
 };
 
 export default CreateYouthProfile;
