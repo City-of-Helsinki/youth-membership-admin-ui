@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextInput } from 'hds-react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -43,9 +43,21 @@ const BirthDateInput = ({ inputName, label }: Props) => {
   });
 
   const {
-    input: { onChange },
+    input: { value, onChange },
     meta: { touched, error },
   } = useField(inputName);
+
+  // Set initialValue
+  useEffect(() => {
+    if (value && !birthDate.day && !birthDate.month && !birthDate.year) {
+      const dateValues = value.split('-');
+      setBirthDate({
+        day: dateValues[2],
+        month: dateValues[1],
+        year: dateValues[0],
+      });
+    }
+  }, [value, birthDate.day, birthDate.month, birthDate.year]);
 
   // e type is set to any for now. Event type returned from hds
   // is set to ChangeEvent<Element> which doesn't contain

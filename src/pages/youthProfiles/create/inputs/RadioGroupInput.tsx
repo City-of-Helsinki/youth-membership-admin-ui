@@ -34,7 +34,7 @@ type Props = {
 
 const RadioGroupInput = ({ name, label, choices, initialValue }: Props) => {
   const { input } = useInput({ name, type: 'radio' });
-
+  console.log('INITIALVALUE', initialValue);
   const classes = useStyles();
   return (
     <Box mt="1rem">

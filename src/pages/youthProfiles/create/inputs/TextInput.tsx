@@ -11,13 +11,15 @@ type Props = {
 
 const TextInput = ({ name, label, className }: Props) => {
   const {
-    input: { onChange },
+    input: { value, onChange },
     meta: { touched, error },
   } = useField(name);
   const t = useTranslate();
+
   return (
     <TextField
       id={name}
+      value={value}
       onChange={onChange}
       labelText={label}
       className={className}
