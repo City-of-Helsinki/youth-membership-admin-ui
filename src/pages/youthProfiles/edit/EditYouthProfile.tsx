@@ -28,7 +28,7 @@ const EditYouthProfile: React.FC = () => {
   if (loading) return <Loading />;
   if (!loading && error) return <Error error={error} />;
   const profile = data?.data?.profile;
-  console.log(profile);
+
   return (
     <YouthProfileForm
       save={save}

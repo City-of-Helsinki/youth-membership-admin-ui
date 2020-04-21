@@ -6,18 +6,18 @@ import {
   useTranslate,
 } from 'react-admin';
 
-import styles from './YouthProfileFormm.module.css';
+import styles from './YouthProfileForm.module.css';
 import {
   CreateProfile_createProfile as CreateProfile,
   Language,
 } from '../../../graphql/generatedTypes';
-import { FormValues } from '../types/youthProfileTypes';
 import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
 import SelectInput from './inputs/SelectInput';
 import {
   ValidationOption,
+  FormValues,
   Values,
   YouthSchema,
 } from '../types/youthProfileTypes';

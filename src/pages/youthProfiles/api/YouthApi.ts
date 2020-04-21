@@ -2,7 +2,12 @@ import { format } from 'date-fns';
 
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
-import { createProfileMutation, profileQuery, profilesQuery, renewYouthProfileMutation } from '../query/YouthProfileQueries';
+import {
+  createProfileMutation,
+  profileQuery,
+  profilesQuery,
+  renewYouthProfileMutation,
+} from '../query/YouthProfileQueries';
 import {
   AddressType,
   CreateProfileVariables,
@@ -92,18 +97,25 @@ const createYouthProfile: MethodHandler = async (
   });
 };
 
-const renewYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
+const renewYouthProfile: MethodHandler = async (
+  params: MethodHandlerParams
+) => {
   const variables: RenewYouthProfileVariables = {
     input: {
       profileId: params.id,
-      serviceType: ServiceType.YOUTH_MEMBERSHIP
-    }
-  }
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+    },
+  };
 
   return await mutateHandler({
     mutation: renewYouthProfileMutation,
-    variables: variables
+    variables: variables,
   });
-}
+};
 
-export { createYouthProfile, getYouthProfiles, getYouthProfile, renewYouthProfile };
+export {
+  createYouthProfile,
+  getYouthProfiles,
+  getYouthProfile,
+  renewYouthProfile,
+};
