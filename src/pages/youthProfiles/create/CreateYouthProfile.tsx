@@ -1,5 +1,5 @@
 import React from 'react';
-import { Create } from 'react-admin';
+import { useCreateController } from 'react-admin';
 
 import CreateYouthForm from './form/CreateYouthForm';
 
@@ -9,11 +9,9 @@ const CreateYouthProfile: React.FC = () => {
     resource: 'youthProfiles',
   };
 
-  return (
-    <Create {...fakeProps}>
-      <CreateYouthForm />
-    </Create>
-  );
+  const { save, saving } = useCreateController(fakeProps);
+
+  return <CreateYouthForm save={save} saving={saving} />;
 };
 
 export default CreateYouthProfile;

@@ -11,6 +11,7 @@ import {
   CreateProfile_createProfile as CreateProfile,
   Language,
 } from '../../../../graphql/generatedTypes';
+import { FormValues } from '../../types/youthProfileTypes';
 import TextInput from '../inputs/TextInput';
 import RadioGroupInput from '../inputs/RadioGroupInput';
 import BirthDateInput from '../inputs/BirthDateInput';
@@ -81,8 +82,14 @@ const schema: YouthSchema<ValidationOption> = {
   },
 };
 
+type Props = {
+  record?: FormValues;
+  save: () => void;
+  saving: boolean;
+};
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-const CreateYouthForm: React.FC = (props: any) => {
+const CreateYouthForm = (props: Props) => {
   const t = useTranslate();
 
   const redirect = (
@@ -93,7 +100,8 @@ const CreateYouthForm: React.FC = (props: any) => {
 
   return (
     <FormWithRedirect
-      {...props}
+      basePath="/youthProfiles"
+      resource="youthProfiles"
       initialValues={{
         firstName: '',
         lastName: '',
@@ -113,6 +121,7 @@ const CreateYouthForm: React.FC = (props: any) => {
         approverEmail: '',
         approverPhone: '',
       }}
+      {...props}
       validate={(values: Values) => youthCreateFormValidator(values, schema)}
       /* eslint-disable  @typescript-eslint/no-explicit-any */
       render={(formProps: any) => (
@@ -202,7 +211,7 @@ const CreateYouthForm: React.FC = (props: any) => {
             </div>
 
             <RadioGroupInput
-              initialValue={Language.FINNISH}
+              initialValue={props?.record?.languageAtHome || Language.FINNISH}
               label={t('youthProfiles.languageAtHome')}
               name="languageAtHome"
               choices={[
@@ -212,7 +221,7 @@ const CreateYouthForm: React.FC = (props: any) => {
               ]}
             />
             <RadioGroupInput
-              initialValue="false"
+              initialValue={props?.record?.photoUsageApproved || 'false'}
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
               choices={[

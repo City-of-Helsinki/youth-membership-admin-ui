@@ -35,3 +35,23 @@ export interface ValidationOption {
 export type YouthSchema<T> = {
   [index: string]: T;
 };
+
+export type FormValues = {
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  schoolName: string;
+  schoolClass: string;
+  languageAtHome: string;
+  profileLanguage: string;
+  photoUsageApproved: string;
+  approverFirstName: string;
+  approverLastName: string;
+  approverEmail: string;
+  approverPhone: string;
+}
