@@ -55,6 +55,9 @@ const dataProvider = {
   renew: async (resource: Resource, params: Params) => {
     const data = await runHandler('RENEW', resource, params);
     return {  data };
+  },
+  update: async (resource: Resource, params: Params) => {
+    console.log("IM UPDATING!", params);
   }
 };
 
