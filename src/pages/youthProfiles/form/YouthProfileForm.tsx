@@ -27,10 +27,12 @@ const schema: YouthSchema<ValidationOption> = {
   firstName: {
     min: 2,
     max: 255,
+    required: true,
   },
   lastName: {
     min: 2,
     max: 255,
+    required: true,
   },
   phone: {
     min: 2,
@@ -44,14 +46,17 @@ const schema: YouthSchema<ValidationOption> = {
   address: {
     min: 2,
     max: 255,
+    required: true,
   },
   city: {
     min: 2,
     max: 255,
+    required: true,
   },
   postalCode: {
     min: 5,
     max: 5,
+    required: true,
   },
   birthDate: {
     birthDate: true,
@@ -103,23 +108,9 @@ const YouthProfileForm = (props: Props) => {
       basePath="/youthProfiles"
       resource="youthProfiles"
       initialValues={{
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        email: '',
-        phone: '',
-        birthDate: '',
-        schoolName: '',
-        schoolClass: '',
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
         photoUsageApproved: 'false',
-        approverFirstName: '',
-        approverLastName: '',
-        approverEmail: '',
-        approverPhone: '',
       }}
       {...props}
       validate={(values: Values) => youthCreateFormValidator(values, schema)}
