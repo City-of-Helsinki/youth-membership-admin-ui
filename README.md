@@ -99,7 +99,7 @@ Run `yarn` to install dependencies, start app with `yarn start`.
 The graphql-backend for development is located at https://profiili-api.test.kuva.hel.ninja/graphql/, it has graphiql installed so you can browse it in your browser!
 
 ## Known issues
-https://github.com/City-of-Helsinki/youth-membership-ui/issues
+https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
 
 ## Plans && Roadmap
 https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/61505646/J+ss+ri
