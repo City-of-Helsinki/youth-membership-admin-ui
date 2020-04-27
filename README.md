@@ -105,7 +105,7 @@ https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
 https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/61505646/J+ss+ri
 
 ## Contact
-Helsinki city Slack channel #omahelsinki
+Helsinki city Slack channel #helsinki-profiili
 
 ## Learn More
 
