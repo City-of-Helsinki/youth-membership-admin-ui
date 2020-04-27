@@ -3,17 +3,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Youth-membership-admin
 Staff interface for Youth membership
 
-### Development with Docker
+## Environments
 
-To start the app in a docker container, run:
+Test: https://jassari-admin.test.kuva.hel.ninja/
 
-### `docker-compose up`
+Production: -
 
-Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+### Issues board
 
-When there are changes that need rebuilding the container, run `docker-compose up --build` instead.
+https://helsinkisolutionoffice.atlassian.net/secure/RapidBoard.jspa?rapidView=23&projectKey=OM&view=planning
 
-### Available Scripts
+## Available Scripts
 
 In the project directory, you can run:
 
@@ -40,15 +40,72 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `yarn codegen`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Generate static types for GraphQL queries by using the schema from the backend server.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Setting up development environment locally with docker
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Set tunnistamo hostname
+Add the following line to your hosts file (`/etc/hosts` on mac and linux):
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    127.0.0.1 tunnistamo-backend
+
+### Create a new OAuth app on GitHub
+Go to https://github.com/settings/developers/ and add a new app with the following settings:
+
+- Application name: can be anything, e.g. local tunnistamo
+- Homepage URL: http://tunnistamo-backend:8000
+- Authorization callback URL: http://tunnistamo-backend:8000/accounts/github/login/callback/
+
+Save. You'll need the created **Client ID** and **Client Secret** for configuring tunnistamo in the next step.
+
+### Install local tunnistamo
+Clone https://github.com/City-of-Helsinki/tunnistamo/. If [this PR](https://github.com/City-of-Helsinki/tunnistamo/pull/94) has not been merged yet, use [this fork](https://github.com/andersinno/tunnistamo/tree/docker-refactor) instead.
+
+Follow the instructions for setting up tunnistamo locally. Before running `docker-compose up` set the following settings in tunnistamo roots `docker-compose.env.yaml`:
+
+- SOCIAL_AUTH_GITHUB_KEY: **Client ID** from the GitHub OAuth app
+- SOCIAL_AUTH_GITHUB_SECRET: **Client Secret** from the GitHub OAuth app
+
+After you've got tunnistamo running locally, make sure the automatically created **Project** OpenID Connect Provider Client has the following settings:
+
+    Response types: `id_token token` must be enabled
+    Redirect URIs: `http://localhost:3000/callback` and `http://localhost:3000/silent_renew` must be in the listed URLs
+
+
+Then make sure the *https://api.hel.fi/auth/helsinkiprofile*-scope can be used by the **Project** application. Go to OIDC_APIS -> API Scopes -> https://api.hel.fi/auth/profiles and make sure **Project** is selected in Allowed applications.
+
+### Install open-city-profile locally
+Clone the repository (https://github.com/City-of-Helsinki/open-city-profile). Follow the instructions for running open-city-profile with docker. Before running `docker-compose up` set the following settings in open-city-profile roots `docker-compose up`:
+
+- OIDC_SECRET: leave empty, it's not needed
+- OIDC_ENDPOINT: http://tunnistamo-backend:8000/openid
+
+Additionally, you need to add admin privileges to your user.
+
+    localhost:8080/admin/users/user
+    groups: youth_membership
+
+### Run youth-membership-ui
+If running on Linux or MacOS, easiest way is to just run the app without docker. Any semi-new version of node should probably work, the docker-image is set to use node 12.
+
+`docker-compose up` starts the container.
+
+OR
+
+Run `yarn` to install dependencies, start app with `yarn start`.
+
+The graphql-backend for development is located at https://profiili-api.test.kuva.hel.ninja/graphql/, it has graphiql installed so you can browse it in your browser!
+
+## Known issues
+https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
+
+## Plans && Roadmap
+https://helsinkisolutionoffice.atlassian.net/wiki/spaces/DD/pages/61505646/J+ss+ri
+
+## Contact
+Helsinki city Slack channel #helsinki-profiili
 
 ## Learn More
 
