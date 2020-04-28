@@ -1,16 +1,24 @@
-import React from 'react';
-import { Loading, Error, useQuery, useEditController } from 'react-admin';
+import React, { useCallback } from 'react';
+import {
+  Loading,
+  Error,
+  useQuery,
+  useEditController,
+  useUpdate,
+} from 'react-admin';
 import { useParams } from 'react-router';
 
 import YouthProfileForm from '../form/YouthProfileForm';
+import { FormValues } from '../types/youthProfileTypes';
 
 type Params = {
   id?: string;
+  method?: string;
 };
 
 const EditYouthProfile: React.FC = () => {
   const params: Params = useParams();
-
+  const [update] = useUpdate('youthProfiles');
   const { data, loading, error } = useQuery({
     type: 'getOne',
     resource: 'youthProfiles',
@@ -29,10 +37,23 @@ const EditYouthProfile: React.FC = () => {
   if (!loading && error) return <Error error={error} />;
   const profile = data?.data?.profile;
 
+  const handleSave = (values: FormValues, redirect: any) => {
+    console.log(redirect);
+    update({
+      payload: {
+        method: params.method,
+        id: params.id,
+        previousData: data,
+        data: { ...values },
+      },
+    });
+  };
+
   return (
     <YouthProfileForm
       save={save}
       saving={saving}
+      method={params.method}
       record={{
         firstName: profile.firstName,
         lastName: profile.lastName,

@@ -58,6 +58,7 @@ const dataProvider = {
     return { data };
   },
   update: async (resource: Resource, params: Params) => {
+    console.log("Params", params);
     return { data: {} };
   },
 };

@@ -89,7 +89,8 @@ const schema: YouthSchema<ValidationOption> = {
 
 type Props = {
   record?: FormValues;
-  save: () => void;
+  method?: string;
+  save: (values: FormValues, redirect: any) => void;
   saving: boolean;
 };
 
