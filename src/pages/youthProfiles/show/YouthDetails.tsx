@@ -69,6 +69,22 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           <ArrowBack className={styles.icon} />
           {t('youthProfiles.back')}
         </button>
+        <div className={styles.editButtons}>
+          <button
+            className={styles.button}
+            onClick={() => history.push(`/youthProfiles/${params.id}/update`)}
+          >
+            Muokkaa
+          </button>
+          {profile?.youthProfile?.renewable && (
+            <button
+              className={styles.button}
+              onClick={() => history.push(`/youthProfiles/${params.id}/renew`)}
+            >
+              Uusi jäsenyys
+            </button>
+          )}
+        </div>
       </div>
       <h3>{t('youthProfiles.basicInfo')}</h3>
       <div className={styles.row}>

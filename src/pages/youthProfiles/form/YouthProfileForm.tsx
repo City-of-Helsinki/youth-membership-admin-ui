@@ -107,7 +107,7 @@ const YouthProfileForm = (props: Props) => {
     }
   };
 
-  // This component is used to access form data so it can be passed too validator
+  // This component is used to access form data so it can be passed to validator
   const CustomButton = () => {
     const form = useFormState();
 
