@@ -49,12 +49,14 @@ const youthCreateFormValidator = (
         const age = differenceInYears(new Date(), new Date(values.birthDate));
         if (
           !isNaN(age) &&
-          age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT
+          age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT &&
+          !values[value]
         ) {
           return (errors[value] = 'validation.required');
         }
-        // This return will prevent unwanted min & max error.
-        return;
+        // This return will prevent unwanted min & max error but
+        // will still validate email field if it exists.
+        if (!values[value]) return;
       }
 
       if (options?.email && !emailRegex.test(values[value]))

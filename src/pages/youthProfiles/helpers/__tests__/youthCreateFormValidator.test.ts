@@ -120,6 +120,7 @@ describe('test if approver fields are required', () => {
 
   test('user is adult', () => {
     values.birthDate = '2000-1-1';
+    values.approverEmail = '';
     const errors: Errors = youthCreateFormValidator(values, schema);
     expect(errors.approverFirstName).toBeFalsy();
     expect(errors.approverLastName).toBeFalsy();
