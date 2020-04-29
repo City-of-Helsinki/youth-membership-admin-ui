@@ -31,14 +31,13 @@ const EditYouthProfile: React.FC = () => {
     id: params.id,
   };
 
-  const { save, saving } = useEditController(fakeProps);
+  const { saving } = useEditController(fakeProps);
 
   if (loading) return <Loading />;
   if (!loading && error) return <Error error={error} />;
   const profile = data?.data?.profile;
 
-  const handleSave = (values: FormValues, redirect: any) => {
-    console.log(redirect);
+  const handleSave = (values: FormValues) => {
     update({
       payload: {
         method: params.method,
@@ -51,7 +50,7 @@ const EditYouthProfile: React.FC = () => {
 
   return (
     <YouthProfileForm
-      save={save}
+      save={handleSave}
       saving={saving}
       method={params.method}
       record={{

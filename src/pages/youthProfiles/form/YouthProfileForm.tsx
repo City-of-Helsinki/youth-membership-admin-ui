@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FormWithRedirect,
   SaveButton,
   Toolbar,
   useTranslate,
 } from 'react-admin';
+import { useFormState } from 'react-final-form';
 
 import styles from './YouthProfileForm.module.css';
-import {
-  CreateProfile_createProfile as CreateProfile,
-  Language,
-} from '../../../graphql/generatedTypes';
+import { Language } from '../../../graphql/generatedTypes';
 import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
@@ -20,6 +18,7 @@ import {
   FormValues,
   Values,
   YouthSchema,
+  Errors,
 } from '../types/youthProfileTypes';
 import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
 
@@ -90,19 +89,34 @@ const schema: YouthSchema<ValidationOption> = {
 type Props = {
   record?: FormValues;
   method?: string;
-  save: (values: FormValues, redirect: any) => void;
+  save: (values: FormValues) => void;
   saving: boolean;
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
+  const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
 
-  const redirect = (
-    basePath: string,
-    id: string,
-    data: { data: { createProfile: CreateProfile } }
-  ) => `/youthProfiles/${data?.data?.createProfile?.profile?.id}/show`;
+  const onSave = (values: FormValues) => {
+    const errors: Errors = youthCreateFormValidator(values, schema);
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      props.save(values);
+    }
+  };
+
+  const CustomButton = () => {
+    const form = useFormState();
+
+    return (
+      <SaveButton
+        handleSubmitWithRedirect={() => onSave(form.values as FormValues)}
+      />
+    );
+  };
 
   return (
     <FormWithRedirect
@@ -113,7 +127,8 @@ const YouthProfileForm = (props: Props) => {
         profileLanguage: 'FINNISH',
         photoUsageApproved: 'false',
       }}
-      {...props}
+      record={props.record}
+      save={props.save}
       validate={(values: Values) => youthCreateFormValidator(values, schema)}
       /* eslint-disable  @typescript-eslint/no-explicit-any */
       render={(formProps: any) => (
@@ -125,25 +140,33 @@ const YouthProfileForm = (props: Props) => {
                 name="firstName"
                 label={t('youthProfiles.firstName')}
                 className={styles.textField}
+                error={errors.firstName}
               />
-              <TextInput label={t('youthProfiles.lastName')} name="lastName" />
+              <TextInput
+                label={t('youthProfiles.lastName')}
+                name="lastName"
+                error={errors.lastName}
+              />
             </div>
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.streetAddress')}
                 name="address"
                 className={styles.textField}
+                error={errors.address}
               />
 
               <TextInput
                 label={t('youthProfiles.city')}
                 name="city"
                 className={styles.textField}
+                error={errors.city}
               />
 
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
+                error={errors.postalCode}
               />
             </div>
 
@@ -152,12 +175,14 @@ const YouthProfileForm = (props: Props) => {
                 label={t('youthProfiles.email')}
                 name="email"
                 className={styles.textField}
+                error={errors.email}
               />
 
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="phone"
                 className={styles.textField}
+                error={errors.phone}
               />
 
               <SelectInput
@@ -194,11 +219,13 @@ const YouthProfileForm = (props: Props) => {
                 label={t('youthProfiles.schoolName')}
                 name="schoolName"
                 className={styles.textField}
+                error={errors.schoolName}
               />
 
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
+                error={errors.schoolClass}
               />
             </div>
 
@@ -230,11 +257,13 @@ const YouthProfileForm = (props: Props) => {
                 label={t('youthProfiles.firstName')}
                 name="approverFirstName"
                 className={styles.textField}
+                error={errors.approverFirstName}
               />
 
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
+                error={errors.approverLastName}
               />
             </div>
             <div className={styles.rowContainer}>
@@ -242,21 +271,19 @@ const YouthProfileForm = (props: Props) => {
                 label={t('youthProfiles.email')}
                 name="approverEmail"
                 className={styles.textField}
+                error={errors.approverEmail}
               />
 
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
+                error={errors.approverPhone}
               />
             </div>
+            <Toolbar>
+              <CustomButton />
+            </Toolbar>
           </div>
-          <Toolbar>
-            <SaveButton
-              saving={formProps.saving}
-              redirect={redirect}
-              handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-            />
-          </Toolbar>
         </form>
       )}
     />
