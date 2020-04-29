@@ -41,14 +41,17 @@ export const profileQuery = gql`
       language
       primaryPhone {
         phone
+        id
       }
       primaryAddress {
         address
         city
         postalCode
+        id
       }
       primaryEmail {
         email
+        id
       }
       youthProfile {
         expiration
@@ -84,6 +87,16 @@ export const renewYouthProfileMutation = gql`
     renewYouthProfile(input: $input) {
       youthProfile {
         expiration
+      }
+    }
+  }
+`;
+
+export const updateProfile = gql`
+  mutation UpdateProfile($input: UpdateProfileMutationInput!) {
+    updateProfile(input: $input) {
+      profile {
+        id
       }
     }
   }

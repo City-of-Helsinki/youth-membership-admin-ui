@@ -1,12 +1,13 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   Loading,
   Error,
   useQuery,
   useEditController,
   useUpdate,
+  useNotify,
 } from 'react-admin';
-import { useParams } from 'react-router';
+import { useParams, useHistory, useLocation } from 'react-router';
 
 import YouthProfileForm from '../form/YouthProfileForm';
 import { FormValues } from '../types/youthProfileTypes';
@@ -18,6 +19,10 @@ type Params = {
 
 const EditYouthProfile: React.FC = () => {
   const params: Params = useParams();
+  const history = useHistory();
+  const location = useLocation();
+  const notify = useNotify();
+
   const [update] = useUpdate('youthProfiles');
   const { data, loading, error } = useQuery({
     type: 'getOne',
@@ -38,14 +43,22 @@ const EditYouthProfile: React.FC = () => {
   const profile = data?.data?.profile;
 
   const handleSave = (values: FormValues) => {
-    update({
-      payload: {
-        method: params.method,
-        id: params.id,
-        previousData: data,
-        data: { ...values },
+    update(
+      {
+        payload: {
+          method: params.method,
+          id: params.id,
+          previousData: data,
+          data: { ...values },
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          notify('ra.notification.updated', 'info');
+          history.push(`/youthProfiles/${params.id}/show/${location.search}`);
+        },
+      }
+    );
   };
 
   return (
@@ -66,7 +79,7 @@ const EditYouthProfile: React.FC = () => {
         schoolClass: profile.youthProfile.schoolClass,
         languageAtHome: profile.youthProfile.languageAtHome,
         profileLanguage: profile.language,
-        photoUsageApproved: profile.youthProfile.photoUsageApproved.toString(),
+        photoUsageApproved: profile?.youthProfile?.photoUsageApproved?.toString(),
         approverFirstName: profile.youthProfile.approverFirstName,
         approverLastName: profile.youthProfile.approverLastName,
         approverEmail: profile.youthProfile.approverEmail,

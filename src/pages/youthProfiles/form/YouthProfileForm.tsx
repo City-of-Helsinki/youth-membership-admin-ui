@@ -16,7 +16,6 @@ import SelectInput from './inputs/SelectInput';
 import {
   ValidationOption,
   FormValues,
-  Values,
   YouthSchema,
   Errors,
 } from '../types/youthProfileTypes';
@@ -108,6 +107,7 @@ const YouthProfileForm = (props: Props) => {
     }
   };
 
+  // This component is used to access form data so it can be passed too validator
   const CustomButton = () => {
     const form = useFormState();
 
@@ -128,10 +128,7 @@ const YouthProfileForm = (props: Props) => {
         photoUsageApproved: 'false',
       }}
       record={props.record}
-      save={props.save}
-      validate={(values: Values) => youthCreateFormValidator(values, schema)}
-      /* eslint-disable  @typescript-eslint/no-explicit-any */
-      render={(formProps: any) => (
+      render={() => (
         <form>
           <div className={styles.wrapper}>
             <p className={styles.title}>{t('youthProfiles.basicInfo')}</p>
@@ -209,6 +206,7 @@ const YouthProfileForm = (props: Props) => {
             <BirthDateInput
               inputName="birthDate"
               label={t('youthProfiles.birthDate')}
+              error={errors.birthDate}
             />
           </div>
 

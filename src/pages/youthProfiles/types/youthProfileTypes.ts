@@ -1,3 +1,5 @@
+import { Language, YouthLanguage } from '../../../graphql/generatedTypes';
+
 type Index =
   | 'firstName'
   | 'lastName'
@@ -47,8 +49,8 @@ export type FormValues = {
   birthDate: string;
   schoolName: string;
   schoolClass: string;
-  languageAtHome: string;
-  profileLanguage: string;
+  languageAtHome: YouthLanguage;
+  profileLanguage: Language;
   photoUsageApproved: string;
   approverFirstName: string;
   approverLastName: string;

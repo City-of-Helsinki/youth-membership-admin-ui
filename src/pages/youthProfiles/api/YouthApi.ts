@@ -7,16 +7,19 @@ import {
   profileQuery,
   profilesQuery,
   renewYouthProfileMutation,
+  updateProfile,
 } from '../query/YouthProfileQueries';
 import {
   AddressType,
   CreateProfileVariables,
   EmailType,
   PhoneType,
+  UpdateProfileVariables,
   Profiles_profiles as YouthProfiles,
   RenewYouthProfileVariables,
   ServiceType,
 } from '../../../graphql/generatedTypes';
+import getMutationVariables from '../helpers/youthProfileMutationVariables';
 
 const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
   return await queryHandler({
@@ -113,9 +116,24 @@ const renewYouthProfile: MethodHandler = async (
   });
 };
 
+const updateYouthProfile: MethodHandler = async (
+  params: MethodHandlerParams
+) => {
+  const variables: UpdateProfileVariables = getMutationVariables(
+    params.data,
+    params.previousData.data.profile
+  );
+
+  return await mutateHandler({
+    mutation: updateProfile,
+    variables,
+  });
+};
+
 export {
   createYouthProfile,
   getYouthProfiles,
   getYouthProfile,
   renewYouthProfile,
+  updateYouthProfile,
 };

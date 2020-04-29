@@ -91,16 +91,28 @@ export interface ProfilesVariables {
 
 export interface Profile_profile_primaryPhone {
   readonly phone: string | null;
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
 }
 
 export interface Profile_profile_primaryAddress {
   readonly address: string;
   readonly city: string;
   readonly postalCode: string;
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
 }
 
 export interface Profile_profile_primaryEmail {
   readonly email: string;
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
 }
 
 export interface Profile_profile_youthProfile {
@@ -246,6 +258,53 @@ export interface RenewYouthProfileVariables {
 // @generated
 // This file was automatically generated and should not be edited.
 
+// ====================================================
+// GraphQL mutation operation: UpdateProfile
+// ====================================================
+
+export interface UpdateProfile_updateProfile_profile {
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
+}
+
+export interface UpdateProfile_updateProfile {
+  readonly profile: UpdateProfile_updateProfile_profile | null;
+}
+
+export interface UpdateProfile {
+  /**
+   * Updates the profile which is linked to the currently authenticated user based on the given data.
+   * 
+   * One or several of the following is possible to add, modify or remove:
+   * 
+   * * Email
+   * * Address
+   * * Phone
+   * 
+   * If youth data is given, a youth profile will also be created and linked to the
+   * profile **or** the existing youth profile will be updated if the profile is
+   * already linked to a youth profile.
+   * 
+   * Requires authentication.
+   * 
+   * Possible error codes:
+   * 
+   * * `TODO`
+   */
+  readonly updateProfile: UpdateProfile_updateProfile | null;
+}
+
+export interface UpdateProfileVariables {
+  readonly input: UpdateProfileMutationInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
@@ -313,34 +372,31 @@ export enum YouthLanguage {
   SWEDISH = "SWEDISH",
 }
 
-export interface AddressInput {
-  readonly id?: string | null;
+export interface CreateAddressInput {
+  readonly countryCode?: string | null;
+  readonly primary?: boolean | null;
   readonly address: string;
   readonly postalCode: string;
   readonly city: string;
-  readonly countryCode?: string | null;
   readonly addressType: AddressType;
+}
+
+export interface CreateEmailInput {
   readonly primary?: boolean | null;
+  readonly email: string;
+  readonly emailType: EmailType;
+}
+
+export interface CreatePhoneInput {
+  readonly primary?: boolean | null;
+  readonly phone: string;
+  readonly phoneType: PhoneType;
 }
 
 export interface CreateProfileMutationInput {
   readonly serviceType: ServiceType;
   readonly profile: ProfileInput;
   readonly clientMutationId?: string | null;
-}
-
-export interface EmailInput {
-  readonly id?: string | null;
-  readonly email?: string | null;
-  readonly emailType: EmailType;
-  readonly primary?: boolean | null;
-}
-
-export interface PhoneInput {
-  readonly id?: string | null;
-  readonly phone: string;
-  readonly phoneType: PhoneType;
-  readonly primary?: boolean | null;
 }
 
 export interface ProfileInput {
@@ -350,14 +406,14 @@ export interface ProfileInput {
   readonly image?: string | null;
   readonly language?: Language | null;
   readonly contactMethod?: ContactMethod | null;
-  readonly addEmails?: ReadonlyArray<(EmailInput | null)> | null;
-  readonly updateEmails?: ReadonlyArray<(EmailInput | null)> | null;
+  readonly addEmails?: ReadonlyArray<(CreateEmailInput | null)> | null;
+  readonly updateEmails?: ReadonlyArray<(UpdateEmailInput | null)> | null;
   readonly removeEmails?: ReadonlyArray<(string | null)> | null;
-  readonly addPhones?: ReadonlyArray<(PhoneInput | null)> | null;
-  readonly updatePhones?: ReadonlyArray<(PhoneInput | null)> | null;
+  readonly addPhones?: ReadonlyArray<(CreatePhoneInput | null)> | null;
+  readonly updatePhones?: ReadonlyArray<(UpdatePhoneInput | null)> | null;
   readonly removePhones?: ReadonlyArray<(string | null)> | null;
-  readonly addAddresses?: ReadonlyArray<(AddressInput | null)> | null;
-  readonly updateAddresses?: ReadonlyArray<(AddressInput | null)> | null;
+  readonly addAddresses?: ReadonlyArray<(CreateAddressInput | null)> | null;
+  readonly updateAddresses?: ReadonlyArray<(UpdateAddressInput | null)> | null;
   readonly removeAddresses?: ReadonlyArray<(string | null)> | null;
   readonly subscriptions?: ReadonlyArray<(SubscriptionInputType | null)> | null;
   readonly youthProfile?: YouthProfileFields | null;
@@ -377,6 +433,58 @@ export interface SensitiveDataFields {
 export interface SubscriptionInputType {
   readonly subscriptionTypeId: string;
   readonly enabled: boolean;
+}
+
+export interface UpdateAddressInput {
+  readonly countryCode?: string | null;
+  readonly primary?: boolean | null;
+  readonly id: string;
+  readonly address?: string | null;
+  readonly postalCode?: string | null;
+  readonly city?: string | null;
+  readonly addressType?: AddressType | null;
+}
+
+export interface UpdateEmailInput {
+  readonly primary?: boolean | null;
+  readonly id: string;
+  readonly email?: string | null;
+  readonly emailType?: EmailType | null;
+}
+
+export interface UpdatePhoneInput {
+  readonly primary?: boolean | null;
+  readonly id: string;
+  readonly phone?: string | null;
+  readonly phoneType?: PhoneType | null;
+}
+
+export interface UpdateProfileInput {
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly nickname?: string | null;
+  readonly image?: string | null;
+  readonly language?: Language | null;
+  readonly contactMethod?: ContactMethod | null;
+  readonly addEmails?: ReadonlyArray<(CreateEmailInput | null)> | null;
+  readonly updateEmails?: ReadonlyArray<(UpdateEmailInput | null)> | null;
+  readonly removeEmails?: ReadonlyArray<(string | null)> | null;
+  readonly addPhones?: ReadonlyArray<(CreatePhoneInput | null)> | null;
+  readonly updatePhones?: ReadonlyArray<(UpdatePhoneInput | null)> | null;
+  readonly removePhones?: ReadonlyArray<(string | null)> | null;
+  readonly addAddresses?: ReadonlyArray<(CreateAddressInput | null)> | null;
+  readonly updateAddresses?: ReadonlyArray<(UpdateAddressInput | null)> | null;
+  readonly removeAddresses?: ReadonlyArray<(string | null)> | null;
+  readonly subscriptions?: ReadonlyArray<(SubscriptionInputType | null)> | null;
+  readonly youthProfile?: YouthProfileFields | null;
+  readonly sensitivedata?: SensitiveDataFields | null;
+  readonly id: string;
+}
+
+export interface UpdateProfileMutationInput {
+  readonly serviceType: ServiceType;
+  readonly profile?: UpdateProfileInput | null;
+  readonly clientMutationId?: string | null;
 }
 
 export interface YouthProfileFields {
