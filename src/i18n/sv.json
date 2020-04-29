@@ -40,6 +40,7 @@
     "photoApprovedTrue": "Ja",
     "photoApprovedFalse": "Nej",
     "back": "Tillbaka till sökresultaten",
+    "save": "Spara",
     "edit": "Redigera",
     "renew": "Förnya medlemskape",
     "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"

@@ -118,6 +118,11 @@ const YouthProfileForm = (props: Props) => {
 
     return (
       <SaveButton
+        label={
+          props.method === 'renew'
+            ? 'youthProfiles.renew'
+            : 'youthProfiles.save'
+        }
         handleSubmitWithRedirect={() => onSave(form.values as FormValues)}
       />
     );
