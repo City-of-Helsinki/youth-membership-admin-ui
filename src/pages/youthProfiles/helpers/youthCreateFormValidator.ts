@@ -54,8 +54,8 @@ const youthCreateFormValidator = (
         ) {
           return (errors[value] = 'validation.required');
         }
-        // This return will prevent unwanted min & max error but
-        // will still validate email field if it exists.
+        // If values exist execute checks below, otherwise return
+        // to prevent unwanted email, min & max errors.
         if (!values[value]) return;
       }
 
