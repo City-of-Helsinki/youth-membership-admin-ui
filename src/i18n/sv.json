@@ -40,6 +40,8 @@
     "photoApprovedTrue": "Ja",
     "photoApprovedFalse": "Nej",
     "back": "Tillbaka till sökresultaten",
+    "edit": "Redigera",
+    "renew": "Förnya medlemskape",
     "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
   },
   "validation": {
@@ -50,6 +52,11 @@
     "email": "Ogiltig e-postadress",
     "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
     "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+  },
+  "notifyMessages": {
+    "created": "Ungdomsprofil skapad!",
+    "updated": "Profil redigerad framgångsrikt!",
+    "renewed": "Medlemskapet förnyades framgångsrikt!"
   },
   "PROFILE_STATUS": {
     "PENDING": "Väntar",

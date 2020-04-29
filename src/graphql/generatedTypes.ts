@@ -9,6 +9,10 @@
 
 export interface Profiles_profiles_edges_node_primaryPhone {
   readonly phone: string | null;
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
 }
 
 export interface Profiles_profiles_edges_node_youthProfile {

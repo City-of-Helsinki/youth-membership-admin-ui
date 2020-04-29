@@ -54,7 +54,11 @@ const EditYouthProfile: React.FC = () => {
       },
       {
         onSuccess: () => {
-          notify('ra.notification.updated', 'info');
+          const message =
+            params.method === 'updated'
+              ? 'notifyMessages.updated'
+              : 'notifyMessages.renewed';
+          notify(message, 'info');
           history.push(`/youthProfiles/${params.id}/show/${location.search}`);
         },
       }

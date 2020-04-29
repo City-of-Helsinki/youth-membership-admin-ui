@@ -18,6 +18,7 @@ export const profilesQuery = gql`
           id
           primaryPhone {
             phone
+            id
           }
           youthProfile {
             membershipStatus

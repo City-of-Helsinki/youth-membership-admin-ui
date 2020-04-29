@@ -4,6 +4,7 @@ import { useHistory, useLocation } from 'react-router';
 
 import YouthProfileForm from '../form/YouthProfileForm';
 import { FormValues } from '../types/youthProfileTypes';
+import { CreateProfile } from '../../../graphql/generatedTypes';
 
 const CreateYouthProfile: React.FC = () => {
   const [create] = useCreate('youthProfiles');
@@ -17,6 +18,12 @@ const CreateYouthProfile: React.FC = () => {
 
   const { saving } = useCreateController(fakeProps);
 
+  type ProfileCreated = {
+    data: {
+      data: CreateProfile;
+    };
+  };
+
   const handleCreate = (values: FormValues) => {
     create(
       {
@@ -25,10 +32,10 @@ const CreateYouthProfile: React.FC = () => {
         },
       },
       {
-        onSuccess: ({ data }: any) => {
-          notify('ra.notification.created', 'info');
+        onSuccess: ({ data: newRecord }: ProfileCreated) => {
+          notify('notifyMessages.created', 'info');
           history.push(
-            `/youthProfiles/${data.newRecord.data.createProfile.profile.id}/show/${location.search}`
+            `/youthProfiles/${newRecord?.data?.createProfile?.profile?.id}/show/${location.search}`
           );
         },
       }

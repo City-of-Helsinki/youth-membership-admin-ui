@@ -74,14 +74,14 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
             className={styles.button}
             onClick={() => history.push(`/youthProfiles/${params.id}/update`)}
           >
-            Muokkaa
+            {t('youthProfiles.edit')}
           </button>
           {profile?.youthProfile?.renewable && (
             <button
               className={styles.button}
               onClick={() => history.push(`/youthProfiles/${params.id}/renew`)}
             >
-              Uusi jäsenyys
+              {t('youthProfiles.renew')}
             </button>
           )}
         </div>
