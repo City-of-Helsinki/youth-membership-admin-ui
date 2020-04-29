@@ -40,6 +40,7 @@ const schema: YouthSchema<ValidationOption> = {
     min: 2,
     max: 255,
     email: true,
+    required: true,
   },
   address: {
     min: 2,
@@ -69,19 +70,23 @@ const schema: YouthSchema<ValidationOption> = {
   approverFirstName: {
     min: 2,
     max: 255,
+    required: true,
   },
   approverLastName: {
     min: 2,
     max: 255,
+    required: true,
   },
   approverEmail: {
     min: 2,
     max: 255,
     email: true,
+    required: true,
   },
   approverPhone: {
     min: 2,
     max: 255,
+    required: true,
   },
 };
 

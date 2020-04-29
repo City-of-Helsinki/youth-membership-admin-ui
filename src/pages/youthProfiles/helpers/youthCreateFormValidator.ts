@@ -11,6 +11,12 @@ import youthProfileConstants from '../constants/youthProfileConstants';
 /* Using a third party validation options (Yup & React Final Form) caused more problems than they solved.
  * This is why I wrote my own. It's a long way from perfect, but it gets the job done, for now at least.
  */
+const APPROVAL_FIELDS = [
+  'approverFirstName',
+  'approverLastName',
+  'approverEmail',
+  'approverPhone',
+];
 
 const youthCreateFormValidator = (
   values: Values,
@@ -23,10 +29,8 @@ const youthCreateFormValidator = (
   (Object.keys(schema) as Array<keyof typeof values>).forEach(value => {
     const options: ValidationOption = schema[value];
     if (options?.required || values[value]) {
-      if (!values[value]) return (errors[value] = 'validation.required');
-
-      if (options?.email && !emailRegex.test(values[value]))
-        return (errors[value] = 'validation.email');
+      if (!values[value] && !APPROVAL_FIELDS.includes(value))
+        return (errors[value] = 'validation.required');
 
       if (options?.birthDate) {
         const age = differenceInYears(new Date(), new Date(values[value]));
@@ -39,6 +43,22 @@ const youthCreateFormValidator = (
         )
           return (errors[value] = 'validation.ageRestriction');
       }
+
+      // Validation for checking if approvalFields are required (based on users age)
+      if (APPROVAL_FIELDS.includes(value) && values.birthDate) {
+        const age = differenceInYears(new Date(), new Date(values.birthDate));
+        if (
+          !isNaN(age) &&
+          age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT
+        ) {
+          return (errors[value] = 'validation.required');
+        }
+        // This return will prevent unwanted min & max error.
+        return;
+      }
+
+      if (options?.email && !emailRegex.test(values[value]))
+        return (errors[value] = 'validation.email');
 
       if (options?.min && values[value]?.length < options?.min)
         return (errors[value] = 'validation.tooShort');

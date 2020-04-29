@@ -1,5 +1,10 @@
 import youthCreateFormValidator from '../youthCreateFormValidator';
-import { Values, Errors, YouthSchema } from '../../types/youthProfileTypes';
+import {
+  Values,
+  Errors,
+  YouthSchema,
+  ValidationOption,
+} from '../../types/youthProfileTypes';
 
 const values: Values = {
   firstName: 'Kalle',
@@ -19,7 +24,7 @@ const values: Values = {
   approverEmail: 'incorrect.email',
   approverPhone: '',
 };
-const schema: YouthSchema = {
+const schema: YouthSchema<ValidationOption> = {
   firstName: {
     min: 2,
     max: 255,
@@ -53,12 +58,25 @@ const schema: YouthSchema = {
   },
   schoolClass: { min: 2, max: 255 },
   schoolName: { min: 2, max: 255 },
-  photoUsageApproved: {},
-  languageAtHome: {},
-  approverFirstName: { min: 2, max: 255 },
-  approverLastName: { min: 2, max: 255 },
-  approverEmail: { email: true },
-  approverPhone: { min: 2, max: 255 },
+  approverFirstName: {
+    min: 2,
+    max: 255,
+    required: true,
+  },
+  approverLastName: {
+    min: 2,
+    max: 255,
+    required: true,
+  },
+  approverEmail: {
+    email: true,
+    required: true,
+  },
+  approverPhone: {
+    min: 2,
+    max: 255,
+    required: true,
+  },
 };
 
 test('test validation functionality', () => {
@@ -86,4 +104,26 @@ test('user is too old', () => {
   values.birthDate = '1900-1-1';
   const errors: Errors = youthCreateFormValidator(values, schema);
   expect(errors.birthDate).toEqual('validation.ageRestriction');
+});
+
+describe('test if approver fields are required', () => {
+  test('user is under 18 years old', () => {
+    values.birthDate = '2004-1-1';
+    values.approverEmail = '';
+    const errors: Errors = youthCreateFormValidator(values, schema);
+
+    expect(errors.approverFirstName).toEqual('validation.required');
+    expect(errors.approverLastName).toEqual('validation.required');
+    expect(errors.approverPhone).toEqual('validation.required');
+    expect(errors.approverEmail).toEqual('validation.required');
+  });
+
+  test('user is adult', () => {
+    values.birthDate = '2000-1-1';
+    const errors: Errors = youthCreateFormValidator(values, schema);
+    expect(errors.approverFirstName).toBeFalsy();
+    expect(errors.approverLastName).toBeFalsy();
+    expect(errors.approverPhone).toBeFalsy();
+    expect(errors.approverEmail).toBeFalsy();
+  });
 });
