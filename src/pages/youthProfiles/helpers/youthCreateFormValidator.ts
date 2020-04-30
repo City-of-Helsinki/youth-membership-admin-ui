@@ -35,7 +35,7 @@ const youthCreateFormValidator = (
       if (options?.birthDate) {
         const age = differenceInYears(new Date(), new Date(values[value]));
 
-        if (isNaN(age)) return (errors[value] = 'validation.birthDate');
+        if (!Number(age)) return (errors[value] = 'validation.birthDate');
 
         if (
           age > youthProfileConstants.PROFILE_CREATION.AGE_MAX ||
@@ -48,7 +48,7 @@ const youthCreateFormValidator = (
       if (APPROVAL_FIELDS.includes(value) && values.birthDate) {
         const age = differenceInYears(new Date(), new Date(values.birthDate));
         if (
-          !isNaN(age) &&
+          Number(age) &&
           age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT &&
           !values[value]
         ) {
