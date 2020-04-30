@@ -1,3 +1,5 @@
+import { Language, YouthLanguage } from '../../../graphql/generatedTypes';
+
 type Index =
   | 'firstName'
   | 'lastName'
@@ -34,4 +36,24 @@ export interface ValidationOption {
 
 export type YouthSchema<T> = {
   [index: string]: T;
+};
+
+export type FormValues = {
+  firstName: string;
+  lastName: string;
+  address: string;
+  city: string;
+  postalCode: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  schoolName: string;
+  schoolClass: string;
+  languageAtHome: YouthLanguage;
+  profileLanguage: Language;
+  photoUsageApproved: string;
+  approverFirstName: string;
+  approverLastName: string;
+  approverEmail: string;
+  approverPhone: string;
 };

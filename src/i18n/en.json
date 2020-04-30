@@ -40,6 +40,9 @@
     "photoApprovedTrue": "Yes",
     "photoApprovedFalse": "No",
     "back": "Back to search results",
+    "save": "Save",
+    "edit": "Edit",
+    "renew": "Renew membership",
     "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"
   },
   "validation": {
@@ -50,6 +53,11 @@
     "email": "Invalid email",
     "birthDate": "The birthday should be dd.mm.yyyy.",
     "ageRestriction": "Only 8-25 years olds can create youth profile."
+  },
+  "notifyMessages": {
+    "created": "Youth profile created!",
+    "updated": "Profile edited successfully!",
+    "renewed": "Membership renewed successfully!"
   },
   "PROFILE_STATUS": {
     "PENDING": "Pending",

@@ -8,6 +8,8 @@ import {
   createYouthProfile,
   getYouthProfiles,
   getYouthProfile,
+  renewYouthProfile,
+  updateYouthProfile,
 } from '../pages/youthProfiles/api/YouthApi';
 
 const METHOD_HANDLERS: MethodHandlers = {
@@ -15,6 +17,8 @@ const METHOD_HANDLERS: MethodHandlers = {
     ONE: getYouthProfile,
     LIST: getYouthProfiles,
     CREATE: createYouthProfile,
+    RENEW: renewYouthProfile,
+    UPDATE: updateYouthProfile,
   },
 };
 
@@ -50,6 +54,18 @@ const dataProvider = {
   create: async (resource: Resource, params: Params) => {
     const data = await runHandler('CREATE', resource, params);
     return { data };
+  },
+  update: async (resource: Resource, params: Params) => {
+    if (params.method === 'renew') {
+      const renew = await runHandler('RENEW', resource, params);
+      if (renew) {
+        const data = await runHandler('UPDATE', resource, params);
+        return { data };
+      }
+    } else {
+      const data = await runHandler('UPDATE', resource, params);
+      return { data };
+    }
   },
 };
 

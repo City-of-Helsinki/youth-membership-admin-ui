@@ -19,14 +19,14 @@ type Props = {
 
 function SelectInput({ name, className, id, labelText, options }: Props) {
   const {
-    input: { onChange },
+    input: { value, onChange },
   } = useField(name);
   return (
     <div className={classNames(styles.select, className)}>
       <label htmlFor={name} className={styles.label}>
         {labelText}
       </label>
-      <select onChange={onChange} id={id} name={name}>
+      <select onChange={onChange} id={id} name={name} value={value}>
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

@@ -40,6 +40,9 @@
     "photoApprovedTrue": "Kyllä",
     "photoApprovedFalse": "Ei",
     "back": "Takaisin hakutulokseen",
+    "save": "Tallenna",
+    "edit": "Muokkaa",
+    "renew": "Uusi jäsenyys",
     "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"
   },
   "validation": {
@@ -50,6 +53,11 @@
     "email": "Virheellinen sähköpostiosoite",
     "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
     "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+  },
+  "notifyMessages": {
+    "created": "Nuorisoprofiili lisätty!",
+    "updated": "Profiilin muokkaus onnistui!",
+    "renewed": "Jäsenyys uusitty onnistuneesti!"
   },
   "PROFILE_STATUS": {
     "PENDING": "Odottaa",

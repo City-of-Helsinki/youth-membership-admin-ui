@@ -7,7 +7,8 @@ import fiDomainMessages from './fi.json';
 import enDomainMessages from './en.json';
 import svDomainMessages from './sv.json';
 
-const allMessages: { [index: string]: object } = {
+/* eslint-disable  @typescript-eslint/no-explicit-any */
+const allMessages: { [index: string]: any } = {
   fi: { ...fiMessages, ...fiDomainMessages },
   en: { ...enMessages, ...enDomainMessages },
   sv: { ...svMessages, ...svDomainMessages },

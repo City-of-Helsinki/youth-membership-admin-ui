@@ -1,35 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FormWithRedirect,
   SaveButton,
   Toolbar,
   useTranslate,
 } from 'react-admin';
+import { useFormState } from 'react-final-form';
 
-import styles from './CreateYouthForm.module.css';
-import {
-  CreateProfile_createProfile as CreateProfile,
-  Language,
-} from '../../../../graphql/generatedTypes';
-import TextInput from '../inputs/TextInput';
-import RadioGroupInput from '../inputs/RadioGroupInput';
-import BirthDateInput from '../inputs/BirthDateInput';
-import SelectInput from '../inputs/SelectInput';
+import styles from './YouthProfileForm.module.css';
+import { Language } from '../../../graphql/generatedTypes';
+import TextInput from './inputs/TextInput';
+import RadioGroupInput from './inputs/RadioGroupInput';
+import BirthDateInput from './inputs/BirthDateInput';
+import SelectInput from './inputs/SelectInput';
 import {
   ValidationOption,
-  Values,
+  FormValues,
   YouthSchema,
-} from '../../types/youthProfileTypes';
-import youthCreateFormValidator from '../../helpers/youthCreateFormValidator';
+  Errors,
+} from '../types/youthProfileTypes';
+import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {
     min: 2,
     max: 255,
+    required: true,
   },
   lastName: {
     min: 2,
     max: 255,
+    required: true,
   },
   phone: {
     min: 2,
@@ -39,18 +40,22 @@ const schema: YouthSchema<ValidationOption> = {
     min: 2,
     max: 255,
     email: true,
+    required: true,
   },
   address: {
     min: 2,
     max: 255,
+    required: true,
   },
   city: {
     min: 2,
     max: 255,
+    required: true,
   },
   postalCode: {
     min: 5,
     max: 5,
+    required: true,
   },
   birthDate: {
     birthDate: true,
@@ -65,57 +70,75 @@ const schema: YouthSchema<ValidationOption> = {
   approverFirstName: {
     min: 2,
     max: 255,
+    required: true,
   },
   approverLastName: {
     min: 2,
     max: 255,
+    required: true,
   },
   approverEmail: {
     min: 2,
     max: 255,
     email: true,
+    required: true,
   },
   approverPhone: {
     min: 2,
     max: 255,
+    required: true,
   },
 };
 
+type Props = {
+  record?: FormValues;
+  method?: string;
+  save: (values: FormValues) => void;
+  saving: boolean;
+};
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-const CreateYouthForm: React.FC = (props: any) => {
+const YouthProfileForm = (props: Props) => {
+  const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
 
-  const redirect = (
-    basePath: string,
-    id: string,
-    data: { data: { createProfile: CreateProfile } }
-  ) => `/youthProfiles/${data?.data?.createProfile?.profile?.id}/show`;
+  const onSave = (values: FormValues) => {
+    const errors: Errors = youthCreateFormValidator(values, schema);
+
+    setErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      props.save(values);
+    }
+  };
+
+  // This component is used to access form data so it can be passed to validator
+  const CustomButton = () => {
+    const form = useFormState();
+
+    return (
+      <SaveButton
+        label={
+          props.method === 'renew'
+            ? 'youthProfiles.renew'
+            : 'youthProfiles.save'
+        }
+        handleSubmitWithRedirect={() => onSave(form.values as FormValues)}
+      />
+    );
+  };
 
   return (
     <FormWithRedirect
-      {...props}
+      basePath="/youthProfiles"
+      resource="youthProfiles"
       initialValues={{
-        firstName: '',
-        lastName: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        email: '',
-        phone: '',
-        birthDate: '',
-        schoolName: '',
-        schoolClass: '',
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
         photoUsageApproved: 'false',
-        approverFirstName: '',
-        approverLastName: '',
-        approverEmail: '',
-        approverPhone: '',
       }}
-      validate={(values: Values) => youthCreateFormValidator(values, schema)}
-      /* eslint-disable  @typescript-eslint/no-explicit-any */
-      render={(formProps: any) => (
+      record={props.record}
+      render={() => (
         <form>
           <div className={styles.wrapper}>
             <p className={styles.title}>{t('youthProfiles.basicInfo')}</p>
@@ -124,25 +147,33 @@ const CreateYouthForm: React.FC = (props: any) => {
                 name="firstName"
                 label={t('youthProfiles.firstName')}
                 className={styles.textField}
+                error={errors.firstName}
               />
-              <TextInput label={t('youthProfiles.lastName')} name="lastName" />
+              <TextInput
+                label={t('youthProfiles.lastName')}
+                name="lastName"
+                error={errors.lastName}
+              />
             </div>
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.streetAddress')}
                 name="address"
                 className={styles.textField}
+                error={errors.address}
               />
 
               <TextInput
                 label={t('youthProfiles.city')}
                 name="city"
                 className={styles.textField}
+                error={errors.city}
               />
 
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
+                error={errors.postalCode}
               />
             </div>
 
@@ -151,12 +182,14 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.email')}
                 name="email"
                 className={styles.textField}
+                error={errors.email}
               />
 
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="phone"
                 className={styles.textField}
+                error={errors.phone}
               />
 
               <SelectInput
@@ -183,6 +216,7 @@ const CreateYouthForm: React.FC = (props: any) => {
             <BirthDateInput
               inputName="birthDate"
               label={t('youthProfiles.birthDate')}
+              error={errors.birthDate}
             />
           </div>
 
@@ -193,16 +227,18 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.schoolName')}
                 name="schoolName"
                 className={styles.textField}
+                error={errors.schoolName}
               />
 
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
+                error={errors.schoolClass}
               />
             </div>
 
             <RadioGroupInput
-              initialValue={Language.FINNISH}
+              initialValue={props?.record?.languageAtHome || Language.FINNISH}
               label={t('youthProfiles.languageAtHome')}
               name="languageAtHome"
               choices={[
@@ -212,7 +248,7 @@ const CreateYouthForm: React.FC = (props: any) => {
               ]}
             />
             <RadioGroupInput
-              initialValue="false"
+              initialValue={props?.record?.photoUsageApproved || 'false'}
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
               choices={[
@@ -229,11 +265,13 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.firstName')}
                 name="approverFirstName"
                 className={styles.textField}
+                error={errors.approverFirstName}
               />
 
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
+                error={errors.approverLastName}
               />
             </div>
             <div className={styles.rowContainer}>
@@ -241,25 +279,23 @@ const CreateYouthForm: React.FC = (props: any) => {
                 label={t('youthProfiles.email')}
                 name="approverEmail"
                 className={styles.textField}
+                error={errors.approverEmail}
               />
 
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
+                error={errors.approverPhone}
               />
             </div>
+            <Toolbar>
+              <CustomButton />
+            </Toolbar>
           </div>
-          <Toolbar>
-            <SaveButton
-              saving={formProps.saving}
-              redirect={redirect}
-              handleSubmitWithRedirect={formProps.handleSubmitWithRedirect}
-            />
-          </Toolbar>
         </form>
       )}
     />
   );
 };
 
-export default CreateYouthForm;
+export default YouthProfileForm;

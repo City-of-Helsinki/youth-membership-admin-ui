@@ -4,17 +4,22 @@ import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
   createProfileMutation,
-  profilesQuery,
   profileQuery,
+  profilesQuery,
+  renewYouthProfileMutation,
+  updateProfile,
 } from '../query/YouthProfileQueries';
 import {
   AddressType,
   CreateProfileVariables,
   EmailType,
   PhoneType,
+  UpdateProfileVariables,
   Profiles_profiles as YouthProfiles,
+  RenewYouthProfileVariables,
   ServiceType,
 } from '../../../graphql/generatedTypes';
+import getMutationVariables from '../helpers/youthProfileMutationVariables';
 
 const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
   return await queryHandler({
@@ -23,6 +28,7 @@ const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
       ID: params.id,
       serviceType: ServiceType.YOUTH_MEMBERSHIP,
     },
+    fetchPolicy: 'network-only',
   });
 };
 
@@ -94,4 +100,40 @@ const createYouthProfile: MethodHandler = async (
   });
 };
 
-export { createYouthProfile, getYouthProfiles, getYouthProfile };
+const renewYouthProfile: MethodHandler = async (
+  params: MethodHandlerParams
+) => {
+  const variables: RenewYouthProfileVariables = {
+    input: {
+      profileId: params.id,
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+    },
+  };
+
+  return await mutateHandler({
+    mutation: renewYouthProfileMutation,
+    variables: variables,
+  });
+};
+
+const updateYouthProfile: MethodHandler = async (
+  params: MethodHandlerParams
+) => {
+  const variables: UpdateProfileVariables = getMutationVariables(
+    params.data,
+    params.previousData.data.profile
+  );
+
+  return await mutateHandler({
+    mutation: updateProfile,
+    variables,
+  });
+};
+
+export {
+  createYouthProfile,
+  getYouthProfiles,
+  getYouthProfile,
+  renewYouthProfile,
+  updateYouthProfile,
+};

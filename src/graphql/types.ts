@@ -1,4 +1,5 @@
 export interface DataProviderParams {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   [index: string]: any;
 }
 
@@ -15,8 +16,10 @@ export type Method =
   | 'UPDATE'
   | 'UPDATE_MANY'
   | 'DELETE'
-  | 'DELETE_MANY';
+  | 'DELETE_MANY'
+  | 'RENEW';
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export type MethodHandlersResponse = any;
 
 export type MethodHandler = (

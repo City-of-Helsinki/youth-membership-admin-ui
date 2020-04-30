@@ -1,24 +1,46 @@
-import React from 'react';
-import { useQueryWithStore, useTranslate, Loading, Error } from 'react-admin';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDataProvider, useTranslate, Loading, Error } from 'react-admin';
 import { ReactAdminComponentPropsWithId } from 'ra-core';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation, useParams } from 'react-router';
 import { format } from 'date-fns';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
 import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
 
+type Params = {
+  id?: string;
+};
+
 const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
-  const { data, loading, error } = useQueryWithStore({
-    type: 'getOne',
-    resource: 'youthProfiles',
-    payload: { id: props.id },
-  });
+  const [profile, setProfile] = useState<Profile>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error>();
 
   const t = useTranslate();
   const history = useHistory();
   const location = useLocation();
+  const params: Params = useParams();
+  const dataProvider = useDataProvider();
+
+  const getProfile = useCallback(() => {
+    dataProvider
+      .getOne('youthProfiles', {
+        id: params.id,
+      })
+      .then((result: { data: { data: { profile: Profile } } }) => {
+        setProfile(result.data.data.profile);
+        setLoading(false);
+      })
+      .catch((error: Error) => {
+        setError(error);
+      });
+  }, [dataProvider, params.id]);
+
+  useEffect(() => {
+    getProfile();
+  }, [getProfile]);
 
   type Label = {
     label: string;
@@ -36,7 +58,7 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
-  const profile: Profile = data?.data?.profile;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
@@ -47,8 +69,23 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           <ArrowBack className={styles.icon} />
           {t('youthProfiles.back')}
         </button>
+        <div className={styles.editButtons}>
+          <button
+            className={styles.button}
+            onClick={() => history.push(`/youthProfiles/${params.id}/update`)}
+          >
+            {t('youthProfiles.edit')}
+          </button>
+          {profile?.youthProfile?.renewable && (
+            <button
+              className={styles.button}
+              onClick={() => history.push(`/youthProfiles/${params.id}/renew`)}
+            >
+              {t('youthProfiles.renew')}
+            </button>
+          )}
+        </div>
       </div>
-
       <h3>{t('youthProfiles.basicInfo')}</h3>
       <div className={styles.row}>
         <Label
@@ -108,10 +145,10 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       <div className={styles.row}>
         <Label
           label={t('youthProfiles.expirationDate')}
-          value={format(
-            new Date(profile?.youthProfile?.expiration),
-            'dd.MM.yyyy'
-          )}
+          value={
+            profile?.youthProfile?.expiration &&
+            format(new Date(profile?.youthProfile?.expiration), 'dd.MM.yyyy')
+          }
         />
       </div>
 

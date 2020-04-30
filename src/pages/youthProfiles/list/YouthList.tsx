@@ -131,7 +131,9 @@ const YouthList = () => {
         </button>
         <button
           className={styles.create}
-          onClick={() => history.push('/youthProfiles/create')}
+          onClick={() =>
+            history.push(`/youthProfiles/create${location.search}`)
+          }
         >
           {t('youthProfiles.create')}
         </button>
