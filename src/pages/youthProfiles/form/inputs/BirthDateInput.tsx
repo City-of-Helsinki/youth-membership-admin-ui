@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextInput } from 'hds-react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
@@ -48,17 +48,20 @@ const BirthDateInput = ({ inputName, label, error }: Props) => {
   } = useField(inputName);
 
   // Set initialValue
-  useEffect(() => {
-    if (value && !birthDate.day && !birthDate.month && !birthDate.year) {
-      const dateValues = value.split('-');
-      setBirthDate({
-        day: dateValues[2],
-        month: dateValues[1],
-        year: dateValues[0],
-      });
-    }
-  }, [value, birthDate.day, birthDate.month, birthDate.year]);
-
+  // If value exist's its minimum length will always be 2
+  if (
+    value?.length > 2 &&
+    !birthDate.day &&
+    !birthDate.month &&
+    !birthDate.year
+  ) {
+    const dateValues = value.split('-');
+    setBirthDate({
+      day: dateValues[2],
+      month: dateValues[1],
+      year: dateValues[0],
+    });
+  }
   // e type is set to any for now. Event type returned from hds
   // is set to ChangeEvent<Element> which doesn't contain
   // target.value
