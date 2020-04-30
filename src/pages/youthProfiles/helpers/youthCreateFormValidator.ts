@@ -18,7 +18,7 @@ const APPROVAL_FIELDS = [
   'approverPhone',
 ];
 
-const checkAge = (dateString: string) => {
+const checkAgeDateString = (dateString: string) => {
   const splitString = dateString.split('-');
   const day = splitString[2];
   const month = splitString[1];
@@ -41,7 +41,7 @@ const youthCreateFormValidator = (
         return (errors[value] = 'validation.required');
 
       if (options?.birthDate) {
-        const isValidAgeString = checkAge(values[value]);
+        const isValidAgeString = checkAgeDateString(values[value]);
         const age = differenceInYears(new Date(), new Date(values[value]));
         if (!isValidAgeString || !Number(age))
           return (errors[value] = 'validation.birthDate');
@@ -54,7 +54,7 @@ const youthCreateFormValidator = (
 
       // Validation for checking if approvalFields are required (based on users age)
       if (APPROVAL_FIELDS.includes(value) && values.birthDate) {
-        const isValidAgeString = checkAge(values.birthDate);
+        const isValidAgeString = checkAgeDateString(values.birthDate);
         const age = differenceInYears(new Date(), new Date(values.birthDate));
         if (
           isValidAgeString &&
