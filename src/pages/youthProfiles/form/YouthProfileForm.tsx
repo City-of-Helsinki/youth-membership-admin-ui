@@ -105,7 +105,6 @@ const YouthProfileForm = (props: Props) => {
   const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
   const history = useHistory();
-  console.log(history);
 
   const onSave = (values: FormValues) => {
     const errors: Errors = youthCreateFormValidator(values, schema);
