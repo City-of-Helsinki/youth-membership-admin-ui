@@ -6,7 +6,7 @@ import {
   useTranslate,
 } from 'react-admin';
 import { useFormState } from 'react-final-form';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -100,11 +100,17 @@ type Props = {
   profileID?: string;
 };
 
+type Params = {
+  id?: string;
+  method?: string;
+};
+
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
   const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
   const history = useHistory();
+  const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
     const errors: Errors = youthCreateFormValidator(values, schema);
@@ -133,14 +139,14 @@ const YouthProfileForm = (props: Props) => {
   };
 
   const CancelButton = () => {
+    const path =
+      params.method === 'update' || params.method === 'renew'
+        ? `/youthProfiles/${props.profileID}/show/${history.location.search}`
+        : `/youthProfiles${history.location.search}`;
     return (
       <button
         className={styles.cancelButton}
-        onClick={() =>
-          history.push(
-            `/youthProfiles/${props.profileID}/show/${history.location.search}`
-          )
-        }
+        onClick={() => history.push(path)}
       >
         {t('youthProfiles.cancel')}
       </button>
