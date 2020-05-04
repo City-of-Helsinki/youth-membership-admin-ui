@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput as TextField } from 'hds-react';
 import { useField } from 'react-final-form';
 import { useTranslate } from 'react-admin';
+import { useParams } from 'react-router';
 
 type Props = {
   name: string;
@@ -10,11 +11,21 @@ type Props = {
   error?: string;
 };
 
+type Params = {
+  id?: string;
+  method?: string;
+};
+
 const TextInput = ({ name, label, className, error }: Props) => {
+  const params: Params = useParams();
   const {
     input: { value, onChange },
   } = useField(name);
   const t = useTranslate();
+
+  const isDisabled =
+    name === 'email' &&
+    (params.method === 'update' || params.method === 'renew');
 
   return (
     <TextField
@@ -25,6 +36,7 @@ const TextInput = ({ name, label, className, error }: Props) => {
       className={className}
       invalid={Boolean(error)}
       invalidText={error && t(error)}
+      readOnly={isDisabled}
     />
   );
 };

@@ -153,6 +153,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="lastName"
+                className={styles.textField}
                 error={errors.lastName}
               />
             </div>
@@ -174,6 +175,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
+                className={styles.textField}
                 error={errors.postalCode}
               />
             </div>
@@ -191,6 +193,14 @@ const YouthProfileForm = (props: Props) => {
                 name="phone"
                 className={styles.textField}
                 error={errors.phone}
+              />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <BirthDateInput
+                inputName="birthDate"
+                label={t('youthProfiles.birthDate')}
+                error={errors.birthDate}
               />
 
               <SelectInput
@@ -213,12 +223,6 @@ const YouthProfileForm = (props: Props) => {
                 className={styles.select}
               />
             </div>
-
-            <BirthDateInput
-              inputName="birthDate"
-              label={t('youthProfiles.birthDate')}
-              error={errors.birthDate}
-            />
           </div>
 
           <div className={styles.infoContainer}>
@@ -234,6 +238,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
+                className={styles.textField}
                 error={errors.schoolClass}
               />
             </div>
@@ -272,6 +277,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
+                className={styles.textField}
                 error={errors.approverLastName}
               />
             </div>
@@ -286,6 +292,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
+                className={styles.textField}
                 error={errors.approverPhone}
               />
             </div>

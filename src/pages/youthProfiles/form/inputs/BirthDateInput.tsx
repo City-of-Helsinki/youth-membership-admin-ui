@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     lineHeight: 'var(--hds-text-sm-line-height)',
     fontFamily: 'var(--hds-theme-primary-font)',
     fontWeight: 'bold',
-    margin: 0,
+    margin: '0 0 2px',
   },
   error: { color: '#c4123e' },
   errorHelper: {
@@ -86,7 +86,7 @@ const BirthDateInput = ({ inputName, label, error }: Props) => {
   const t = useTranslate();
 
   return (
-    <Box className={classes.container} mt="1rem">
+    <Box className={classes.container}>
       <p className={labelClass}>{label}</p>
       <Box display="flex">
         <TextInput

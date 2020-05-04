@@ -23,8 +23,27 @@
 
 .textField {
     margin-right: 1rem;
+    width: 305px;
 }
 
 .select {
     max-width: 305px;
+}
+
+.label {
+    width: 228px;
+    margin-right: 20px;
+}
+
+.labelTitle {
+    font-weight: bold;
+    font-size: 1.05rem;
+    margin-bottom: 0.25rem;
+    font-family: HelsinkiGrotesk, serif;
+}
+
+.labelValue {
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
 }
