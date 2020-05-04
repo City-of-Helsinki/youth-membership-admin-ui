@@ -69,7 +69,7 @@ const youthCreateFormValidator = (
         if (!values[value]) return;
       }
 
-      if (options?.email && !emailRegex.test(values[value]))
+      if (values[value] && options?.email && !emailRegex.test(values[value]))
         return (errors[value] = 'validation.email');
 
       if (options?.min && values[value]?.length < options?.min)

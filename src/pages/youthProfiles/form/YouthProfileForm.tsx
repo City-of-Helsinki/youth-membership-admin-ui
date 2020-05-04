@@ -35,6 +35,7 @@ const schema: YouthSchema<ValidationOption> = {
   phone: {
     min: 2,
     max: 255,
+    required: true,
   },
   email: {
     min: 2,
