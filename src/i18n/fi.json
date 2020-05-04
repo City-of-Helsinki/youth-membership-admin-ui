@@ -41,6 +41,7 @@
     "photoApprovedFalse": "Ei",
     "back": "Takaisin hakutulokseen",
     "save": "Tallenna",
+    "cancel": "Peruuta",
     "edit": "Muokkaa",
     "renew": "Uusi jäsenyys",
     "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"

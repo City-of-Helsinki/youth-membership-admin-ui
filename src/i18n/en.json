@@ -41,6 +41,7 @@
     "photoApprovedFalse": "No",
     "back": "Back to search results",
     "save": "Save",
+    "cancel": "Cancel",
     "edit": "Edit",
     "renew": "Renew membership",
     "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"

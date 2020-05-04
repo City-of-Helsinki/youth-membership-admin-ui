@@ -6,6 +6,7 @@ import {
   useTranslate,
 } from 'react-admin';
 import { useFormState } from 'react-final-form';
+import { useHistory } from 'react-router';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -96,12 +97,15 @@ type Props = {
   method?: string;
   save: (values: FormValues) => void;
   saving: boolean;
+  profileID?: string;
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
   const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
+  const history = useHistory();
+  console.log(history);
 
   const onSave = (values: FormValues) => {
     const errors: Errors = youthCreateFormValidator(values, schema);
@@ -126,6 +130,21 @@ const YouthProfileForm = (props: Props) => {
         }
         handleSubmitWithRedirect={() => onSave(form.values as FormValues)}
       />
+    );
+  };
+
+  const CancelButton = () => {
+    return (
+      <button
+        className={styles.cancelButton}
+        onClick={() =>
+          history.push(
+            `/youthProfiles/${props.profileID}/show/${history.location.search}`
+          )
+        }
+      >
+        {t('youthProfiles.cancel')}
+      </button>
     );
   };
 
@@ -298,6 +317,7 @@ const YouthProfileForm = (props: Props) => {
             </div>
             <Toolbar>
               <CustomButton />
+              <CancelButton />
             </Toolbar>
           </div>
         </form>
