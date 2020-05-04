@@ -18,6 +18,7 @@ const getYouthProfile = (formValues: FormValues) => {
       approverPhone: formValues.approverPhone,
       approverEmail: formValues.approverEmail,
       languageAtHome: formValues.languageAtHome,
+      photoUsageApproved: formValues.photoUsageApproved === 'true',
     },
   };
 };
