@@ -55,7 +55,7 @@ const EditYouthProfile: React.FC = () => {
       {
         onSuccess: () => {
           const message =
-            params.method === 'updated'
+            params.method === 'update'
               ? 'notifyMessages.updated'
               : 'notifyMessages.renewed';
           notify(message, 'info');
@@ -70,6 +70,7 @@ const EditYouthProfile: React.FC = () => {
       save={handleSave}
       saving={saving}
       method={params.method}
+      profileID={profile.id}
       record={{
         firstName: profile.firstName,
         lastName: profile.lastName,
