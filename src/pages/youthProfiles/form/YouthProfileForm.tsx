@@ -6,6 +6,7 @@ import {
   useTranslate,
 } from 'react-admin';
 import { useFormState } from 'react-final-form';
+import { useHistory, useParams } from 'react-router';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -96,12 +97,20 @@ type Props = {
   method?: string;
   save: (values: FormValues) => void;
   saving: boolean;
+  profileID?: string;
+};
+
+type Params = {
+  id?: string;
+  method?: string;
 };
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
   const [errors, setErrors] = useState<Errors>({});
   const t = useTranslate();
+  const history = useHistory();
+  const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
     const errors: Errors = youthCreateFormValidator(values, schema);
@@ -129,6 +138,21 @@ const YouthProfileForm = (props: Props) => {
     );
   };
 
+  const CancelButton = () => {
+    const path =
+      params.method === 'update' || params.method === 'renew'
+        ? `/youthProfiles/${props.profileID}/show/${history.location.search}`
+        : `/youthProfiles${history.location.search}`;
+    return (
+      <button
+        className={styles.cancelButton}
+        onClick={() => history.push(path)}
+      >
+        {t('youthProfiles.cancel')}
+      </button>
+    );
+  };
+
   return (
     <FormWithRedirect
       basePath="/youthProfiles"
@@ -153,6 +177,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="lastName"
+                className={styles.textField}
                 error={errors.lastName}
               />
             </div>
@@ -174,6 +199,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
+                className={styles.textField}
                 error={errors.postalCode}
               />
             </div>
@@ -191,6 +217,14 @@ const YouthProfileForm = (props: Props) => {
                 name="phone"
                 className={styles.textField}
                 error={errors.phone}
+              />
+            </div>
+
+            <div className={styles.rowContainer}>
+              <BirthDateInput
+                inputName="birthDate"
+                label={t('youthProfiles.birthDate')}
+                error={errors.birthDate}
               />
 
               <SelectInput
@@ -213,12 +247,6 @@ const YouthProfileForm = (props: Props) => {
                 className={styles.select}
               />
             </div>
-
-            <BirthDateInput
-              inputName="birthDate"
-              label={t('youthProfiles.birthDate')}
-              error={errors.birthDate}
-            />
           </div>
 
           <div className={styles.infoContainer}>
@@ -234,6 +262,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.schoolClass')}
                 name="schoolClass"
+                className={styles.textField}
                 error={errors.schoolClass}
               />
             </div>
@@ -272,6 +301,7 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.lastName')}
                 name="approverLastName"
+                className={styles.textField}
                 error={errors.approverLastName}
               />
             </div>
@@ -286,11 +316,13 @@ const YouthProfileForm = (props: Props) => {
               <TextInput
                 label={t('youthProfiles.phone')}
                 name="approverPhone"
+                className={styles.textField}
                 error={errors.approverPhone}
               />
             </div>
             <Toolbar>
               <CustomButton />
+              <CancelButton />
             </Toolbar>
           </div>
         </form>

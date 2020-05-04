@@ -23,8 +23,17 @@
 
 .textField {
     margin-right: 1rem;
+    width: 305px;
 }
 
 .select {
     max-width: 305px;
+}
+
+.cancelButton {
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    color: #000000;
+    padding: 8px 20px;
+    margin-left: 20px;
 }
