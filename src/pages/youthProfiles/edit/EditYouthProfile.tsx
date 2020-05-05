@@ -61,6 +61,9 @@ const EditYouthProfile: React.FC = () => {
           notify(message, 'info');
           history.push(`/youthProfiles/${params.id}/show/${location.search}`);
         },
+        onFailure: () => {
+          notify('ra.message.error', 'warning');
+        },
       }
     );
   };
