@@ -38,6 +38,9 @@ const CreateYouthProfile: React.FC = () => {
             `/youthProfiles/${newRecord?.data?.createProfile?.profile?.id}/show/${location.search}`
           );
         },
+        onFailure: () => {
+          notify('ra.message.error', 'warning');
+        },
       }
     );
   };
