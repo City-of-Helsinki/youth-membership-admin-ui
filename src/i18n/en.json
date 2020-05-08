@@ -30,6 +30,7 @@
     "streetAddress": "Street address",
     "city": "City",
     "postalCode": "Postal code",
+    "country": "Country",
     "email": "Email",
     "school": "School and class",
     "schoolName": "School",

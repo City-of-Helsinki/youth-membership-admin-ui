@@ -80,6 +80,7 @@ const EditYouthProfile: React.FC = () => {
         address: profile.primaryAddress.address,
         city: profile.primaryAddress.city,
         postalCode: profile.primaryAddress.postalCode,
+        countryCode: profile.primaryAddress.countryCode,
         email: profile.primaryEmail.email,
         phone: profile.primaryPhone.phone,
         birthDate: profile.youthProfile.birthDate,

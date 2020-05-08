@@ -15,9 +15,10 @@ const getAddress = (profile: Profile | undefined) => {
   const address = profile?.primaryAddress?.address;
   const postalCode = profile?.primaryAddress?.postalCode;
   const city = profile?.primaryAddress?.city;
+  const countryCode = profile?.primaryAddress?.countryCode;
   return `${address || ''}${
     address && (postalCode || city) ? ', ' : ''
-  }${postalCode || ''} ${city || ''}`;
+  }${postalCode || ''} ${city || ''} \n ${countryCode || ''}`;
 };
 
 const getSchool = (profile: Profile | undefined) => {

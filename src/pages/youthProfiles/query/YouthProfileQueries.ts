@@ -48,6 +48,7 @@ export const profileQuery = gql`
         address
         city
         postalCode
+        countryCode
         id
       }
       primaryEmail {

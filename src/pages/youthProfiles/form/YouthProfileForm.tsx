@@ -160,6 +160,7 @@ const YouthProfileForm = (props: Props) => {
       initialValues={{
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
+        countryCode: 'FI',
         photoUsageApproved: 'false',
       }}
       record={props.record}
@@ -195,12 +196,29 @@ const YouthProfileForm = (props: Props) => {
                 className={styles.textField}
                 error={errors.city}
               />
-
+            </div>
+            <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
                 className={styles.textField}
                 error={errors.postalCode}
+              />
+
+              <SelectInput
+                name="countryCode"
+                labelText={t('youthProfiles.country')}
+                options={[
+                  {
+                    value: 'FI',
+                    label: t('LANGUAGE_OPTIONS.FINNISH'),
+                  },
+                  {
+                    value: 'SV',
+                    label: t('LANGUAGE_OPTIONS.SWEDISH'),
+                  },
+                ]}
+                className={styles.select}
               />
             </div>
 
