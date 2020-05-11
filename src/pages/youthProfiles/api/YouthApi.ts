@@ -63,6 +63,7 @@ const createYouthProfile: MethodHandler = async (
             city: params.data.city,
             primary: true,
             addressType: AddressType.OTHER,
+            countryCode: params.data.countryCode,
           },
         ],
         addEmails: [

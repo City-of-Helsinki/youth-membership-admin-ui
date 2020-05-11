@@ -7,6 +7,8 @@ import {
 } from 'react-admin';
 import { useFormState } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
+import countries from 'i18n-iso-countries';
+import fi from 'i18n-iso-countries/langs/fi.json';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -21,6 +23,8 @@ import {
   Errors,
 } from '../types/youthProfileTypes';
 import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
+
+countries.registerLocale(fi);
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {
@@ -153,6 +157,16 @@ const YouthProfileForm = (props: Props) => {
     );
   };
 
+  // TODO if possible change getNames list based on current language
+  // TODO at the moment language will always default to finnish & there isn't option to change it manually
+  const countryList = countries.getNames('fi');
+  const countryOptions = Object.keys(countryList).map(key => {
+    return {
+      value: key,
+      label: countryList[key],
+    };
+  });
+
   return (
     <FormWithRedirect
       basePath="/youthProfiles"
@@ -208,16 +222,7 @@ const YouthProfileForm = (props: Props) => {
               <SelectInput
                 name="countryCode"
                 labelText={t('youthProfiles.country')}
-                options={[
-                  {
-                    value: 'FI',
-                    label: t('LANGUAGE_OPTIONS.FINNISH'),
-                  },
-                  {
-                    value: 'SV',
-                    label: t('LANGUAGE_OPTIONS.SWEDISH'),
-                  },
-                ]}
+                options={countryOptions}
                 className={styles.select}
               />
             </div>

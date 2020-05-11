@@ -1,4 +1,9 @@
+import countries from 'i18n-iso-countries';
+import fi from 'i18n-iso-countries/langs/fi.json';
+
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
+
+countries.registerLocale(fi);
 
 const getName = (data: Profile | undefined, field: string) => {
   const firstName =
@@ -15,7 +20,10 @@ const getAddress = (profile: Profile | undefined) => {
   const address = profile?.primaryAddress?.address;
   const postalCode = profile?.primaryAddress?.postalCode;
   const city = profile?.primaryAddress?.city;
-  const countryCode = profile?.primaryAddress?.countryCode;
+  const countryCode = countries.getName(
+    profile?.primaryAddress?.countryCode || 'fi',
+    'fi'
+  );
   return `${address || ''}${
     address && (postalCode || city) ? ', ' : ''
   }${postalCode || ''} ${city || ''} \n ${countryCode || ''}`;
