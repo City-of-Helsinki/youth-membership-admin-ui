@@ -63,6 +63,7 @@
   },
   "PROFILE_STATUS": {
     "PENDING": "Pending",
+    "RENEWING": "Renewing",
     "ACTIVE": "Active",
     "EXPIRED": "Expired"
   },

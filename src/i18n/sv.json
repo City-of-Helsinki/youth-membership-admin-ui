@@ -63,6 +63,7 @@
   },
   "PROFILE_STATUS": {
     "PENDING": "Väntar",
+    "RENEWING": "Förnya",
     "ACTIVE": "Aktiva",
     "EXPIRED": "Utgånget"
   },
