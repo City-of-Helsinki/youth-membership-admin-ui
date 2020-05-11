@@ -8,7 +8,6 @@ import {
 import { useFormState } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
-import fi from 'i18n-iso-countries/langs/fi.json';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -23,8 +22,6 @@ import {
   Errors,
 } from '../types/youthProfileTypes';
 import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
-
-countries.registerLocale(fi);
 
 const schema: YouthSchema<ValidationOption> = {
   firstName: {

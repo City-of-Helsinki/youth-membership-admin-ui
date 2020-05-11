@@ -1,6 +1,8 @@
 import React from 'react';
 import { Admin, Resource, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
+import countries from 'i18n-iso-countries';
+import fi from 'i18n-iso-countries/langs/fi.json';
 
 import i18nProvider from './i18n/i18nProvider';
 import Login from './auth/components/login/Login';
@@ -11,6 +13,8 @@ import theme from './common/materialUI/themeConfig';
 import dataProvider from './graphql/dataProvider';
 import YouthList from './pages/youthProfiles/list/YouthList';
 import YouthDetails from './pages/youthProfiles/show/YouthDetails';
+
+countries.registerLocale(fi);
 
 const history = createHistory();
 

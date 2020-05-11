@@ -1,9 +1,6 @@
 import countries from 'i18n-iso-countries';
-import fi from 'i18n-iso-countries/langs/fi.json';
 
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
-
-countries.registerLocale(fi);
 
 const getName = (data: Profile | undefined, field: string) => {
   const firstName =
