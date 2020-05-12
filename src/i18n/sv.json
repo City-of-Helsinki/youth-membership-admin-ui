@@ -30,6 +30,7 @@
     "streetAddress": "Gatuadress",
     "city": "Stad",
     "postalCode": "Postnummer",
+    "country": "Land",
     "email": "E-post",
     "school": "Skola och klass",
     "schoolName": "Skola",
@@ -62,6 +63,7 @@
   },
   "PROFILE_STATUS": {
     "PENDING": "Väntar",
+    "RENEWING": "Förnya",
     "ACTIVE": "Aktiva",
     "EXPIRED": "Utgånget"
   },

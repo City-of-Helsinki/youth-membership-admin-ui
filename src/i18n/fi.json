@@ -30,6 +30,7 @@
     "streetAddress": "Katuosoite",
     "city": "Kaupunki",
     "postalCode": "Postinumero",
+    "country": "Maa",
     "email": "Sähköposti",
     "school": "Koulu ja luokka",
     "schoolName": "Koulu",
@@ -62,6 +63,7 @@
   },
   "PROFILE_STATUS": {
     "PENDING": "Odottaa",
+    "RENEWING": "Uusiminen",
     "ACTIVE": "Aktiivinen",
     "EXPIRED": "Vanhentunut"
   },

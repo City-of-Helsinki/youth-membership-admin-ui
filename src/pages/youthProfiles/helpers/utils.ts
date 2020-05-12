@@ -1,3 +1,5 @@
+import countries from 'i18n-iso-countries';
+
 import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
 
 const getName = (data: Profile | undefined, field: string) => {
@@ -15,9 +17,13 @@ const getAddress = (profile: Profile | undefined) => {
   const address = profile?.primaryAddress?.address;
   const postalCode = profile?.primaryAddress?.postalCode;
   const city = profile?.primaryAddress?.city;
+  const countryCode = countries.getName(
+    profile?.primaryAddress?.countryCode || 'fi',
+    'fi'
+  );
   return `${address || ''}${
     address && (postalCode || city) ? ', ' : ''
-  }${postalCode || ''} ${city || ''}`;
+  }${postalCode || ''} ${city || ''} \n ${countryCode || ''}`;
 };
 
 const getSchool = (profile: Profile | undefined) => {

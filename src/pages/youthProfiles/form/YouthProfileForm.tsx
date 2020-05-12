@@ -7,6 +7,7 @@ import {
 } from 'react-admin';
 import { useFormState } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
+import countries from 'i18n-iso-countries';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -153,6 +154,16 @@ const YouthProfileForm = (props: Props) => {
     );
   };
 
+  // TODO if possible change getNames list based on current language
+  // TODO at the moment language will always default to finnish & there isn't option to change it manually
+  const countryList = countries.getNames('fi');
+  const countryOptions = Object.keys(countryList).map(key => {
+    return {
+      value: key,
+      label: countryList[key],
+    };
+  });
+
   return (
     <FormWithRedirect
       basePath="/youthProfiles"
@@ -160,6 +171,7 @@ const YouthProfileForm = (props: Props) => {
       initialValues={{
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
+        countryCode: 'FI',
         photoUsageApproved: 'false',
       }}
       record={props.record}
@@ -195,12 +207,20 @@ const YouthProfileForm = (props: Props) => {
                 className={styles.textField}
                 error={errors.city}
               />
-
+            </div>
+            <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.postalCode')}
                 name="postalCode"
                 className={styles.textField}
                 error={errors.postalCode}
+              />
+
+              <SelectInput
+                name="countryCode"
+                labelText={t('youthProfiles.country')}
+                options={countryOptions}
+                className={styles.select}
               />
             </div>
 

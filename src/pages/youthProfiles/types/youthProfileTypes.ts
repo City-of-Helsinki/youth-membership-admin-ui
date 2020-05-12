@@ -44,6 +44,7 @@ export type FormValues = {
   address: string;
   city: string;
   postalCode: string;
+  countryCode: string;
   email: string;
   phone: string;
   birthDate: string;

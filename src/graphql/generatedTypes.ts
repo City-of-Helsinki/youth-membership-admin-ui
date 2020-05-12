@@ -105,6 +105,7 @@ export interface Profile_profile_primaryAddress {
   readonly address: string;
   readonly city: string;
   readonly postalCode: string;
+  readonly countryCode: string;
   /**
    * The ID of the object.
    */
@@ -279,7 +280,7 @@ export interface UpdateProfile_updateProfile {
 
 export interface UpdateProfile {
   /**
-   * Updates the profile which is linked to the currently authenticated user based on the given data.
+   * Updates the profile with id given as an argument based on the given data.
    * 
    * One or several of the following is possible to add, modify or remove:
    * 
@@ -287,11 +288,11 @@ export interface UpdateProfile {
    * * Address
    * * Phone
    * 
-   * If youth data is given, a youth profile will also be created and linked to the
-   * profile **or** the existing youth profile will be updated if the profile is
-   * already linked to a youth profile.
+   * If youth data or sensitive data is given, associated data will also be created
+   * and linked to the profile **or** the existing data set will be updated if the
+   * profile is already linked to it.
    * 
-   * Requires authentication.
+   * Requires elevated privileges.
    * 
    * Possible error codes:
    * 
@@ -487,7 +488,7 @@ export interface UpdateProfileInput {
 
 export interface UpdateProfileMutationInput {
   readonly serviceType: ServiceType;
-  readonly profile?: UpdateProfileInput | null;
+  readonly profile: UpdateProfileInput;
   readonly clientMutationId?: string | null;
 }
 
