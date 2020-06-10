@@ -1,0 +1,79 @@
+{
+  "oidc": {
+    "authenticating": "Autentiserar..."
+  },
+  "dashboard": {
+    "title": "Jässäri admin"
+  },
+  "youthProfiles": {
+    "title": "Ungdomsprofiler",
+    "search": "Sök",
+    "create": "Skapa",
+    "basicInfo": "Grundläggande",
+    "extraInfo": "Ytterligare info",
+    "approverInfo": "Förälderinformation",
+    "name": "Namn",
+    "firstName": "Förnamn",
+    "lastName": "Efternamn",
+    "birthDate": "Födelsedatum (dd.mm.yyyy)",
+    "birthDateWithoutHelp": "Födelsedatum",
+    "membershipNumber": "Medlemsnummer",
+    "membershipStatus": "Status",
+    "phone": "Telefonnummer",
+    "photoUsage": "Fotoanvändning",
+    "photoUsageApproved": "Ja",
+    "photoUsageDenied": "Nej",
+    "photoUsageHelpText": "Bilder av mitt barn kan tas och användas för intern och extern kommunikation i Helsingfors stad.",
+    "language": "Språk",
+    "profileLanguage": "Profilspråk",
+    "address": "adress",
+    "streetAddress": "Gatuadress",
+    "city": "Stad",
+    "postalCode": "Postnummer",
+    "country": "Land",
+    "email": "E-post",
+    "school": "Skola och klass",
+    "schoolName": "Skola",
+    "schoolClass": "Klass",
+    "membershipInformation": "Information om medlemskap",
+    "expirationDate": "Gäller tills",
+    "languageAtHome": "Språk hemma",
+    "photoApprovedTrue": "Ja",
+    "photoApprovedFalse": "Nej",
+    "back": "Tillbaka till sökresultaten",
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "edit": "Redigera",
+    "renew": "Förnya medlemskape",
+    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
+  },
+  "validation": {
+    "tooLong": "För lång",
+    "tooShort": "För kort",
+    "required": "Nödvändig",
+    "phoneMin": "Minst sex tecken",
+    "email": "Ogiltig e-postadress",
+    "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
+    "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+  },
+  "notifyMessages": {
+    "created": "Ungdomsprofil skapad!",
+    "updated": "Profil redigerad framgångsrikt!",
+    "renewed": "Medlemskapet förnyades framgångsrikt!"
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Väntar",
+    "RENEWING": "Förnya",
+    "ACTIVE": "Aktiva",
+    "EXPIRED": "Utgånget"
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "Engelska",
+    "FINNISH": "Finska",
+    "SWEDISH": "Svenska",
+    "ARABIC": "Arabiska",
+    "ESTONIAN": "Estniska",
+    "RUSSIAN": "Ryska",
+    "SOMALI": "Somaliska"
+  }
+}

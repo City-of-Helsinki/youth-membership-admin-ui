@@ -1,0 +1,79 @@
+{
+  "oidc": {
+    "authenticating": "Tunnistaudutaan..."
+  },
+  "dashboard": {
+    "title": "Jässäri ylläpito"
+  },
+  "youthProfiles": {
+    "title": "Nuorisoprofiilit",
+    "search": "Etsi",
+    "create": "Lisää",
+    "basicInfo": "Perustiedot",
+    "extraInfo": "Lisätiedot",
+    "approverInfo": "Huoltajan tiedot",
+    "name": "Nimi",
+    "firstName": "Etunimi",
+    "lastName": "Sukunimi",
+    "birthDate": "Syntymäpäivä (pp.kk.vvvv)",
+    "birthDateWithoutHelp": "Syntymäpäivä",
+    "membershipNumber": "Jäsennumero",
+    "membershipStatus": "Tila",
+    "phone": "Puhelinnumero",
+    "photoUsage": "Kuvauslupa",
+    "photoUsageApproved": "Kyllä",
+    "photoUsageDenied": "Ei",
+    "photoUsageHelpText": "Lapsestani saa ottaa kuvia ja niitä saa käyttää Helsingin kaupungin sisäisessä ja ulkoisessa viestinnässä.",
+    "language": "Kieli",
+    "profileLanguage": "Profiilin kieli",
+    "address": "Osoite",
+    "streetAddress": "Katuosoite",
+    "city": "Kaupunki",
+    "postalCode": "Postinumero",
+    "country": "Maa",
+    "email": "Sähköposti",
+    "school": "Koulu ja luokka",
+    "schoolName": "Koulu",
+    "schoolClass": "Luokka",
+    "membershipInformation": "Jäsenyyden tiedot",
+    "expirationDate": "Voimassa",
+    "languageAtHome": "Kotona puhuttu kieli",
+    "photoApprovedTrue": "Kyllä",
+    "photoApprovedFalse": "Ei",
+    "back": "Takaisin hakutulokseen",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "edit": "Muokkaa",
+    "renew": "Uusi jäsenyys",
+    "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"
+  },
+  "validation": {
+    "tooLong": "Liian pitkä",
+    "tooShort": "Liian lyhyt",
+    "required": "Vaadittu",
+    "phoneMin": "Vähimmäispituus kuusi merkkiä",
+    "email": "Virheellinen sähköpostiosoite",
+    "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
+    "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+  },
+  "notifyMessages": {
+    "created": "Nuorisoprofiili lisätty!",
+    "updated": "Profiilin muokkaus onnistui!",
+    "renewed": "Jäsenyys uusitty onnistuneesti!"
+  },
+  "PROFILE_STATUS": {
+    "PENDING": "Odottaa",
+    "RENEWING": "Uusiminen",
+    "ACTIVE": "Aktiivinen",
+    "EXPIRED": "Vanhentunut"
+  },
+  "LANGUAGE_OPTIONS": {
+    "ENGLISH": "Englanti",
+    "FINNISH": "Suomi",
+    "SWEDISH": "Ruotsi",
+    "ARABIC": "Arabia",
+    "ESTONIAN": "Eesti",
+    "RUSSIAN": "Venäjä",
+    "SOMALI": "Somali"
+  }
+}

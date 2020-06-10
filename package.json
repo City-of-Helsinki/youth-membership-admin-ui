@@ -1,0 +1,68 @@
+{
+  "name": "youth-membership-admin-ui",
+  "version": "1.0.0-rc.1",
+  "private": true,
+  "dependencies": {
+    "@sentry/browser": "^5.14.2",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/classnames": "^2.2.10",
+    "@types/history": "^4.7.5",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router": "^5.1.4",
+    "@types/react-router-dom": "^5.1.3",
+    "apollo-boost": "^0.4.7",
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "date-fns": "^2.10.0",
+    "graphql": "^14.6.0",
+    "hds-react": "^0.5.5",
+    "history": "^4.10.1",
+    "i18n-iso-countries": "^5.3.0",
+    "oidc-client": "^1.10.1",
+    "prop-types": "^15.7.2",
+    "ra-language-english": "^3.2.0",
+    "ra-language-finnish": "^3.2.0",
+    "ra-language-swedish": "^1.0.0",
+    "react": "^16.12.0",
+    "react-admin": "^3.4.3",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.3.1",
+    "redux-oidc": "^4.0.0-beta1",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext js,ts,tsx src",
+    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://profiili-api.test.kuva.hel.ninja/graphql/"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "apollo": "^2.24.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
