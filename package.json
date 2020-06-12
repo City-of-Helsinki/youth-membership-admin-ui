@@ -1,6 +1,6 @@
 {
   "name": "youth-membership-admin-ui",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.3",
   "private": true,
   "dependencies": {
     "@sentry/browser": "^5.14.2",
