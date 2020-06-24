@@ -160,7 +160,7 @@ const YouthProfileForm = (props: Props) => {
   const countryOptions = Object.keys(countryList).map((key) => {
     return {
       value: key,
-      label: countryList[key],
+      label: countryList[key] as string,
     };
   });
 
