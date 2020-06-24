@@ -54,7 +54,7 @@ const YouthList = () => {
       })
       .then((result: { data: Profile[]; total: number }) => {
         setProfiles(result.data);
-        setQueryCount(prevState => prevState + 1);
+        setQueryCount((prevState) => prevState + 1);
         setLoading(false);
       })
       .catch((error: Error) => {
@@ -101,7 +101,7 @@ const YouthList = () => {
           id="firstName"
           className={styles.textFieldFirstName}
           value={firstName}
-          onChange={e => {
+          onChange={(e) => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
             onChange(value, 'firstName');
@@ -113,7 +113,7 @@ const YouthList = () => {
           id="lastName"
           className={styles.textFieldLastName}
           value={lastName}
-          onChange={e => {
+          onChange={(e) => {
             const value = (e as React.ChangeEvent<HTMLInputElement>).target
               .value;
             onChange(value, 'lastName');

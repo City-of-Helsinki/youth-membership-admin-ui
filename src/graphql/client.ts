@@ -1,7 +1,7 @@
 import ApolloClient from 'apollo-boost';
 
 export default new ApolloClient({
-  request: async operation => {
+  request: async (operation) => {
     const token = localStorage.getItem('apiToken');
     if (token) {
       operation.setContext({

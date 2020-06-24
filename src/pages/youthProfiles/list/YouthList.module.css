@@ -1,78 +1,77 @@
 .actionRow {
-    display: flex;
-    margin-top: 15px;
-    margin-bottom: 50px;
-    flex-direction: column;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 50px;
+  flex-direction: column;
 }
 
 .textFieldFirstName,
 .textFieldLastName {
-    margin-left: 20px;
-    margin-right: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .textFieldFirstName {
-    order: 2;
+  order: 2;
 }
 
 .textFieldLastName {
-    order: 3;
+  order: 3;
 }
 
 .create,
 .search {
-    background: #000000;
-    color: #FFFFFF;
-    height: 56px;
-    margin-top: 29px;
-    min-width: 100px;
-    margin-right: 20px;
+  background: #000000;
+  color: #ffffff;
+  height: 56px;
+  margin-top: 29px;
+  min-width: 100px;
+  margin-right: 20px;
 }
 
 .search {
-    margin-left: 20px;
-    order: 3;
+  margin-left: 20px;
+  order: 3;
 }
 
 .create {
-    margin-left: auto;
-    order: 1;
+  margin-left: auto;
+  order: 1;
 }
 
 .searchResultText {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .dataGrid {
-    padding: 0 20px;
+  padding: 0 20px;
 }
 
 @media only screen and (min-width: 775px) {
-    .actionRow {
-        flex-direction: row;
-    }
+  .actionRow {
+    flex-direction: row;
+  }
 
-    .textFieldFirstName {
-        margin-left: 0;
-        order: 1;
-    }
+  .textFieldFirstName {
+    margin-left: 0;
+    order: 1;
+  }
 
-    .textFieldLastName {
-         margin-left: 0;
-        order: 2;
-    }
+  .textFieldLastName {
+    margin-left: 0;
+    order: 2;
+  }
 
-    .search {
-        margin-left: 0;
-        order: 3;
-    }
+  .search {
+    margin-left: 0;
+    order: 3;
+  }
 
-    .create {
-        order: 4;
-    }
+  .create {
+    order: 4;
+  }
 
-    .dataGrid {
-        padding: 0;
-    }
+  .dataGrid {
+    padding: 0;
+  }
 }
-

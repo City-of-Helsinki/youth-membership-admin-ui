@@ -157,10 +157,10 @@ const YouthProfileForm = (props: Props) => {
   // TODO if possible change getNames list based on current language
   // TODO at the moment language will always default to finnish & there isn't option to change it manually
   const countryList = countries.getNames('fi');
-  const countryOptions = Object.keys(countryList).map(key => {
+  const countryOptions = Object.keys(countryList).map((key) => {
     return {
       value: key,
-      label: countryList[key],
+      label: countryList[key] as string,
     };
   });
 
