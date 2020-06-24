@@ -14,7 +14,20 @@ export const queryHandler = async (
   try {
     return await client.query(queryOptions);
   } catch (error) {
-    Sentry.captureException(error);
+    if (
+      error.message ===
+      'GraphQL error: Invalid Authorization header. JWT has expired.'
+    ) {
+      // JWT has expired. Probably because user has been offline. Remove old apiToken to trigger logout
+      localStorage.removeItem('apiToken');
+    } else if (
+      error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR'
+    ) {
+      console.error('Permission denied');
+    } else {
+      console.error(error);
+      Sentry.captureException(error);
+    }
     throw new HttpError(error.message);
   }
 };
