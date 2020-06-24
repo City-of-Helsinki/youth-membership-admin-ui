@@ -41,7 +41,7 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
     },
     fetchPolicy: 'network-only',
   });
-  return (response.data.profiles as YouthProfiles).edges.map(edge => {
+  return (response.data.profiles as YouthProfiles).edges.map((edge) => {
     return edge?.node;
   });
 };

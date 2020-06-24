@@ -21,18 +21,18 @@ const getAddress = (profile: Profile | undefined) => {
     profile?.primaryAddress?.countryCode || 'fi',
     'fi'
   );
-  return `${address || ''}${
-    address && (postalCode || city) ? ', ' : ''
-  }${postalCode || ''} ${city || ''} \n ${countryCode || ''}`;
+  return `${address || ''}${address && (postalCode || city) ? ', ' : ''}${
+    postalCode || ''
+  } ${city || ''} \n ${countryCode || ''}`;
 };
 
 const getSchool = (profile: Profile | undefined) => {
   const schoolName = profile?.youthProfile?.schoolName;
   const schoolClass = profile?.youthProfile?.schoolClass;
   if (!schoolClass && !schoolName) return ' - ';
-  return `${schoolName || ''}${
-    schoolName && schoolClass ? ', ' : ''
-  }${schoolClass || ''}`;
+  return `${schoolName || ''}${schoolName && schoolClass ? ', ' : ''}${
+    schoolClass || ''
+  }`;
 };
 
 export { getName, getAddress, getSchool };

@@ -14,7 +14,7 @@ function OidcCallBack(props: RouteChildrenProps) {
 
   const onSuccess = (user: User) => {
     fetchApiToken(user.access_token)
-      .then(apiToken => {
+      .then((apiToken) => {
         localStorage.setItem('apiToken', apiToken);
         props.history.push('/');
       })
