@@ -4,10 +4,11 @@ import userManager from './userManager';
 
 const authProvider: AuthProvider = {
   login: (params) => Promise.resolve(),
-  logout: (params) => {
-    // TODO Add Tunnistamo logout
+  logout: async (params) => {
     localStorage.removeItem('apiToken');
-    return userManager.removeUser();
+    if (Boolean(await userManager.getUser())) {
+      return '/logout';
+    }
   },
   checkAuth: (params) => {
     if (localStorage.getItem('apiToken')) {
@@ -15,7 +16,12 @@ const authProvider: AuthProvider = {
     }
     return Promise.reject();
   },
-  checkError: (error) => Promise.resolve(),
+  checkError: (error) => {
+    // Trigger a logout if the apiToken is not in place
+    return localStorage.getItem('apiToken')
+      ? Promise.resolve()
+      : Promise.reject();
+  },
   getPermissions: (params) => Promise.resolve(),
 };
 
