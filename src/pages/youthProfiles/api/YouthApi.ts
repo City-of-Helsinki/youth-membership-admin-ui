@@ -1,5 +1,3 @@
-import { format } from 'date-fns';
-
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
@@ -10,14 +8,11 @@ import {
   updateProfile,
 } from '../query/YouthProfileQueries';
 import {
-  AddressType,
   CreateProfileVariables,
-  EmailType,
-  PhoneType,
-  UpdateProfileVariables,
   Profiles_profiles as YouthProfiles,
   RenewYouthProfileVariables,
   ServiceType,
+  UpdateProfileVariables,
 } from '../../../graphql/generatedTypes';
 import getMutationVariables from '../helpers/youthProfileMutationVariables';
 
@@ -49,51 +44,7 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
 const createYouthProfile: MethodHandler = async (
   params: MethodHandlerParams
 ) => {
-  const variables: CreateProfileVariables = {
-    input: {
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
-      profile: {
-        firstName: params.data.firstName,
-        lastName: params.data.lastName,
-        language: params.data.profileLanguage,
-        addAddresses: [
-          {
-            address: params.data.address,
-            postalCode: params.data.postalCode,
-            city: params.data.city,
-            primary: true,
-            addressType: AddressType.OTHER,
-            countryCode: params.data.countryCode,
-          },
-        ],
-        addEmails: [
-          {
-            email: params.data.email,
-            primary: true,
-            emailType: EmailType.OTHER,
-          },
-        ],
-        addPhones: [
-          {
-            phone: params.data.phone,
-            primary: true,
-            phoneType: PhoneType.OTHER,
-          },
-        ],
-        youthProfile: {
-          birthDate: format(new Date(params.data.birthDate), 'yyyy-MM-dd'),
-          schoolName: params.data.schoolName,
-          schoolClass: params.data.schoolClass,
-          languageAtHome: params.data.languageAtHome,
-          photoUsageApproved: params.data.photoUsageApproved === 'true',
-          approverFirstName: params.data.approverFirstName,
-          approverLastName: params.data.approverLastName,
-          approverEmail: params.data.approverEmail,
-          approverPhone: params.data.approverPhone,
-        },
-      },
-    },
-  };
+  const variables: CreateProfileVariables = getMutationVariables(params.data);
 
   return await mutateHandler({
     mutation: createProfileMutation,
@@ -120,11 +71,23 @@ const renewYouthProfile: MethodHandler = async (
 const updateYouthProfile: MethodHandler = async (
   params: MethodHandlerParams
 ) => {
-  const variables: UpdateProfileVariables = getMutationVariables(
+  // Store values to another variable for second. This way we can use spread operator to add ID.
+  // (UpdateProfileVariables is a readonly so adding ID in another way is not possible)
+  const updateVariables = getMutationVariables(
     params.data,
     params.previousData.data.profile
   );
 
+  const variables: UpdateProfileVariables = {
+    input: {
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+      profile: {
+        ...updateVariables.input.profile,
+        id: params.previousData.data.profile.id,
+      },
+    },
+  };
+  console.log('VARIABLES', variables);
   return await mutateHandler({
     mutation: updateProfile,
     variables,
