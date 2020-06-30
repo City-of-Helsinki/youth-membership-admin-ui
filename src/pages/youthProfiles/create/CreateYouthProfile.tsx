@@ -25,7 +25,6 @@ const CreateYouthProfile: React.FC = () => {
   };
 
   const handleCreate = (values: FormValues) => {
-    console.log('Values', values);
     create(
       {
         payload: {

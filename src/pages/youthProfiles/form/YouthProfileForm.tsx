@@ -48,7 +48,7 @@ const YouthProfileForm = (props: Props) => {
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      //props.save(values);
+      props.save(values);
     }
   };
 
