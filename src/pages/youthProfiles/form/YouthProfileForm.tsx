@@ -16,86 +16,10 @@ import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
 import SelectInput from './inputs/SelectInput';
-import {
-  ValidationOption,
-  FormValues,
-  YouthSchema,
-  Errors,
-} from '../types/youthProfileTypes';
-import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
-
-const schema: YouthSchema<ValidationOption> = {
-  firstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  lastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  phone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  email: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  primaryAddress: {
-    // @ts-ignore
-    address: {
-      min: 2,
-      max: 255,
-      required: true,
-    },
-    city: {
-      min: 2,
-      max: 255,
-      required: true,
-    },
-    postalCode: {
-      min: 5,
-      max: 5,
-      required: true,
-    },
-  },
-  birthDate: {
-    birthDate: true,
-    required: true,
-  },
-  schoolName: {
-    max: 128,
-  },
-  schoolClass: {
-    max: 10,
-  },
-  approverFirstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverLastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverEmail: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  approverPhone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-};
+import { FormValues } from '../types/youthProfileTypes';
+import youthFormValidator, {
+  ValidationErrors,
+} from '../helpers/youthFormValidator';
 
 type Props = {
   record?: FormValues;
@@ -112,18 +36,19 @@ type Params = {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
-  const [errors, setErrors] = useState<Errors>({} as Errors);
+  const [errors, setErrors] = useState<ValidationErrors>(
+    {} as ValidationErrors
+  );
   const t = useTranslate();
   const history = useHistory();
   const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
-    const errors: Errors = youthCreateFormValidator(values, schema);
-
+    const errors: ValidationErrors = youthFormValidator(values);
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      props.save(values);
+      //props.save(values);
     }
   };
 

@@ -33,7 +33,6 @@ const youthCreateFormValidator = (
   const errors: Errors = {};
 
   const emailRegex = youthProfileConstants.PROFILE_CREATION.EMAIL_REGEX;
-
   /*
   (Object.keys(schema) as Array<keyof typeof values>).forEach((value) => {
     const options: ValidationOption = schema[value];
@@ -80,7 +79,9 @@ const youthCreateFormValidator = (
         return (errors[value] = 'validation.tooLong');
     }
   });
-  */
+
+
+ */
   return errors;
 };
 

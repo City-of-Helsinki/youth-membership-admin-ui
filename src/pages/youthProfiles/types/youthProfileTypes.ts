@@ -42,23 +42,11 @@ export type Values = {
 };
 
 export type Errors = {
-  [index: string]: string | undefined | PrimaryAddress | Address[];
-  firstName?: string;
-  lastName?: string;
-  primaryAddress?: PrimaryAddress | undefined;
-  addresses?: Address[];
-  email?: string;
-  phone?: string;
-  birthDate?: string;
-  schoolName?: string;
-  schoolClass?: string;
-  languageAtHome?: YouthLanguage;
-  profileLanguage?: Language;
-  photoUsageApproved?: string;
-  approverFirstName?: string;
-  approverLastName?: string;
-  approverEmail?: string;
-  approverPhone?: string;
+  [index: string]: string;
+};
+
+export type ValidationErrors = {
+  [key in Index]?: string | object;
 };
 
 export interface ValidationOption {
