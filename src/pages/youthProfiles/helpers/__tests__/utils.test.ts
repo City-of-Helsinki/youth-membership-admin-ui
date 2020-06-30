@@ -1,4 +1,5 @@
 import {
+  AddressType,
   Language,
   MembershipStatus,
   Profile_profile as Profile,
@@ -11,12 +12,17 @@ const defaultProfile: Profile = {
   firstName: 'Samantha',
   lastName: 'Superstar',
   language: Language.FINNISH,
+  addresses: {
+    edges: [],
+  },
   primaryAddress: {
     id: '1',
     address: 'Test street 1',
     postalCode: '12345',
     city: 'TheCity',
     countryCode: 'FI',
+    addressType: AddressType.OTHER,
+    primary: true,
   },
   primaryEmail: {
     id: '2',
@@ -90,7 +96,7 @@ describe('getSchool tests', () => {
 describe('getAddress tests', () => {
   test('return whole address', () => {
     const school = getAddress(defaultProfile);
-    expect(school).toEqual('Test street 1, 12345 TheCity \n Suomi');
+    expect(school).toEqual('Test street 1, 12345, TheCity, Suomi');
   });
 
   test('has postal code & city & country', () => {
@@ -98,7 +104,7 @@ describe('getAddress tests', () => {
       primaryAddress: { postalCode: '12345', city: 'TheCity' },
     });
     const school = getAddress(profile);
-    expect(school).toEqual('12345 TheCity \n Suomi');
+    expect(school).toEqual('12345, TheCity, Suomi');
   });
 
   test('has street name and country', () => {
@@ -106,18 +112,18 @@ describe('getAddress tests', () => {
       primaryAddress: { address: 'Test street 1' },
     });
     const school = getAddress(profile);
-    expect(school).toEqual('Test street 1  \n Suomi');
+    expect(school).toEqual('Test street 1, Suomi');
   });
 
   test('has postal code and country', () => {
     const profile = getProfile({ primaryAddress: { postalCode: '12345' } });
     const school = getAddress(profile);
-    expect(school).toEqual('12345  \n Suomi');
+    expect(school).toEqual('12345, Suomi');
   });
 
   test('has city and country', () => {
     const profile = getProfile({ primaryAddress: { city: 'TheCity' } });
     const school = getAddress(profile);
-    expect(school).toEqual(' TheCity \n Suomi');
+    expect(school).toEqual('TheCity, Suomi');
   });
 });

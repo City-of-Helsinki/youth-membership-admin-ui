@@ -105,7 +105,6 @@ const isRequiredError = (
   if (field === 'primaryAddress') {
     const primaryAddressError = {};
     (Object.keys(value) as Array<keyof typeof value>).forEach((key) => {
-      if (REQUIRED_ADDRESS_FIELDS.includes(key)) console.log(key);
       if (REQUIRED_ADDRESS_FIELDS.includes(key) && !value[key]) {
         set(primaryAddressError, key, 'validation.required');
       }
@@ -211,7 +210,8 @@ const youthFormValidator = (formValues: FormValues) => {
               primaryAddress[key] as string,
               get(schema, key)
             );
-            if (error) set(errors, `primaryAddress[${key}]`, error);
+            if (error && !get(errors, `primaryAddress[${key}]`))
+              set(errors, `primaryAddress[${key}]`, error);
           }
         });
       }
