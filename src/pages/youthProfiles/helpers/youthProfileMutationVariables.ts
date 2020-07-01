@@ -1,16 +1,28 @@
+import { isEqual } from 'lodash';
+import { format } from 'date-fns';
+
 import { FormValues } from '../types/youthProfileTypes';
 import {
-  Profile_profile as Profile,
   AddressType,
-  PhoneType,
+  CreateAddressInput,
   EmailType,
+  PhoneType,
+  Profile_profile as Profile,
   ServiceType,
+  UpdateAddressInput,
 } from '../../../graphql/generatedTypes';
+import getAddressesFromNode from './getAddressesFromNode';
+
+type AddressInput = {
+  addAddresses: CreateAddressInput[];
+  updateAddresses?: UpdateAddressInput[];
+  removeAddresses?: (string | null)[] | undefined | null;
+};
 
 const getYouthProfile = (formValues: FormValues) => {
   return {
     youthProfile: {
-      birthDate: formValues.birthDate,
+      birthDate: format(new Date(formValues.birthDate), 'yyyy-MM-dd'),
       schoolName: formValues.schoolName,
       schoolClass: formValues.schoolClass,
       approverFirstName: formValues.approverFirstName,
@@ -24,34 +36,57 @@ const getYouthProfile = (formValues: FormValues) => {
 };
 
 const getAddress = (formValues: FormValues, profile?: Profile) => {
-  if (!profile?.primaryAddress) {
-    return {
-      addAddresses: [
-        {
-          address: formValues.address,
-          postalCode: formValues.postalCode,
-          city: formValues.city,
-          addressType: AddressType.OTHER,
-          countryCode: formValues.countryCode,
-          primary: true,
-        },
-      ],
-    };
-  }
+  const formAddresses = [...formValues.addresses, formValues.primaryAddress];
+  const profileAddresses = [
+    ...getAddressesFromNode(profile),
+    profile?.primaryAddress,
+  ];
 
-  return {
-    updateAddresses: [
-      {
-        address: formValues.address,
-        postalCode: formValues.postalCode,
-        city: formValues.city,
-        addressType: AddressType.OTHER,
-        primary: true,
-        countryCode: formValues.countryCode,
-        id: profile.primaryAddress.id,
-      },
-    ],
+  const addAddresses: CreateAddressInput[] = formAddresses
+    .filter((address) => !address?.id)
+    .map((address) => ({
+      address: address.address,
+      city: address.city,
+      addressType: address.addressType || AddressType.OTHER,
+      countryCode: address.countryCode,
+      postalCode: address.postalCode,
+      primary: address.primary,
+    }));
+
+  const updateAddresses = formAddresses
+    .filter((address) => {
+      const profileAddress = profileAddresses.find(
+        (profileAddress) => profileAddress?.id === address.id
+      );
+      return address.id && !isEqual(address, profileAddress);
+    })
+    .map((address) => ({
+      address: address.address,
+      city: address.city,
+      id: address.id,
+      addressType: address.addressType || AddressType.OTHER,
+      countryCode: address.countryCode,
+      postalCode: address.postalCode,
+      primary: address.primary,
+    }));
+
+  const formAddressIDs = formAddresses.map((address) => address?.id);
+
+  const removeAddresses = profileAddresses
+    .filter((address) => address?.id && !formAddressIDs.includes(address.id))
+    .map((address) => address?.id || null);
+
+  const addressInput: AddressInput = {
+    addAddresses,
   };
+
+  // Add update & remove only if they exists (empty array causes backend errors),
+  if (updateAddresses.length > 0)
+    addressInput.updateAddresses = updateAddresses;
+  if (removeAddresses.length > 0)
+    addressInput.removeAddresses = removeAddresses;
+
+  return addressInput;
 };
 
 const getPhone = (formValues: FormValues, profile?: Profile) => {
@@ -93,14 +128,13 @@ const getEmail = (formValues: FormValues, profile?: Profile) => {
   };
 };
 
-const getMutationVariables = (formValues: FormValues, profile: Profile) => {
+const getMutationVariables = (formValues: FormValues, profile?: Profile) => {
   return {
     input: {
       profile: {
         firstName: formValues.firstName,
         lastName: formValues.lastName,
         language: formValues.profileLanguage,
-        id: profile.id,
         ...getAddress(formValues, profile),
         ...getPhone(formValues, profile),
         ...getEmail(formValues, profile),

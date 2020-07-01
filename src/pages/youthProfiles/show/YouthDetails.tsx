@@ -4,10 +4,15 @@ import { ReactAdminComponentPropsWithId } from 'ra-core';
 import { ArrowBack, CheckCircle, Cancel } from '@material-ui/icons';
 import { useHistory, useLocation, useParams } from 'react-router';
 import { format } from 'date-fns';
+import countries from 'i18n-iso-countries';
 
-import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
+import {
+  Profile_profile as Profile,
+  Profile_profile_addresses_edges_node as Address,
+} from '../../../graphql/generatedTypes';
 import { getName, getSchool, getAddress } from '../helpers/utils';
 import styles from './YouthDetails.module.css';
+import getAddressesFromNode from '../helpers/getAddressesFromNode';
 
 type Params = {
   id?: string;
@@ -56,9 +61,16 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
     );
   };
 
+  const getAdditionalAddresses = (address: Address) => {
+    const country = countries.getName(address.countryCode || 'FI', 'FI');
+    return [address.address, address.postalCode, address.city, country]
+      .filter((addressPart) => addressPart)
+      .join(', ');
+  };
+
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
-
+  const addresses = getAddressesFromNode(profile);
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
@@ -101,6 +113,13 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
           label={t('youthProfiles.name')}
         />
         <Label value={getAddress(profile)} label={t('youthProfiles.address')} />
+        {addresses.map((address, index) => (
+          <Label
+            key={index}
+            label={t('youthProfiles.address')}
+            value={getAdditionalAddresses(address)}
+          />
+        ))}
       </div>
 
       <div className={styles.row}>

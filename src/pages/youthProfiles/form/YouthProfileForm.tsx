@@ -8,6 +8,7 @@ import {
 import { useFormState } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
+import { FieldArray } from 'react-final-form-arrays';
 
 import styles from './YouthProfileForm.module.css';
 import { Language } from '../../../graphql/generatedTypes';
@@ -15,83 +16,10 @@ import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
 import SelectInput from './inputs/SelectInput';
-import {
-  ValidationOption,
-  FormValues,
-  YouthSchema,
-  Errors,
-} from '../types/youthProfileTypes';
-import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
-
-const schema: YouthSchema<ValidationOption> = {
-  firstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  lastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  phone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  email: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  address: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  city: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  postalCode: {
-    min: 5,
-    max: 5,
-    required: true,
-  },
-  birthDate: {
-    birthDate: true,
-    required: true,
-  },
-  schoolName: {
-    max: 128,
-  },
-  schoolClass: {
-    max: 10,
-  },
-  approverFirstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverLastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverEmail: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  approverPhone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-};
+import { FormValues } from '../types/youthProfileTypes';
+import youthFormValidator, {
+  ValidationErrors,
+} from '../helpers/youthFormValidator';
 
 type Props = {
   record?: FormValues;
@@ -108,14 +36,15 @@ type Params = {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
-  const [errors, setErrors] = useState<Errors>({});
+  const [errors, setErrors] = useState<ValidationErrors>(
+    {} as ValidationErrors
+  );
   const t = useTranslate();
   const history = useHistory();
   const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
-    const errors: Errors = youthCreateFormValidator(values, schema);
-
+    const errors: ValidationErrors = youthFormValidator(values);
     setErrors(errors);
 
     if (Object.keys(errors).length === 0) {
@@ -171,8 +100,15 @@ const YouthProfileForm = (props: Props) => {
       initialValues={{
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
-        countryCode: 'FI',
         photoUsageApproved: 'false',
+        primaryAddress: {
+          address: '',
+          postalCode: '',
+          city: '',
+          countryCode: 'FI',
+          primary: true,
+        },
+        addresses: [],
       }}
       record={props.record}
       render={() => (
@@ -196,33 +132,90 @@ const YouthProfileForm = (props: Props) => {
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.streetAddress')}
-                name="address"
+                name="primaryAddress.address"
                 className={styles.textField}
-                error={errors.address}
+                error={errors.primaryAddress?.address}
               />
 
               <TextInput
                 label={t('youthProfiles.city')}
-                name="city"
+                name="primaryAddress.city"
                 className={styles.textField}
-                error={errors.city}
+                error={errors.primaryAddress?.city}
               />
             </div>
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.postalCode')}
-                name="postalCode"
+                name="primaryAddress.postalCode"
                 className={styles.textField}
-                error={errors.postalCode}
+                error={errors.primaryAddress?.postalCode}
               />
 
               <SelectInput
-                name="countryCode"
+                name="primaryAddress.countryCode"
                 labelText={t('youthProfiles.country')}
                 options={countryOptions}
                 className={styles.select}
               />
             </div>
+
+            <FieldArray name="addresses">
+              {({ fields }) => (
+                <React.Fragment>
+                  {fields.map((name, index) => (
+                    <div key={index}>
+                      <div className={styles.rowContainer}>
+                        <TextInput
+                          name={`${name}.address`}
+                          label={t('youthProfiles.streetAddress')}
+                          className={styles.textField}
+                        />
+                        <TextInput
+                          name={`${name}.city`}
+                          label={t('youthProfiles.city')}
+                          className={styles.textField}
+                        />
+                      </div>
+
+                      <div className={styles.rowContainer}>
+                        <TextInput
+                          name={`${name}.postalCode`}
+                          label={t('youthProfiles.postalCode')}
+                          className={styles.textField}
+                        />
+                        <SelectInput
+                          name={`${name}.countryCode`}
+                          labelText={t('youthProfiles.country')}
+                          options={countryOptions}
+                          className={styles.select}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => fields.remove(index)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      fields.push({
+                        address: '',
+                        postalCode: '',
+                        city: '',
+                        countryCode: 'FI',
+                        primary: false,
+                      })
+                    }
+                  >
+                    Add another address
+                  </button>
+                </React.Fragment>
+              )}
+            </FieldArray>
 
             <div className={styles.rowContainer}>
               <TextInput

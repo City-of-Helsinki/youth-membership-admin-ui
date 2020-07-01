@@ -11,6 +11,7 @@ import { useParams, useHistory, useLocation } from 'react-router';
 
 import YouthProfileForm from '../form/YouthProfileForm';
 import { FormValues } from '../types/youthProfileTypes';
+import getAddressesFromNode from '../helpers/getAddressesFromNode';
 
 type Params = {
   id?: string;
@@ -77,10 +78,8 @@ const EditYouthProfile: React.FC = () => {
       record={{
         firstName: profile.firstName,
         lastName: profile.lastName,
-        address: profile.primaryAddress.address,
-        city: profile.primaryAddress.city,
-        postalCode: profile.primaryAddress.postalCode,
-        countryCode: profile.primaryAddress.countryCode,
+        primaryAddress: profile.primaryAddress,
+        addresses: getAddressesFromNode(profile),
         email: profile.primaryEmail.email,
         phone: profile.primaryPhone.phone,
         birthDate: profile.youthProfile.birthDate,
