@@ -87,7 +87,7 @@ const updateYouthProfile: MethodHandler = async (
       },
     },
   };
-  console.log('VARIABLES', variables);
+
   return await mutateHandler({
     mutation: updateProfile,
     variables,

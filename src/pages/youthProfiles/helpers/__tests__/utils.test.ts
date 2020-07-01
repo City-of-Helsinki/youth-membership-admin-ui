@@ -95,35 +95,35 @@ describe('getSchool tests', () => {
 
 describe('getAddress tests', () => {
   test('return whole address', () => {
-    const school = getAddress(defaultProfile);
-    expect(school).toEqual('Test street 1, 12345, TheCity, Suomi');
+    const address = getAddress(defaultProfile);
+    expect(address).toEqual('Test street 1, 12345, TheCity, Suomi');
   });
 
   test('has postal code & city & country', () => {
     const profile = getProfile({
       primaryAddress: { postalCode: '12345', city: 'TheCity' },
     });
-    const school = getAddress(profile);
-    expect(school).toEqual('12345, TheCity, Suomi');
+    const address = getAddress(profile);
+    expect(address).toEqual('12345, TheCity, Suomi');
   });
 
   test('has street name and country', () => {
     const profile = getProfile({
       primaryAddress: { address: 'Test street 1' },
     });
-    const school = getAddress(profile);
-    expect(school).toEqual('Test street 1, Suomi');
+    const address = getAddress(profile);
+    expect(address).toEqual('Test street 1, Suomi');
   });
 
   test('has postal code and country', () => {
     const profile = getProfile({ primaryAddress: { postalCode: '12345' } });
-    const school = getAddress(profile);
-    expect(school).toEqual('12345, Suomi');
+    const address = getAddress(profile);
+    expect(address).toEqual('12345, Suomi');
   });
 
   test('has city and country', () => {
     const profile = getProfile({ primaryAddress: { city: 'TheCity' } });
-    const school = getAddress(profile);
-    expect(school).toEqual('TheCity, Suomi');
+    const address = getAddress(profile);
+    expect(address).toEqual('TheCity, Suomi');
   });
 });
