@@ -97,5 +97,5 @@ test('no empty object in error.primaryAddress when primaryAddress is valid', () 
     },
   });
 
-  expect(errors.primaryAddress).toBe(undefined);
+  expect(errors.primaryAddress).toBeUndefined();
 });
