@@ -82,3 +82,20 @@ describe('test if approver fields are required', () => {
     expect(errors.approverEmail).toBeFalsy();
   });
 });
+
+test('no empty object in error.primaryAddress when primaryAddress is valid', () => {
+  const errors: ValidationErrors = youthFormValidator({
+    ...values,
+    primaryAddress: {
+      postalCode: '00000',
+      city: 'Helsinki',
+      address: 'Konekuja 6',
+      primary: true,
+      addressType: AddressType.OTHER,
+      countryCode: 'FI',
+      id: '123',
+    },
+  });
+
+  expect(errors.primaryAddress).toBeUndefined();
+});

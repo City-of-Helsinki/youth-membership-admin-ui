@@ -109,7 +109,9 @@ const isRequiredError = (
         set(primaryAddressError, key, 'validation.required');
       }
     });
-    return primaryAddressError;
+    return Object.keys(primaryAddressError).length > 0
+      ? primaryAddressError
+      : undefined;
   }
 
   return '';
