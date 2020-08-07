@@ -75,5 +75,8 @@
     "ESTONIAN": "Estniska",
     "RUSSIAN": "Ryska",
     "SOMALI": "Somaliska"
+  },
+  "authorization": {
+    "notAuthorized": "Du har inte behörighet att använda detta system."
   }
 }
