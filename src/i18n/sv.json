@@ -45,7 +45,8 @@
     "cancel": "Avbryt",
     "edit": "Redigera",
     "renew": "Förnya medlemskape",
-    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
+    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat",
+    "makePrimaryAddress": "Make into primary address"
   },
   "validation": {
     "tooLong": "För lång",

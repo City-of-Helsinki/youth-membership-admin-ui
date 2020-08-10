@@ -5,13 +5,18 @@ import {
   Toolbar,
   useTranslate,
 } from 'react-admin';
-import { useFormState } from 'react-final-form';
+// eslint-disable-next-line import/named
+import { useFormState, FormRenderProps } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
 import { FieldArray } from 'react-final-form-arrays';
 
 import styles from './YouthProfileForm.module.css';
-import { Language } from '../../../graphql/generatedTypes';
+import {
+  Language,
+  Profile_profile_addresses_edges_node as Address,
+  Profile_profile_primaryAddress as PrimaryAddress,
+} from '../../../graphql/generatedTypes';
 import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
@@ -83,6 +88,30 @@ const YouthProfileForm = (props: Props) => {
     );
   };
 
+  const handleMakePrimary = (
+    formRenderProps: FormRenderProps<FormValues>,
+    index: number
+  ) => {
+    const { form } = formRenderProps;
+    const values = form.getState().values;
+    const { addresses, primaryAddress } = values;
+    const address: Address = addresses[index];
+    // At the moment primaryAddress and address are different types, but
+    // have the same content. I'm not sure if this by design or
+    // coincidence. For that reason I am adding an extra type check here
+    // to pull the possible error into a place where the cause for it is
+    // more obvious.
+    const nextPrimaryAddress: PrimaryAddress = { ...address, primary: true };
+    const nextAddresses = addresses
+      .filter((_: unknown, i: number) => i !== index)
+      .concat([{ ...primaryAddress, primary: false }]);
+
+    form.batch(() => {
+      form.change('primaryAddress', nextPrimaryAddress);
+      form.change('addresses', nextAddresses);
+    });
+  };
+
   // TODO if possible change getNames list based on current language
   // TODO at the moment language will always default to finnish & there isn't option to change it manually
   const countryList = countries.getNames('fi');
@@ -111,7 +140,7 @@ const YouthProfileForm = (props: Props) => {
         addresses: [],
       }}
       record={props.record}
-      render={() => (
+      render={(formRenderProps: FormRenderProps<FormValues>) => (
         <form>
           <div className={styles.wrapper}>
             <p className={styles.title}>{t('youthProfiles.basicInfo')}</p>
@@ -196,6 +225,15 @@ const YouthProfileForm = (props: Props) => {
                         onClick={() => fields.remove(index)}
                       >
                         Remove
+                      </button>
+                      <button
+                        type="button"
+                        className={styles.makePrimaryAddressButton}
+                        onClick={() =>
+                          handleMakePrimary(formRenderProps, index)
+                        }
+                      >
+                        {t('youthProfiles.makePrimaryAddress')}
                       </button>
                     </div>
                   ))}
