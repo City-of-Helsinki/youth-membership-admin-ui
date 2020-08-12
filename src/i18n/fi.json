@@ -45,7 +45,8 @@
     "cancel": "Peruuta",
     "edit": "Muokkaa",
     "renew": "Uusi jäsenyys",
-    "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta"
+    "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta",
+    "makePrimaryAddress": "Muuta ensisijaiseksi osoitteeksi"
   },
   "validation": {
     "tooLong": "Liian pitkä",
