@@ -1,11 +1,12 @@
 import React from 'react';
-import { Admin, Resource, useTranslate } from 'react-admin';
+import { Admin, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
 import countries from 'i18n-iso-countries';
 import fi from 'i18n-iso-countries/langs/fi.json';
 
 import i18nProvider from './i18n/i18nProvider';
 import Login from './auth/components/login/Login';
+import ProtectedResource from './auth/components/protectedResource/ProtectedResource';
 import AppRoutes from './routes';
 import authProvider from './auth/authProvider';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -20,6 +21,7 @@ const history = createHistory();
 
 const App: React.FC = () => {
   const t = useTranslate();
+
   return (
     <Admin
       dataProvider={dataProvider}
@@ -31,7 +33,7 @@ const App: React.FC = () => {
       dashboard={Dashboard}
       loginPage={Login}
     >
-      <Resource
+      <ProtectedResource
         name="youthProfiles"
         list={YouthList}
         show={YouthDetails}

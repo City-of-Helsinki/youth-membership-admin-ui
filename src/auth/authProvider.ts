@@ -6,6 +6,7 @@ const authProvider: AuthProvider = {
   login: (params) => Promise.resolve(),
   logout: async (params) => {
     localStorage.removeItem('apiToken');
+    localStorage.removeItem('permissions');
     if (Boolean(await userManager.getUser())) {
       return '/logout';
     }
@@ -22,7 +23,11 @@ const authProvider: AuthProvider = {
       ? Promise.resolve()
       : Promise.reject();
   },
-  getPermissions: (params) => Promise.resolve(),
+  getPermissions: () => {
+    const role = localStorage.getItem('permissions');
+
+    return Promise.resolve(role);
+  },
 };
 
 export default authProvider;
