@@ -87,10 +87,28 @@ const checkAgeDateString = (dateString: string) => {
   return day.length > 0 && month.length > 0 && year.length > 0;
 };
 
+const getAddressRequiredError = (
+  address: Address | PrimaryAddress
+): AddressError | null => {
+  const addressError = {};
+
+  (Object.keys(address) as Array<keyof typeof address>).forEach((key) => {
+    if (REQUIRED_ADDRESS_FIELDS.includes(key) && !address[key]) {
+      set(addressError, key, 'validation.required');
+    }
+  });
+
+  if (Object.keys(addressError).length > 0) {
+    return addressError;
+  }
+
+  return null;
+};
+
 const isRequiredError = (
   field: keyof FormValues,
   value: string | PrimaryAddress | Address[]
-) => {
+): string | AddressError | AddressError[] => {
   // If value is included in APPROVER_FIELDS return, these are validated later
   if (APPROVAL_FIELDS.includes(field)) return '';
   if (
@@ -102,19 +120,45 @@ const isRequiredError = (
     return 'validation.required';
   }
 
-  if (field === 'primaryAddress') {
-    const primaryAddressError = {};
-    (Object.keys(value) as Array<keyof typeof value>).forEach((key) => {
-      if (REQUIRED_ADDRESS_FIELDS.includes(key) && !value[key]) {
-        set(primaryAddressError, key, 'validation.required');
-      }
-    });
-    return Object.keys(primaryAddressError).length > 0
-      ? primaryAddressError
-      : undefined;
+  if (
+    field === 'primaryAddress' &&
+    typeof value !== 'string' &&
+    !Array.isArray(value)
+  ) {
+    return getAddressRequiredError(value) || '';
+  }
+
+  if (
+    field === 'addresses' &&
+    typeof value !== 'string' &&
+    Array.isArray(value)
+  ) {
+    return value
+      .map((address) => getAddressRequiredError(address))
+      .filter((error): error is AddressError => error !== null);
   }
 
   return '';
+};
+
+const getAddressFieldError = (
+  address: Address | PrimaryAddress
+): AddressError | null => {
+  const addressError = {};
+
+  (Object.keys(address) as Array<keyof typeof address>).forEach((key) => {
+    if (REQUIRED_ADDRESS_FIELDS.includes(key)) {
+      const error = isProperLength(address[key] as string, get(schema, key));
+
+      if (error) set(addressError, key, error);
+    }
+  });
+
+  if (Object.keys(addressError).length > 0) {
+    return addressError;
+  }
+
+  return null;
 };
 
 // Check min and max separately. Its easier than trying to pass these values to translation
@@ -146,7 +190,15 @@ const youthFormValidator = (formValues: FormValues) => {
     if (REQUIRED_FIELDS.includes(value) || formValues[value]) {
       const requiredError = isRequiredError(value, formValues[value]);
 
-      if (requiredError) {
+      if (requiredError && !Array.isArray(requiredError)) {
+        set(errors, value, requiredError);
+      }
+
+      if (
+        requiredError &&
+        Array.isArray(requiredError) &&
+        requiredError.length > 0
+      ) {
         set(errors, value, requiredError);
       }
 
@@ -204,16 +256,33 @@ const youthFormValidator = (formValues: FormValues) => {
 
       if (value === 'primaryAddress') {
         const primaryAddress = formValues['primaryAddress'];
-        (Object.keys(primaryAddress) as Array<
-          keyof typeof primaryAddress
-        >).forEach((key) => {
-          if (REQUIRED_ADDRESS_FIELDS.includes(key)) {
-            const error = isProperLength(
-              primaryAddress[key] as string,
-              get(schema, key)
-            );
-            if (error && !get(errors, `primaryAddress[${key}]`))
-              set(errors, `primaryAddress[${key}]`, error);
+        const primaryAddressErrors = getAddressFieldError(primaryAddress);
+
+        if (primaryAddressErrors) {
+          const currentErrors = errors.primaryAddress || {};
+
+          // Avoid overwriting required errors
+          set(errors, 'primaryAddress', {
+            ...primaryAddressErrors,
+            ...currentErrors,
+          });
+        }
+      }
+
+      if (value === 'addresses') {
+        const addresses = formValues['addresses'];
+
+        addresses.forEach((address, i) => {
+          const addressErrors = getAddressFieldError(address);
+
+          if (addressErrors) {
+            const currentErrors = errors.addresses?.[i] || {};
+
+            // Avoid overwriting required errors
+            set(errors, `addresses[${i}]`, {
+              ...addressErrors,
+              ...currentErrors,
+            });
           }
         });
       }

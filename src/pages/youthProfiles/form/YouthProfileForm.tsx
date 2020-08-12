@@ -44,10 +44,10 @@ const YouthProfileForm = (props: Props) => {
   const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
-    const errors: ValidationErrors = youthFormValidator(values);
-    setErrors(errors);
+    const nextErrors: ValidationErrors = youthFormValidator(values);
+    setErrors(nextErrors);
 
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(nextErrors).length === 0) {
       props.save(values);
     }
   };
@@ -170,11 +170,13 @@ const YouthProfileForm = (props: Props) => {
                           name={`${name}.address`}
                           label={t('youthProfiles.streetAddress')}
                           className={styles.textField}
+                          error={errors.addresses?.[index]?.address}
                         />
                         <TextInput
                           name={`${name}.city`}
                           label={t('youthProfiles.city')}
                           className={styles.textField}
+                          error={errors.addresses?.[index]?.city}
                         />
                       </div>
 
@@ -183,6 +185,7 @@ const YouthProfileForm = (props: Props) => {
                           name={`${name}.postalCode`}
                           label={t('youthProfiles.postalCode')}
                           className={styles.textField}
+                          error={errors.addresses?.[index]?.postalCode}
                         />
                         <SelectInput
                           name={`${name}.countryCode`}
