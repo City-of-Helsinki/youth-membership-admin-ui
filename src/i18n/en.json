@@ -45,8 +45,7 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "renew": "Renew membership",
-    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results",
-    "makePrimaryAddress": "Gör till primäradress"
+    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"
   },
   "validation": {
     "tooLong": "Too long",
