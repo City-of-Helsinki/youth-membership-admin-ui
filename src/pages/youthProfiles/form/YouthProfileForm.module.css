@@ -41,3 +41,38 @@
 .makePrimaryAddressButton {
   margin-left: var(--spacing-m);
 }
+
+.fieldGroup {
+  margin: var(--spacing-l) 0 var(--spacing-m);
+}
+
+.addButton {
+  margin-left: calc(-1 * var(--spacing-m));
+  margin-bottom: var(--spacing-l);
+}
+
+.addressRowContainer {
+  display: flex;
+  max-width: 642px;
+}
+.addressRowContainer > *:nth-child(1) {
+  margin-bottom: var(--spacing-s);
+}
+.addressRowContainer > *:nth-child(2) {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+.addressRowContainer > *:nth-child(3) {
+  flex-grow: 3;
+  flex-basis: 150px;
+}
+
+@media (min-width: 722px) {
+  .addressRowContainer > *:nth-child(1) {
+    margin-bottom: 0;
+  }
+}
+
+.arrayItemControl {
+  margin-top: var(--spacing-xs);
+}

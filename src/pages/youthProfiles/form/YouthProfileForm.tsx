@@ -10,6 +10,7 @@ import { useFormState, FormRenderProps } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
 import { FieldArray } from 'react-final-form-arrays';
+import { Button, IconPlusCircle } from 'hds-react';
 
 import styles from './YouthProfileForm.module.css';
 import {
@@ -159,28 +160,6 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
             <div className={styles.rowContainer}>
-              <TextInput
-                label={t('youthProfiles.streetAddress')}
-                name="primaryAddress.address"
-                className={styles.textField}
-                error={errors.primaryAddress?.address}
-              />
-
-              <TextInput
-                label={t('youthProfiles.city')}
-                name="primaryAddress.city"
-                className={styles.textField}
-                error={errors.primaryAddress?.city}
-              />
-            </div>
-            <div className={styles.rowContainer}>
-              <TextInput
-                label={t('youthProfiles.postalCode')}
-                name="primaryAddress.postalCode"
-                className={styles.textField}
-                error={errors.primaryAddress?.postalCode}
-              />
-
               <SelectInput
                 name="primaryAddress.countryCode"
                 labelText={t('youthProfiles.country')}
@@ -188,18 +167,62 @@ const YouthProfileForm = (props: Props) => {
                 className={styles.select}
               />
             </div>
+            <div
+              className={[styles.addressRowContainer, styles.rowContainer].join(
+                ' '
+              )}
+            >
+              <TextInput
+                label={t('youthProfiles.streetAddress')}
+                name="primaryAddress.address"
+                className={styles.textField}
+                error={errors.primaryAddress?.address}
+              />
+              <TextInput
+                label={t('youthProfiles.postalCode')}
+                name="primaryAddress.postalCode"
+                className={styles.textField}
+                error={errors.primaryAddress?.postalCode}
+              />
+              <TextInput
+                label={t('youthProfiles.city')}
+                name="primaryAddress.city"
+                className={styles.textField}
+                error={errors.primaryAddress?.city}
+              />
+            </div>
 
             <FieldArray name="addresses">
               {({ fields }) => (
                 <React.Fragment>
                   {fields.map((name, index) => (
-                    <div key={index}>
+                    <div key={index} className={styles.fieldGroup}>
                       <div className={styles.rowContainer}>
+                        <SelectInput
+                          name={`${name}.countryCode`}
+                          labelText={t('youthProfiles.country')}
+                          options={countryOptions}
+                          className={styles.select}
+                        />
+                      </div>
+
+                      <div
+                        className={[
+                          styles.addressRowContainer,
+                          styles.rowContainer,
+                        ].join(' ')}
+                      >
                         <TextInput
                           name={`${name}.address`}
                           label={t('youthProfiles.streetAddress')}
                           className={styles.textField}
                           error={errors.addresses?.[index]?.address}
+                        />
+                        <TextInput
+                          name={`${name}.postalCode`}
+                          label={t('youthProfiles.postalCode')}
+                          className={styles.textField}
+                          error={errors.addresses?.[index]?.postalCode}
                         />
                         <TextInput
                           name={`${name}.city`}
@@ -208,30 +231,19 @@ const YouthProfileForm = (props: Props) => {
                           error={errors.addresses?.[index]?.city}
                         />
                       </div>
-
-                      <div className={styles.rowContainer}>
-                        <TextInput
-                          name={`${name}.postalCode`}
-                          label={t('youthProfiles.postalCode')}
-                          className={styles.textField}
-                          error={errors.addresses?.[index]?.postalCode}
-                        />
-                        <SelectInput
-                          name={`${name}.countryCode`}
-                          labelText={t('youthProfiles.country')}
-                          options={countryOptions}
-                          className={styles.select}
-                        />
-                      </div>
                       <button
                         type="button"
                         onClick={() => fields.remove(index)}
+                        className={styles.arrayItemControl}
                       >
                         {t('youthProfiles.removeAddress')}
                       </button>
                       <button
                         type="button"
-                        className={styles.makePrimaryAddressButton}
+                        className={[
+                          styles.arrayItemControl,
+                          styles.makePrimaryAddressButton,
+                        ].join(' ')}
                         onClick={() =>
                           handleMakePrimary(formRenderProps, index)
                         }
@@ -240,7 +252,10 @@ const YouthProfileForm = (props: Props) => {
                       </button>
                     </div>
                   ))}
-                  <button
+                  <Button
+                    variant="supplementary"
+                    iconLeft={<IconPlusCircle />}
+                    className={styles.addButton}
                     type="button"
                     onClick={() =>
                       fields.push({
@@ -253,7 +268,7 @@ const YouthProfileForm = (props: Props) => {
                     }
                   >
                     {t('youthProfiles.addAnotherAddress')}
-                  </button>
+                  </Button>
                 </React.Fragment>
               )}
             </FieldArray>
