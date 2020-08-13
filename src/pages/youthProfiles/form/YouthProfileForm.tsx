@@ -227,7 +227,7 @@ const YouthProfileForm = (props: Props) => {
                         type="button"
                         onClick={() => fields.remove(index)}
                       >
-                        Remove
+                        {t('youthProfiles.removeAddress')}
                       </button>
                       <button
                         type="button"
@@ -252,7 +252,7 @@ const YouthProfileForm = (props: Props) => {
                       })
                     }
                   >
-                    Add another address
+                    {t('youthProfiles.addAnotherAddress')}
                   </button>
                 </React.Fragment>
               )}

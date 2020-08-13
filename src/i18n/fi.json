@@ -46,7 +46,9 @@
     "edit": "Muokkaa",
     "renew": "Uusi jäsenyys",
     "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta",
-    "makePrimaryAddress": "Muuta ensisijaiseksi osoitteeksi"
+    "makePrimaryAddress": "Muuta ensisijaiseksi osoitteeksi",
+    "removeAddress": "Poista",
+    "addAnotherAddress": "Lisää toinen osoite"
   },
   "validation": {
     "tooLong": "Liian pitkä",
