@@ -46,7 +46,9 @@
     "edit": "Redigera",
     "renew": "Förnya medlemskape",
     "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat",
-    "makePrimaryAddress": "Gör till primäradress"
+    "makePrimaryAddress": "Gör till primäradress",
+    "removeAddress": "Poista",
+    "addAnotherAddress": "Lisää toinen osoite"
   },
   "validation": {
     "tooLong": "För lång",
