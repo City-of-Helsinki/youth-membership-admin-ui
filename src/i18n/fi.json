@@ -57,7 +57,7 @@
     "phoneMin": "Vähimmäispituus kuusi merkkiä",
     "email": "Virheellinen sähköpostiosoite",
     "birthDate": "Syntymäpäivän tulee olla muotoa pp.kk.yyyy.",
-    "ageRestriction": "Palveluun voi rekisteröityä iältään 8-25 vuotiaat."
+    "ageRestriction": "Palveluun voi rekisteröityä iältään 8-29 -vuotiaat."
   },
   "notifyMessages": {
     "created": "Nuorisoprofiili lisätty!",
