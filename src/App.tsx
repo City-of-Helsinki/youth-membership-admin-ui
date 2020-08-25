@@ -22,17 +22,17 @@ const history = createHistory();
 const App: React.FC = () => {
   const t = useTranslate();
 
-  const [externalUrlBool, setExternalUrl] = useState(false);
+  const [appPathSaved, setAppPathSaved] = useState(false);
 
   const url = window.location.href;
   const redirectUrlExists = url.search('login');
   const isCallback = url.search('callback');
   // Ignore /login and /callback
   // Change state so we don't access this by accident when navigating around application
-  if (redirectUrlExists === -1 && isCallback === -1 && !externalUrlBool) {
+  if (redirectUrlExists === -1 && isCallback === -1 && !appPathSaved) {
     const appPath = url.replace(process.env.REACT_APP_BASE_URL || '', '');
     localStorage.setItem('appPath', appPath);
-    setExternalUrl(true);
+    setAppPathSaved(true);
   }
 
   return (
