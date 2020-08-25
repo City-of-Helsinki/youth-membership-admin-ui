@@ -30,8 +30,8 @@ const App: React.FC = () => {
   // Ignore /login and /callback
   // Change state so we don't access this by accident when navigating around application
   if (redirectUrlExists === -1 && isCallback === -1 && !appPathSaved) {
-    const appPath = url.replace(process.env.REACT_APP_BASE_URL || '', '');
-    localStorage.setItem('appPath', appPath);
+    const redirectPath = url.replace(process.env.REACT_APP_BASE_URL || '', '');
+    localStorage.setItem('redirectPath', redirectPath);
     setAppPathSaved(true);
   }
 

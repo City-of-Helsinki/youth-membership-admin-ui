@@ -12,10 +12,10 @@ export default () => {
 
   const history = useHistory();
 
-  const redirectPath = localStorage.getItem('appPath');
+  const redirectPath = localStorage.getItem('redirectPath');
 
   if (redirectPath) {
-    localStorage.removeItem('appPath');
+    localStorage.removeItem('redirectPath');
     history.push(`/${redirectPath}`);
   }
 
