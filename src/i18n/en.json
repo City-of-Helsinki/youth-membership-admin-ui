@@ -57,7 +57,7 @@
     "phoneMin": "Min length six characters",
     "email": "Invalid email",
     "birthDate": "The birthday should be dd.mm.yyyy.",
-    "ageRestriction": "Only 8-25 years olds can create youth profile."
+    "ageRestriction": "Only 8-29 years olds can create youth profile."
   },
   "notifyMessages": {
     "created": "Youth profile created!",
