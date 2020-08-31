@@ -5,93 +5,27 @@ import {
   Toolbar,
   useTranslate,
 } from 'react-admin';
-import { useFormState } from 'react-final-form';
+// eslint-disable-next-line import/named
+import { useFormState, FormRenderProps } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
+import { FieldArray } from 'react-final-form-arrays';
+import { Button, IconPlusCircle } from 'hds-react';
 
 import styles from './YouthProfileForm.module.css';
-import { Language } from '../../../graphql/generatedTypes';
+import {
+  Language,
+  Profile_profile_addresses_edges_node as Address,
+  Profile_profile_primaryAddress as PrimaryAddress,
+} from '../../../graphql/generatedTypes';
 import TextInput from './inputs/TextInput';
 import RadioGroupInput from './inputs/RadioGroupInput';
 import BirthDateInput from './inputs/BirthDateInput';
 import SelectInput from './inputs/SelectInput';
-import {
-  ValidationOption,
-  FormValues,
-  YouthSchema,
-  Errors,
-} from '../types/youthProfileTypes';
-import youthCreateFormValidator from '../helpers/youthCreateFormValidator';
-
-const schema: YouthSchema<ValidationOption> = {
-  firstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  lastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  phone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  email: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  address: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  city: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  postalCode: {
-    min: 5,
-    max: 5,
-    required: true,
-  },
-  birthDate: {
-    birthDate: true,
-    required: true,
-  },
-  schoolName: {
-    max: 128,
-  },
-  schoolClass: {
-    max: 10,
-  },
-  approverFirstName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverLastName: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-  approverEmail: {
-    min: 2,
-    max: 255,
-    email: true,
-    required: true,
-  },
-  approverPhone: {
-    min: 2,
-    max: 255,
-    required: true,
-  },
-};
+import { FormValues } from '../types/youthProfileTypes';
+import youthFormValidator, {
+  ValidationErrors,
+} from '../helpers/youthFormValidator';
 
 type Props = {
   record?: FormValues;
@@ -108,17 +42,18 @@ type Params = {
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 const YouthProfileForm = (props: Props) => {
-  const [errors, setErrors] = useState<Errors>({});
+  const [errors, setErrors] = useState<ValidationErrors>(
+    {} as ValidationErrors
+  );
   const t = useTranslate();
   const history = useHistory();
   const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
-    const errors: Errors = youthCreateFormValidator(values, schema);
+    const nextErrors: ValidationErrors = youthFormValidator(values);
+    setErrors(nextErrors);
 
-    setErrors(errors);
-
-    if (Object.keys(errors).length === 0) {
+    if (Object.keys(nextErrors).length === 0) {
       props.save(values);
     }
   };
@@ -154,13 +89,37 @@ const YouthProfileForm = (props: Props) => {
     );
   };
 
+  const handleMakePrimary = (
+    formRenderProps: FormRenderProps<FormValues>,
+    index: number
+  ) => {
+    const { form } = formRenderProps;
+    const values = form.getState().values;
+    const { addresses, primaryAddress } = values;
+    const address: Address = addresses[index];
+    // At the moment primaryAddress and address are different types, but
+    // have the same content. I'm not sure if this by design or
+    // coincidence. For that reason I am adding an extra type check here
+    // to pull the possible error into a place where the cause for it is
+    // more obvious.
+    const nextPrimaryAddress: PrimaryAddress = { ...address, primary: true };
+    const nextAddresses = addresses
+      .filter((_: unknown, i: number) => i !== index)
+      .concat([{ ...primaryAddress, primary: false }]);
+
+    form.batch(() => {
+      form.change('primaryAddress', nextPrimaryAddress);
+      form.change('addresses', nextAddresses);
+    });
+  };
+
   // TODO if possible change getNames list based on current language
   // TODO at the moment language will always default to finnish & there isn't option to change it manually
   const countryList = countries.getNames('fi');
-  const countryOptions = Object.keys(countryList).map(key => {
+  const countryOptions = Object.keys(countryList).map((key) => {
     return {
       value: key,
-      label: countryList[key],
+      label: countryList[key] as string,
     };
   });
 
@@ -171,11 +130,18 @@ const YouthProfileForm = (props: Props) => {
       initialValues={{
         languageAtHome: 'FINNISH',
         profileLanguage: 'FINNISH',
-        countryCode: 'FI',
         photoUsageApproved: 'false',
+        primaryAddress: {
+          address: '',
+          postalCode: '',
+          city: '',
+          countryCode: 'FI',
+          primary: true,
+        },
+        addresses: [],
       }}
       record={props.record}
-      render={() => (
+      render={(formRenderProps: FormRenderProps<FormValues>) => (
         <form>
           <div className={styles.wrapper}>
             <p className={styles.title}>{t('youthProfiles.basicInfo')}</p>
@@ -194,35 +160,118 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
             <div className={styles.rowContainer}>
-              <TextInput
-                label={t('youthProfiles.streetAddress')}
-                name="address"
-                className={styles.textField}
-                error={errors.address}
-              />
-
-              <TextInput
-                label={t('youthProfiles.city')}
-                name="city"
-                className={styles.textField}
-                error={errors.city}
-              />
-            </div>
-            <div className={styles.rowContainer}>
-              <TextInput
-                label={t('youthProfiles.postalCode')}
-                name="postalCode"
-                className={styles.textField}
-                error={errors.postalCode}
-              />
-
               <SelectInput
-                name="countryCode"
+                name="primaryAddress.countryCode"
                 labelText={t('youthProfiles.country')}
                 options={countryOptions}
                 className={styles.select}
               />
             </div>
+            <div
+              className={[styles.addressRowContainer, styles.rowContainer].join(
+                ' '
+              )}
+            >
+              <TextInput
+                label={t('youthProfiles.streetAddress')}
+                name="primaryAddress.address"
+                className={styles.textField}
+                error={errors.primaryAddress?.address}
+              />
+              <TextInput
+                label={t('youthProfiles.postalCode')}
+                name="primaryAddress.postalCode"
+                className={styles.textField}
+                error={errors.primaryAddress?.postalCode}
+              />
+              <TextInput
+                label={t('youthProfiles.city')}
+                name="primaryAddress.city"
+                className={styles.textField}
+                error={errors.primaryAddress?.city}
+              />
+            </div>
+
+            <FieldArray name="addresses">
+              {({ fields }) => (
+                <React.Fragment>
+                  {fields.map((name, index) => (
+                    <div key={index} className={styles.fieldGroup}>
+                      <div className={styles.rowContainer}>
+                        <SelectInput
+                          name={`${name}.countryCode`}
+                          labelText={t('youthProfiles.country')}
+                          options={countryOptions}
+                          className={styles.select}
+                        />
+                      </div>
+
+                      <div
+                        className={[
+                          styles.addressRowContainer,
+                          styles.rowContainer,
+                        ].join(' ')}
+                      >
+                        <TextInput
+                          name={`${name}.address`}
+                          label={t('youthProfiles.streetAddress')}
+                          className={styles.textField}
+                          error={errors.addresses?.[index]?.address}
+                        />
+                        <TextInput
+                          name={`${name}.postalCode`}
+                          label={t('youthProfiles.postalCode')}
+                          className={styles.textField}
+                          error={errors.addresses?.[index]?.postalCode}
+                        />
+                        <TextInput
+                          name={`${name}.city`}
+                          label={t('youthProfiles.city')}
+                          className={styles.textField}
+                          error={errors.addresses?.[index]?.city}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => fields.remove(index)}
+                        className={styles.arrayItemControl}
+                      >
+                        {t('youthProfiles.removeAddress')}
+                      </button>
+                      <button
+                        type="button"
+                        className={[
+                          styles.arrayItemControl,
+                          styles.makePrimaryAddressButton,
+                        ].join(' ')}
+                        onClick={() =>
+                          handleMakePrimary(formRenderProps, index)
+                        }
+                      >
+                        {t('youthProfiles.makePrimaryAddress')}
+                      </button>
+                    </div>
+                  ))}
+                  <Button
+                    variant="supplementary"
+                    iconLeft={<IconPlusCircle />}
+                    className={styles.addButton}
+                    type="button"
+                    onClick={() =>
+                      fields.push({
+                        address: '',
+                        postalCode: '',
+                        city: '',
+                        countryCode: 'FI',
+                        primary: false,
+                      })
+                    }
+                  >
+                    {t('youthProfiles.addAnotherAddress')}
+                  </Button>
+                </React.Fragment>
+              )}
+            </FieldArray>
 
             <div className={styles.rowContainer}>
               <TextInput

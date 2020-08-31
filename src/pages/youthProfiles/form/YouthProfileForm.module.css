@@ -1,39 +1,78 @@
 .title {
-    font-size: 1.375rem;
-    line-height: 1.86;
-    font-family: HelsinkiGrotesk, serif;
-    font-weight: bold;
-    margin: 0;
+  font-size: 1.375rem;
+  line-height: 1.86;
+  font-family: HelsinkiGrotesk, serif;
+  font-weight: bold;
+  margin: 0;
 }
 
 .wrapper {
-    margin: 2rem;
+  margin: 2rem;
 }
 
 .infoContainer {
-    margin-left: 2rem;
-    margin-top: 1rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
 }
 
 .rowContainer {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .textField {
-    margin-right: 1rem;
-    width: 305px;
+  margin-right: 1rem;
+  width: 305px;
 }
 
 .select {
-    max-width: 305px;
+  max-width: 305px;
 }
 
 .cancelButton {
-    background: #FFFFFF;
-    border: 1px solid #000000;
-    color: #000000;
-    padding: 8px 20px;
-    margin-left: 20px;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 8px 20px;
+  margin-left: 20px;
+}
+
+.makePrimaryAddressButton {
+  margin-left: var(--spacing-m);
+}
+
+.fieldGroup {
+  margin: var(--spacing-l) 0 var(--spacing-m);
+}
+
+.addButton {
+  margin-left: calc(-1 * var(--spacing-m));
+  margin-bottom: var(--spacing-l);
+}
+
+.addressRowContainer {
+  display: flex;
+  max-width: 642px;
+}
+.addressRowContainer > *:nth-child(1) {
+  margin-bottom: var(--spacing-s);
+}
+.addressRowContainer > *:nth-child(2) {
+  flex-grow: 1;
+  flex-basis: 100px;
+}
+.addressRowContainer > *:nth-child(3) {
+  flex-grow: 3;
+  flex-basis: 150px;
+}
+
+@media (min-width: 722px) {
+  .addressRowContainer > *:nth-child(1) {
+    margin-bottom: 0;
+  }
+}
+
+.arrayItemControl {
+  margin-top: var(--spacing-xs);
 }

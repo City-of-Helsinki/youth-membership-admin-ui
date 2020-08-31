@@ -1,11 +1,15 @@
-import { Language, YouthLanguage } from '../../../graphql/generatedTypes';
+import {
+  Language,
+  YouthLanguage,
+  Profile_profile_primaryAddress as PrimaryAddress,
+  Profile_profile_addresses_edges_node as Address,
+} from '../../../graphql/generatedTypes';
 
 type Index =
   | 'firstName'
   | 'lastName'
-  | 'address'
-  | 'city'
-  | 'postalCode'
+  | 'primaryAddress'
+  | 'addresses'
   | 'email'
   | 'phone'
   | 'birthDate'
@@ -19,11 +23,30 @@ type Index =
   | 'approverPhone';
 
 export type Values = {
-  [key in Index]: string;
+  firstName: string;
+  lastName: string;
+  primaryAddress: PrimaryAddress;
+  addresses: Address[];
+  email: string;
+  phone: string;
+  birthDate: string;
+  schoolName: string;
+  schoolClass: string;
+  languageAtHome: YouthLanguage;
+  profileLanguage: Language;
+  photoUsageApproved: string;
+  approverFirstName: string;
+  approverLastName: string;
+  approverEmail: string;
+  approverPhone: string;
 };
 
 export type Errors = {
-  [key in Index]?: string;
+  [index: string]: string;
+};
+
+export type ValidationErrors = {
+  [key in Index]?: string | object;
 };
 
 export interface ValidationOption {
@@ -41,10 +64,8 @@ export type YouthSchema<T> = {
 export type FormValues = {
   firstName: string;
   lastName: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  countryCode: string;
+  primaryAddress: PrimaryAddress;
+  addresses: Address[];
   email: string;
   phone: string;
   birthDate: string;

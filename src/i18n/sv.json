@@ -45,7 +45,10 @@
     "cancel": "Avbryt",
     "edit": "Redigera",
     "renew": "Förnya medlemskape",
-    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat"
+    "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat",
+    "makePrimaryAddress": "Gör till primäradress",
+    "removeAddress": "Poista",
+    "addAnotherAddress": "Lisää toinen osoite"
   },
   "validation": {
     "tooLong": "För lång",
@@ -54,7 +57,7 @@
     "phoneMin": "Minst sex tecken",
     "email": "Ogiltig e-postadress",
     "birthDate": "Födelsedagen bör vara dd.mm.yyyy.",
-    "ageRestriction": "Endast 8-25 år kan skapa ungdomsprofil."
+    "ageRestriction": "Endast 8-29 år kan skapa ungdomsprofil."
   },
   "notifyMessages": {
     "created": "Ungdomsprofil skapad!",
@@ -75,5 +78,8 @@
     "ESTONIAN": "Estniska",
     "RUSSIAN": "Ryska",
     "SOMALI": "Somaliska"
+  },
+  "authorization": {
+    "notAuthorized": "Du har inte behörighet att använda detta system."
   }
 }

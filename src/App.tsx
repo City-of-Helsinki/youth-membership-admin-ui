@@ -1,11 +1,12 @@
-import React from 'react';
-import { Admin, Resource, useTranslate } from 'react-admin';
+import React, { useState } from 'react';
+import { Admin, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
 import countries from 'i18n-iso-countries';
 import fi from 'i18n-iso-countries/langs/fi.json';
 
 import i18nProvider from './i18n/i18nProvider';
 import Login from './auth/components/login/Login';
+import ProtectedResource from './auth/components/protectedResource/ProtectedResource';
 import AppRoutes from './routes';
 import authProvider from './auth/authProvider';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -20,6 +21,20 @@ const history = createHistory();
 
 const App: React.FC = () => {
   const t = useTranslate();
+
+  const [appPathSaved, setAppPathSaved] = useState(false);
+
+  const url = window.location.href;
+  const redirectUrlExists = url.search('login');
+  const isCallback = url.search('callback');
+  // Ignore /login and /callback
+  // Change state so we don't access this by accident when navigating around application
+  if (redirectUrlExists === -1 && isCallback === -1 && !appPathSaved) {
+    const redirectPath = url.replace(process.env.REACT_APP_BASE_URL || '', '');
+    localStorage.setItem('redirectPath', redirectPath);
+    setAppPathSaved(true);
+  }
+
   return (
     <Admin
       dataProvider={dataProvider}
@@ -31,7 +46,7 @@ const App: React.FC = () => {
       dashboard={Dashboard}
       loginPage={Login}
     >
-      <Resource
+      <ProtectedResource
         name="youthProfiles"
         list={YouthList}
         show={YouthDetails}

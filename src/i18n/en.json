@@ -45,7 +45,10 @@
     "cancel": "Cancel",
     "edit": "Edit",
     "renew": "Renew membership",
-    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results"
+    "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results",
+    "makePrimaryAddress": "Make into primary address",
+    "removeAddress": "Remove",
+    "addAnotherAddress": "Add another address"
   },
   "validation": {
     "tooLong": "Too long",
@@ -54,7 +57,7 @@
     "phoneMin": "Min length six characters",
     "email": "Invalid email",
     "birthDate": "The birthday should be dd.mm.yyyy.",
-    "ageRestriction": "Only 8-25 years olds can create youth profile."
+    "ageRestriction": "Only 8-29 years olds can create youth profile."
   },
   "notifyMessages": {
     "created": "Youth profile created!",
@@ -75,6 +78,8 @@
     "ESTONIAN": "Estonian",
     "RUSSIAN": "Russian",
     "SOMALI": "Somali"
+  },
+  "authorization": {
+    "notAuthorized": "You are not authorized to use this system."
   }
 }
-

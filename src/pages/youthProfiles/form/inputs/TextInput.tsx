@@ -35,7 +35,7 @@ const TextInput = ({ name, label, className, error }: Props) => {
       labelText={label}
       className={className}
       invalid={Boolean(error)}
-      invalidText={error && t(error)}
+      helperText={error && t(error)}
       readOnly={isDisabled}
     />
   );

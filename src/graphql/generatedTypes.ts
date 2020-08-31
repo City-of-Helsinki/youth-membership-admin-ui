@@ -110,6 +110,35 @@ export interface Profile_profile_primaryAddress {
    * The ID of the object.
    */
   readonly id: string;
+  readonly primary: boolean;
+  readonly addressType: AddressType | null;
+}
+
+export interface Profile_profile_addresses_edges_node {
+  readonly primary: boolean;
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
+  readonly address: string;
+  readonly postalCode: string;
+  readonly city: string;
+  readonly countryCode: string;
+  readonly addressType: AddressType | null;
+}
+
+export interface Profile_profile_addresses_edges {
+  /**
+   * The item at the end of the edge
+   */
+  readonly node: Profile_profile_addresses_edges_node | null;
+}
+
+export interface Profile_profile_addresses {
+  /**
+   * Contains the nodes in this connection.
+   */
+  readonly edges: ReadonlyArray<(Profile_profile_addresses_edges | null)>;
 }
 
 export interface Profile_profile_primaryEmail {
@@ -164,6 +193,10 @@ export interface Profile_profile {
    * Convenience field for the address which is marked as primary.
    */
   readonly primaryAddress: Profile_profile_primaryAddress | null;
+  /**
+   * List of addresses of the profile.
+   */
+  readonly addresses: Profile_profile_addresses | null;
   /**
    * Convenience field for the email which is marked as primary.
    */
@@ -377,6 +410,13 @@ export enum YouthLanguage {
   SWEDISH = "SWEDISH",
 }
 
+export interface CreateAdditionalContactPersonInput {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly phone: string;
+  readonly email: string;
+}
+
 export interface CreateAddressInput {
   readonly countryCode?: string | null;
   readonly primary?: boolean | null;
@@ -438,6 +478,14 @@ export interface SensitiveDataFields {
 export interface SubscriptionInputType {
   readonly subscriptionTypeId: string;
   readonly enabled: boolean;
+}
+
+export interface UpdateAdditionalContactPersonInput {
+  readonly id: string;
+  readonly firstName?: string | null;
+  readonly lastName?: string | null;
+  readonly phone?: string | null;
+  readonly email?: string | null;
 }
 
 export interface UpdateAddressInput {
@@ -502,6 +550,9 @@ export interface YouthProfileFields {
   readonly approverEmail?: string | null;
   readonly birthDate?: any | null;
   readonly photoUsageApproved?: boolean | null;
+  readonly addAdditionalContactPersons?: ReadonlyArray<(CreateAdditionalContactPersonInput | null)> | null;
+  readonly updateAdditionalContactPersons?: ReadonlyArray<(UpdateAdditionalContactPersonInput | null)> | null;
+  readonly removeAdditionalContactPersons?: ReadonlyArray<(string | null)> | null;
 }
 
 //==============================================================

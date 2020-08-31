@@ -13,7 +13,9 @@ build-review:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-review'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'review'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: "https://api.hel.fi/sso-test/"
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT_ID: "https://api.hel.fi/auth/jassari-admin-ui"
     DOCKER_BUILD_ARG_REACT_APP_PROFILE_GRAPHQL: "https://profiili-api.test.kuva.hel.ninja/graphql/"
+    DOCKER_BUILD_ARG_REACT_APP_BASE_URL: "https://jassari-admin.test.kuva.hel.ninja/"
   only:
     refs:
       - external_pull_requests
@@ -24,7 +26,9 @@ build-staging:
     DOCKER_IMAGE_NAME: '$CI_PROJECT_NAME-staging'
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'staging'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: "https://api.hel.fi/sso-test/"
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT_ID: "https://api.hel.fi/auth/jassari-admin-ui"
     DOCKER_BUILD_ARG_REACT_APP_PROFILE_GRAPHQL: "https://profiili-api.test.kuva.hel.ninja/graphql/"
+    DOCKER_BUILD_ARG_REACT_APP_BASE_URL: "https://jassari-admin.test.kuva.hel.ninja/"
   only:
     refs:
       - develop
@@ -36,6 +40,8 @@ build-production:
     DOCKER_BUILD_ARG_REACT_APP_ENVIRONMENT: 'production'
     DOCKER_BUILD_ARG_REACT_APP_OIDC_AUTHORITY: "https://api.hel.fi/sso/"
     DOCKER_BUILD_ARG_REACT_APP_PROFILE_GRAPHQL: "https://api.hel.fi/profiili/graphql/"
+    DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT_ID: "https://id.hel.fi/auth/clients/jassariui-prod"
+    DOCKER_BUILD_ARG_REACT_APP_BASE_URL: "https://jassari-admin.hel.fi/"
   only:
     refs:
       - master

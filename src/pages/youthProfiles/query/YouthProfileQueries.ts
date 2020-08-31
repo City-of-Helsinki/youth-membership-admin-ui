@@ -50,6 +50,21 @@ export const profileQuery = gql`
         postalCode
         countryCode
         id
+        primary
+        addressType
+      }
+      addresses {
+        edges {
+          node {
+            primary
+            id
+            address
+            postalCode
+            city
+            countryCode
+            addressType
+          }
+        }
       }
       primaryEmail {
         email

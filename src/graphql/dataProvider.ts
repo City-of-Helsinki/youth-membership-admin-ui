@@ -11,6 +11,7 @@ import {
   renewYouthProfile,
   updateYouthProfile,
 } from '../pages/youthProfiles/api/YouthApi';
+import { getRole } from '../auth/api/api';
 
 const METHOD_HANDLERS: MethodHandlers = {
   youthProfiles: {
@@ -67,6 +68,7 @@ const dataProvider = {
       return { data };
     }
   },
+  getRole,
 };
 
 export default dataProvider;
