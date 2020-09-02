@@ -8,7 +8,7 @@ import {
   useNotify,
   useTranslate,
 } from 'react-admin';
-import { TextInput } from 'hds-react';
+import { TextInput, IconPlus } from 'hds-react';
 import { useHistory, useLocation } from 'react-router';
 
 import styles from './YouthList.module.css';
@@ -135,6 +135,7 @@ const YouthList = () => {
             history.push(`/youthProfiles/create${location.search}`)
           }
         >
+          <IconPlus />
           {t('youthProfiles.create')}
         </button>
       </div>

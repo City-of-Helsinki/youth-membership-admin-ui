@@ -8,7 +8,7 @@
   "youthProfiles": {
     "title": "Youth profiles",
     "search": "Search",
-    "create": "Create",
+    "create": "Create new youth profile",
     "basicInfo": "Basic info",
     "extraInfo": "Additional info",
     "approverInfo": "Parental information",
