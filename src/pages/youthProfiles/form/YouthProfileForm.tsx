@@ -138,6 +138,7 @@ const YouthProfileForm = (props: Props) => {
           primary: true,
         },
         addresses: [],
+        additionalContactPersons: [],
       }}
       record={props.record}
       render={(formRenderProps: FormRenderProps<FormValues>) => (
@@ -363,6 +364,59 @@ const YouthProfileForm = (props: Props) => {
                 name="approverPhone"
                 className={styles.textField}
                 error={errors.approverPhone}
+              />
+            </div>
+            <div className={styles.rowContainer}>
+              <YouthProfileArrayField
+                name="additionalContactPersons"
+                renderField={(name, index) => (
+                  <>
+                    <div className={styles.rowContainer}>
+                      <TextInput
+                        label={t('youthProfiles.firstName')}
+                        name={`${name}.firstName`}
+                        className={styles.textField}
+                        error={
+                          errors.additionalContactPersons?.[index]?.firstName
+                        }
+                      />
+
+                      <TextInput
+                        label={t('youthProfiles.lastName')}
+                        name={`${name}.lastName`}
+                        className={styles.textField}
+                        error={
+                          errors.additionalContactPersons?.[index]?.lastName
+                        }
+                      />
+                    </div>
+                    <div className={styles.rowContainer}>
+                      <TextInput
+                        label={t('youthProfiles.email')}
+                        name={`${name}.email`}
+                        className={styles.textField}
+                        error={errors.additionalContactPersons?.[index]?.email}
+                      />
+
+                      <TextInput
+                        label={t('youthProfiles.phone')}
+                        name={`${name}.phone`}
+                        className={styles.textField}
+                        error={errors.additionalContactPersons?.[index]?.phone}
+                      />
+                    </div>
+                  </>
+                )}
+                addItemLabel={t('youthProfiles.addAnotherAddress')}
+                removeItemLabel={t('youthProfiles.removeAddress')}
+                onPushItem={(push) => {
+                  push({
+                    firstName: '',
+                    lastName: '',
+                    phone: '',
+                    email: '',
+                  });
+                }}
               />
             </div>
             <Toolbar>

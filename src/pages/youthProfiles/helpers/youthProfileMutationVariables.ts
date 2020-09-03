@@ -10,8 +10,12 @@ import {
   Profile_profile as Profile,
   ServiceType,
   UpdateAddressInput,
+  CreateAdditionalContactPersonInput,
+  UpdateAdditionalContactPersonInput,
 } from '../../../graphql/generatedTypes';
 import getAddressesFromNode from './getAddressesFromNode';
+import getAdditionalContactPersons from './getAdditionalContactPersons';
+import prepareArrayFieldChanges from './prepareArrayFieldChanges';
 
 type AddressInput = {
   addAddresses: CreateAddressInput[];
@@ -19,7 +23,36 @@ type AddressInput = {
   removeAddresses?: (string | null)[] | undefined | null;
 };
 
-const getYouthProfile = (formValues: FormValues) => {
+const getYouthProfile = (formValues: FormValues, profile?: Profile) => {
+  const {
+    add: addAdditionalContactPersons,
+    update: updateAdditionalContactPersons,
+    remove: removeAdditionalContactPersons,
+  } = prepareArrayFieldChanges<
+    CreateAdditionalContactPersonInput,
+    UpdateAdditionalContactPersonInput
+  >(getAdditionalContactPersons(profile), formValues.additionalContactPersons);
+
+  // Clears object from fields with empty arrays as values. This allows
+  // this same helper to be used with create and update operations.
+  // Create operation only allows the 'addAdditionalContactPersons'
+  // field to be present, because the update and remove fields can't yet
+  // logically exist.
+  const additionalContactPersonChanges = Object.entries({
+    addAdditionalContactPersons,
+    updateAdditionalContactPersons,
+    removeAdditionalContactPersons,
+  }).reduce((acc, [key, value]) => {
+    if (value.length === 0) {
+      return acc;
+    }
+
+    return {
+      ...acc,
+      [key]: value,
+    };
+  }, {});
+
   return {
     youthProfile: {
       birthDate: format(new Date(formValues.birthDate), 'yyyy-MM-dd'),
@@ -31,6 +64,7 @@ const getYouthProfile = (formValues: FormValues) => {
       approverEmail: formValues.approverEmail,
       languageAtHome: formValues.languageAtHome,
       photoUsageApproved: formValues.photoUsageApproved === 'true',
+      ...additionalContactPersonChanges,
     },
   };
 };
@@ -138,7 +172,7 @@ const getMutationVariables = (formValues: FormValues, profile?: Profile) => {
         ...getAddress(formValues, profile),
         ...getPhone(formValues, profile),
         ...getEmail(formValues, profile),
-        ...getYouthProfile(formValues),
+        ...getYouthProfile(formValues, profile),
       },
       serviceType: ServiceType.YOUTH_MEMBERSHIP,
     },

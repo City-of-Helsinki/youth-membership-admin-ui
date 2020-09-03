@@ -4,6 +4,51 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
+// GraphQL query operation: HasPermission
+// ====================================================
+
+export interface HasPermission_profiles_edges_node {
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
+}
+
+export interface HasPermission_profiles_edges {
+  /**
+   * The item at the end of the edge
+   */
+  readonly node: HasPermission_profiles_edges_node | null;
+}
+
+export interface HasPermission_profiles {
+  /**
+   * Contains the nodes in this connection.
+   */
+  readonly edges: ReadonlyArray<(HasPermission_profiles_edges | null)>;
+}
+
+export interface HasPermission {
+  /**
+   * Search for profiles. The results are filtered based on the given parameters. The results are paged using Relay.
+   * 
+   * Requires `staff` credentials for the service given in `serviceType`. The
+   * profiles must have an active connection to the given `serviceType`, otherwise
+   * they will not be returned.
+   * 
+   * Possible error codes:
+   * 
+   * * `TODO`
+   */
+  readonly profiles: HasPermission_profiles | null;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
 // GraphQL query operation: Profiles
 // ====================================================
 
@@ -149,6 +194,31 @@ export interface Profile_profile_primaryEmail {
   readonly id: string;
 }
 
+export interface Profile_profile_youthProfile_additionalContactPersons_edges_node {
+  /**
+   * The ID of the object.
+   */
+  readonly id: string;
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly phone: string;
+  readonly email: string;
+}
+
+export interface Profile_profile_youthProfile_additionalContactPersons_edges {
+  /**
+   * The item at the end of the edge
+   */
+  readonly node: Profile_profile_youthProfile_additionalContactPersons_edges_node | null;
+}
+
+export interface Profile_profile_youthProfile_additionalContactPersons {
+  /**
+   * Contains the nodes in this connection.
+   */
+  readonly edges: ReadonlyArray<(Profile_profile_youthProfile_additionalContactPersons_edges | null)>;
+}
+
 export interface Profile_profile_youthProfile {
   readonly expiration: any;
   readonly birthDate: any;
@@ -175,6 +245,7 @@ export interface Profile_profile_youthProfile {
    * Tells if the membership is currently renewable or not
    */
   readonly renewable: boolean | null;
+  readonly additionalContactPersons: Profile_profile_youthProfile_additionalContactPersons;
 }
 
 export interface Profile_profile {

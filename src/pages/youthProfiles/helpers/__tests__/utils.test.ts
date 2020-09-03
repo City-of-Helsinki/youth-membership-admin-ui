@@ -46,6 +46,9 @@ const defaultProfile: Profile = {
     expiration: '2020-07-31',
     membershipStatus: MembershipStatus.ACTIVE,
     renewable: false,
+    additionalContactPersons: {
+      edges: [],
+    },
   },
 };
 
