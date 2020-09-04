@@ -9,8 +9,6 @@ import {
 import { useFormState, FormRenderProps } from 'react-final-form';
 import { useHistory, useParams } from 'react-router';
 import countries from 'i18n-iso-countries';
-import { FieldArray } from 'react-final-form-arrays';
-import { Button, IconPlusCircle } from 'hds-react';
 
 import styles from './YouthProfileForm.module.css';
 import {
@@ -26,6 +24,7 @@ import { FormValues } from '../types/youthProfileTypes';
 import youthFormValidator, {
   ValidationErrors,
 } from '../helpers/youthFormValidator';
+import YouthProfileArrayField from './YouthProfileArrayField';
 
 type Props = {
   record?: FormValues;
@@ -139,6 +138,7 @@ const YouthProfileForm = (props: Props) => {
           primary: true,
         },
         addresses: [],
+        additionalContactPersons: [],
       }}
       record={props.record}
       render={(formRenderProps: FormRenderProps<FormValues>) => (
@@ -192,86 +192,63 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
 
-            <FieldArray name="addresses">
-              {({ fields }) => (
-                <React.Fragment>
-                  {fields.map((name, index) => (
-                    <div key={index} className={styles.fieldGroup}>
-                      <div className={styles.rowContainer}>
-                        <SelectInput
-                          name={`${name}.countryCode`}
-                          labelText={t('youthProfiles.country')}
-                          options={countryOptions}
-                          className={styles.select}
-                        />
-                      </div>
-
-                      <div
-                        className={[
-                          styles.addressRowContainer,
-                          styles.rowContainer,
-                        ].join(' ')}
-                      >
-                        <TextInput
-                          name={`${name}.address`}
-                          label={t('youthProfiles.streetAddress')}
-                          className={styles.textField}
-                          error={errors.addresses?.[index]?.address}
-                        />
-                        <TextInput
-                          name={`${name}.postalCode`}
-                          label={t('youthProfiles.postalCode')}
-                          className={styles.textField}
-                          error={errors.addresses?.[index]?.postalCode}
-                        />
-                        <TextInput
-                          name={`${name}.city`}
-                          label={t('youthProfiles.city')}
-                          className={styles.textField}
-                          error={errors.addresses?.[index]?.city}
-                        />
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => fields.remove(index)}
-                        className={styles.arrayItemControl}
-                      >
-                        {t('youthProfiles.removeAddress')}
-                      </button>
-                      <button
-                        type="button"
-                        className={[
-                          styles.arrayItemControl,
-                          styles.makePrimaryAddressButton,
-                        ].join(' ')}
-                        onClick={() =>
-                          handleMakePrimary(formRenderProps, index)
-                        }
-                      >
-                        {t('youthProfiles.makePrimaryAddress')}
-                      </button>
-                    </div>
-                  ))}
-                  <Button
-                    variant="supplementary"
-                    iconLeft={<IconPlusCircle />}
-                    className={styles.addButton}
-                    type="button"
-                    onClick={() =>
-                      fields.push({
-                        address: '',
-                        postalCode: '',
-                        city: '',
-                        countryCode: 'FI',
-                        primary: false,
-                      })
-                    }
+            <YouthProfileArrayField
+              name="addresses"
+              renderField={(name, index) => (
+                <>
+                  <div className={styles.rowContainer}>
+                    <SelectInput
+                      name={`${name}.countryCode`}
+                      labelText={t('youthProfiles.country')}
+                      options={countryOptions}
+                      className={styles.select}
+                    />
+                  </div>
+                  <div
+                    className={[
+                      styles.addressRowContainer,
+                      styles.rowContainer,
+                    ].join(' ')}
                   >
-                    {t('youthProfiles.addAnotherAddress')}
-                  </Button>
-                </React.Fragment>
+                    <TextInput
+                      name={`${name}.address`}
+                      label={t('youthProfiles.streetAddress')}
+                      className={styles.textField}
+                      error={errors.addresses?.[index]?.address}
+                    />
+                    <TextInput
+                      name={`${name}.postalCode`}
+                      label={t('youthProfiles.postalCode')}
+                      className={styles.textField}
+                      error={errors.addresses?.[index]?.postalCode}
+                    />
+                    <TextInput
+                      name={`${name}.city`}
+                      label={t('youthProfiles.city')}
+                      className={styles.textField}
+                      error={errors.addresses?.[index]?.city}
+                    />
+                  </div>
+                </>
               )}
-            </FieldArray>
+              additionalFieldControls={[
+                {
+                  label: t('youthProfiles.makePrimaryAddress'),
+                  onClick: (index) => handleMakePrimary(formRenderProps, index),
+                },
+              ]}
+              addItemLabel={t('youthProfiles.addAnotherAddress')}
+              removeItemLabel={t('youthProfiles.removeAddress')}
+              onPushItem={(push) => {
+                push({
+                  address: '',
+                  postalCode: '',
+                  city: '',
+                  countryCode: 'FI',
+                  primary: false,
+                });
+              }}
+            />
 
             <div className={styles.rowContainer}>
               <TextInput
@@ -387,6 +364,61 @@ const YouthProfileForm = (props: Props) => {
                 name="approverPhone"
                 className={styles.textField}
                 error={errors.approverPhone}
+              />
+            </div>
+            <div className={styles.rowContainer}>
+              <YouthProfileArrayField
+                name="additionalContactPersons"
+                renderField={(name, index) => (
+                  <>
+                    <div className={styles.rowContainer}>
+                      <TextInput
+                        label={t('youthProfiles.firstName')}
+                        name={`${name}.firstName`}
+                        className={styles.textField}
+                        error={
+                          errors.additionalContactPersons?.[index]?.firstName
+                        }
+                      />
+
+                      <TextInput
+                        label={t('youthProfiles.lastName')}
+                        name={`${name}.lastName`}
+                        className={styles.textField}
+                        error={
+                          errors.additionalContactPersons?.[index]?.lastName
+                        }
+                      />
+                    </div>
+                    <div className={styles.rowContainer}>
+                      <TextInput
+                        label={t('youthProfiles.email')}
+                        name={`${name}.email`}
+                        className={styles.textField}
+                        error={errors.additionalContactPersons?.[index]?.email}
+                      />
+
+                      <TextInput
+                        label={t('youthProfiles.phone')}
+                        name={`${name}.phone`}
+                        className={styles.textField}
+                        error={errors.additionalContactPersons?.[index]?.phone}
+                      />
+                    </div>
+                  </>
+                )}
+                addItemLabel={t('youthProfiles.addAdditionalContactPerson')}
+                removeItemLabel={t(
+                  'youthProfiles.removeAdditionalContactPerson'
+                )}
+                onPushItem={(push) => {
+                  push({
+                    firstName: '',
+                    lastName: '',
+                    phone: '',
+                    email: '',
+                  });
+                }}
               />
             </div>
             <Toolbar>

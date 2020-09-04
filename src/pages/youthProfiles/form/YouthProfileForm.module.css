@@ -38,17 +38,8 @@
   margin-left: 20px;
 }
 
-.makePrimaryAddressButton {
-  margin-left: var(--spacing-m);
-}
-
 .fieldGroup {
   margin: var(--spacing-l) 0 var(--spacing-m);
-}
-
-.addButton {
-  margin-left: calc(-1 * var(--spacing-m));
-  margin-bottom: var(--spacing-l);
 }
 
 .addressRowContainer {
@@ -71,8 +62,4 @@
   .addressRowContainer > *:nth-child(1) {
     margin-bottom: 0;
   }
-}
-
-.arrayItemControl {
-  margin-top: var(--spacing-xs);
 }

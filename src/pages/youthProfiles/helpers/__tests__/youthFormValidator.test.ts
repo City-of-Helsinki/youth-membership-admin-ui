@@ -31,6 +31,7 @@ const values: Values = {
   approverLastName: '',
   approverEmail: 'incorrect.email',
   approverPhone: '',
+  additionalContactPersons: [],
 };
 
 test('test validation functionality', () => {
@@ -98,4 +99,52 @@ test('no empty object in error.primaryAddress when primaryAddress is valid', () 
   });
 
   expect(errors.primaryAddress).toBeUndefined();
+});
+
+describe('additional contact person validation', () => {
+  test('all fields are required for additional contact person', () => {
+    const errors: ValidationErrors = youthFormValidator({
+      ...values,
+      additionalContactPersons: [
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        {
+          firstName: null,
+          lastName: null,
+          phone: null,
+          email: null,
+        },
+      ],
+    });
+
+    expect(errors.additionalContactPersons?.[0].firstName).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[0].lastName).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[0].phone).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[0].email).toEqual(
+      'validation.required'
+    );
+  });
+
+  test('email needs to be an email', () => {
+    const errors: ValidationErrors = youthFormValidator({
+      ...values,
+      additionalContactPersons: [
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        {
+          email: 'not email like',
+        },
+      ],
+    });
+
+    expect(errors.additionalContactPersons?.[0].email).toEqual(
+      'validation.email'
+    );
+  });
 });

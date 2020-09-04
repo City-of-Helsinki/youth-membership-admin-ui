@@ -48,7 +48,9 @@
     "searchResults": "Haulla löytyi %{smart_count} tulos |||| Haulla löytyi %{smart_count} tulosta",
     "makePrimaryAddress": "Muuta ensisijaiseksi osoitteeksi",
     "removeAddress": "Poista",
-    "addAnotherAddress": "Lisää toinen osoite"
+    "addAnotherAddress": "Lisää toinen osoite",
+    "removeAdditionalContactPerson": "Poista",
+    "addAdditionalContactPerson": "Lisää toinen huoltaja"
   },
   "validation": {
     "tooLong": "Liian pitkä",
