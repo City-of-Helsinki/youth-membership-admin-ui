@@ -48,7 +48,9 @@
     "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results",
     "makePrimaryAddress": "Make into primary address",
     "removeAddress": "Remove",
-    "addAnotherAddress": "Add another address"
+    "addAnotherAddress": "Add another address",
+    "removeAdditionalContactPerson": "Remove",
+    "addAdditionalContactPerson": "Add another guardian"
   },
   "validation": {
     "tooLong": "Too long",

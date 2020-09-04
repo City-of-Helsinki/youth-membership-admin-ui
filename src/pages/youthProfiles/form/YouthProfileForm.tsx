@@ -407,8 +407,10 @@ const YouthProfileForm = (props: Props) => {
                     </div>
                   </>
                 )}
-                addItemLabel={t('youthProfiles.addAnotherAddress')}
-                removeItemLabel={t('youthProfiles.removeAddress')}
+                addItemLabel={t('youthProfiles.addAdditionalContactPerson')}
+                removeItemLabel={t(
+                  'youthProfiles.removeAdditionalContactPerson'
+                )}
                 onPushItem={(push) => {
                   push({
                     firstName: '',
