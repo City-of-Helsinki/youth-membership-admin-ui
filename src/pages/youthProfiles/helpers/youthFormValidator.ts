@@ -152,7 +152,11 @@ const getContactPersonRequiredError = (
 const isRequiredError = (
   field: keyof FormValues,
   value: string | PrimaryAddress | Address[] | AdditionalContactPerson[]
-): string | AddressError | AddressError[] | AdditionalContactPersonError[] => {
+):
+  | string
+  | AddressError
+  | Array<AddressError | null>
+  | Array<AdditionalContactPersonError | null> => {
   // If value is included in APPROVER_FIELDS return, these are validated later
   if (APPROVAL_FIELDS.includes(field)) return '';
   if (
@@ -173,19 +177,15 @@ const isRequiredError = (
   if (field === 'addresses') {
     const castValue = value as Address[];
 
-    return castValue
-      .map((address) => getAddressRequiredError(address))
-      .filter((error): error is AddressError => error !== null);
+    return castValue.map((address) => getAddressRequiredError(address));
   }
 
   if (field === 'additionalContactPersons') {
     const castValue = value as AdditionalContactPerson[];
 
-    return castValue
-      .map((additionalContactPerson) =>
-        getContactPersonRequiredError(additionalContactPerson)
-      )
-      .filter((error): error is AdditionalContactPersonError => error !== null);
+    return castValue.map((additionalContactPerson) =>
+      getContactPersonRequiredError(additionalContactPerson)
+    );
   }
 
   return '';
@@ -222,7 +222,33 @@ const isProperLength = (value: string, options: LengthOptions) => {
   return '';
 };
 
-const youthFormValidator = (formValues: FormValues) => {
+const cleanArrayFields = (
+  youthFormErrorObject: ValidationErrors
+): ValidationErrors => {
+  const cleanedErrors = {};
+
+  Object.entries(youthFormErrorObject).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      const nonNullFieldCount = value.filter((item) => item !== null).length;
+      const isValid = nonNullFieldCount === 0;
+
+      if (isValid) {
+        // Omit from errors
+        return;
+      }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    cleanedErrors[key] = value;
+  });
+
+  return cleanedErrors;
+};
+
+const youthFormValidator = (formValues: FormValues): ValidationErrors => {
   const fv: FormValues = {
     ...formValues,
   };
@@ -339,7 +365,16 @@ const youthFormValidator = (formValues: FormValues) => {
     }
   });
 
-  return errors;
+  // Errors for array fields are returned in a list. An array item N's
+  // error can be found from the Nth place on the error array. This
+  // means that when we validate, we have to represent valid array items
+  // as null to ensure that array indexes match as expected.
+
+  // But validation logic in this application expects that this function
+  // return an empty object when the form is valid. This means that we
+  // need to remove array fields if they are valid, meaning that they
+  // only contain null values. That's what we are doing here.
+  return cleanArrayFields(errors);
 };
 
 export default youthFormValidator;

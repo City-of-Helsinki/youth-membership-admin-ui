@@ -49,7 +49,7 @@ const YouthProfileForm = (props: Props) => {
   const params: Params = useParams();
 
   const onSave = (values: FormValues) => {
-    const nextErrors: ValidationErrors = youthFormValidator(values);
+    const nextErrors = youthFormValidator(values);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length === 0) {

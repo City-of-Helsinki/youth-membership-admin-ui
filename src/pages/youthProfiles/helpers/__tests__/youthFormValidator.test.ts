@@ -106,6 +106,12 @@ describe('additional contact person validation', () => {
     const errors: ValidationErrors = youthFormValidator({
       ...values,
       additionalContactPersons: [
+        {
+          firstName: 'Jocelyn',
+          lastName: 'Wu',
+          phone: '000000000',
+          email: 'fake@email.com',
+        },
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         {
@@ -117,16 +123,16 @@ describe('additional contact person validation', () => {
       ],
     });
 
-    expect(errors.additionalContactPersons?.[0].firstName).toEqual(
+    expect(errors.additionalContactPersons?.[1].firstName).toEqual(
       'validation.required'
     );
-    expect(errors.additionalContactPersons?.[0].lastName).toEqual(
+    expect(errors.additionalContactPersons?.[1].lastName).toEqual(
       'validation.required'
     );
-    expect(errors.additionalContactPersons?.[0].phone).toEqual(
+    expect(errors.additionalContactPersons?.[1].phone).toEqual(
       'validation.required'
     );
-    expect(errors.additionalContactPersons?.[0].email).toEqual(
+    expect(errors.additionalContactPersons?.[1].email).toEqual(
       'validation.required'
     );
   });
