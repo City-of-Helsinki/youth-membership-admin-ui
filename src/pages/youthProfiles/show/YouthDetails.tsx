@@ -230,6 +230,7 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       />
       {additionalContactPersons.map(({ firstName, lastName, phone, email }) => (
         <Approver
+          key={[firstName, lastName, phone, email].join('')}
           name={[firstName, lastName].join(' ')}
           email={email}
           phone={phone}
