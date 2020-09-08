@@ -10453,13 +10453,28 @@ ra-core@^3.6.0, ra-core@^3.6.1:
     recompose "~0.26.0"
     reselect "~3.0.0"
 
-ra-i18n-polyglot@^3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.6.1.tgz#474b5310156185ea9a2f19120ed150bbf3abbc55"
-  integrity sha512-HY8Hq0GFHwq4Th7yHXjsHw9Ff3OAz/xT5wWNN+ckZhGlKfep3/125V2u5VUTMluDhjYs+ThBIZO3vRgky7bXDg==
+ra-core@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/ra-core/-/ra-core-3.8.4.tgz#a3577cdbda1ecc295e3be0f9451f3447d594a48e"
+  integrity sha512-68rrE5eH4e17Ida6DOjclV5TIaBQEE9IYrtxPMZtyZALKqwNiMjGhFjBRVhlvRlnvN5tHObY92XjTt8nw8D76g==
+  dependencies:
+    "@testing-library/react" "^8.0.7"
+    classnames "~2.2.5"
+    date-fns "^1.29.0"
+    eventemitter3 "^3.0.0"
+    inflection "~1.12.0"
+    lodash "~4.17.5"
+    prop-types "^15.6.1"
+    query-string "^5.1.1"
+    reselect "~3.0.0"
+
+ra-i18n-polyglot@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/ra-i18n-polyglot/-/ra-i18n-polyglot-3.8.4.tgz#499d528e9f6714724876f7b4c954a679be79c295"
+  integrity sha512-6igbxwT6qwrjHjCq5lTIJspXuNF7qZkHiLtehQAE0PlE1GGgyGdPgIt6oJWaZFFQq15xcSSiHRsKMNtCbLKJEw==
   dependencies:
     node-polyglot "^2.2.2"
-    ra-core "^3.6.1"
+    ra-core "^3.8.4"
 
 ra-language-english@^3.6.1:
   version "3.6.1"
@@ -10467,6 +10482,13 @@ ra-language-english@^3.6.1:
   integrity sha512-eT7ZqnxP6X6QC7yL8cZhdr50LAzmZNk5xMOO5gBXHoQiW9uCOp/U2ipAvCvdWkEn4SjfDKgpjUx0T6X7q5sVqw==
   dependencies:
     ra-core "^3.6.1"
+
+ra-language-english@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/ra-language-english/-/ra-language-english-3.8.4.tgz#e2b4975d32e448a88ff0bee69857e81012788963"
+  integrity sha512-keiBj5bz7L7ppGQBWLAjtLltMXRoygCZxSaQoIaevedLM+MZ+dkXkzdQFFHegI8c3/UvsjMxCfEk1Oo1LeI1pg==
+  dependencies:
+    ra-core "^3.8.4"
 
 ra-language-finnish@^3.6.0:
   version "3.6.0"
@@ -10480,10 +10502,10 @@ ra-language-swedish@^1.0.0:
   resolved "https://registry.yarnpkg.com/ra-language-swedish/-/ra-language-swedish-1.0.0.tgz#6c7a22603b4b19bc17e223339f3e5c458d9e1f75"
   integrity sha512-JwVPB9nP/stPT7R3C6T7NY917GC+cLVNSwYxHxWxUAAfZJ/tjZrJRrkskbM+ELz3EWfFP25YzUmQjCGSzGY1pw==
 
-ra-ui-materialui@^3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.6.1.tgz#5e7847d3605177efc7d11fee7ffe97e3a843558e"
-  integrity sha512-/cCjqGvX5znNe7AHRQQVZVqxsqK6aavGVnT/r95hYoeQsJb6sy6IL0erkCecPY7D9uknbHC6OKbyNDPNOmbrLw==
+ra-ui-materialui@^3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/ra-ui-materialui/-/ra-ui-materialui-3.8.4.tgz#6ca824cd9f56bc27e50b1081711d5eaf66ac79f2"
+  integrity sha512-HbhHscHwLGDREAA6oH4sUh1W6JW7/d5Om31AyvXFcS7LGo9XLoY5CC9BoVb50Yaf+bRTiQIu+jInzhHMCVJqqA==
   dependencies:
     autosuggest-highlight "^3.1.1"
     classnames "~2.2.5"
@@ -10496,8 +10518,7 @@ ra-ui-materialui@^3.6.1:
     prop-types "^15.7.0"
     query-string "^5.1.1"
     react-dropzone "^10.1.7"
-    react-transition-group "^4.3.0"
-    recompose "~0.26.0"
+    react-transition-group "^4.4.1"
 
 raf@^3.4.1:
   version "3.4.1"
@@ -10536,10 +10557,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-admin@^3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.6.1.tgz#ae4b86fb881e3d3c18a96f10b4d1b1200a85efb2"
-  integrity sha512-co/4A858JZVWdYMaYXaOx+i7TueUTH3HU5W4CqUH9GQQp5CojaPt3V5S+Z8LiMos6UAdvnMzOcZr9nqDmV/qWQ==
+react-admin@3.8.4:
+  version "3.8.4"
+  resolved "https://registry.yarnpkg.com/react-admin/-/react-admin-3.8.4.tgz#ccb3749efc24d447e78aa037454cf78bb6b80272"
+  integrity sha512-nYcDqLGkU4v9ahkirXE9tYmO5WqVGGKwqiri5yWHoJGEJEnm61QQQs4K6xXaF3c9aPnA1KAQn58YLWXt1l5uuw==
   dependencies:
     "@material-ui/core" "^4.3.3"
     "@material-ui/icons" "^4.2.1"
@@ -10547,10 +10568,10 @@ react-admin@^3.6.1:
     connected-react-router "^6.5.2"
     final-form "^4.18.5"
     final-form-arrays "^3.0.1"
-    ra-core "^3.6.1"
-    ra-i18n-polyglot "^3.6.1"
-    ra-language-english "^3.6.1"
-    ra-ui-materialui "^3.6.1"
+    ra-core "^3.8.4"
+    ra-i18n-polyglot "^3.8.4"
+    ra-language-english "^3.8.4"
+    ra-ui-materialui "^3.8.4"
     react-final-form "^6.3.3"
     react-final-form-arrays "^3.1.1"
     react-redux "^7.1.0"
@@ -10754,7 +10775,7 @@ react-spring@8.0.27:
     "@babel/runtime" "^7.3.1"
     prop-types "^15.5.8"
 
-react-transition-group@^4.3.0, react-transition-group@^4.4.0:
+react-transition-group@^4.4.0, react-transition-group@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
