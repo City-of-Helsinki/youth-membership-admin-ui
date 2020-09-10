@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 ### Added
 - Admins can now view additional contact persons in user details view
+- Added `testcafe` for `e2e` - testing.
 
 
 ## [1.0.1]
