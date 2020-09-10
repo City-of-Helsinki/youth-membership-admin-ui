@@ -1,5 +1,5 @@
 // @ts-ignore
-require('dotenv').config({ path: '.env.development.local' });
+require('dotenv').config({ path: '.env' });
 
 export const username = (): string => {
   if (!process.env.REACT_APP_TESTING_USERNAME) {
