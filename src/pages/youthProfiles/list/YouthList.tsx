@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, ReactNode } from 'react';
 import {
   Datagrid,
   DateField,
@@ -6,11 +6,27 @@ import {
   useTranslate,
   ListContextProvider,
   useListController,
+  FunctionField,
 } from 'react-admin';
 import { TextInput, IconPlus } from 'hds-react';
 import { useHistory, useLocation } from 'react-router';
+import get from 'lodash/get';
 
 import styles from './YouthList.module.css';
+
+type FunctionFieldProps = {
+  [key: string]: unknown;
+  mask: (value: string) => ReactNode;
+};
+
+const MaskedLabel = ({ mask, ...props }: FunctionFieldProps) => {
+  return (
+    <FunctionField
+      {...props}
+      render={(record: unknown, source: string) => mask(get(record, source))}
+    />
+  );
+};
 
 type SearchState = {
   firstName?: string;
@@ -104,26 +120,31 @@ const YouthList = (props: unknown) => {
               label={t('youthProfiles.birthDateWithoutHelp')}
               locales="fi-FI"
             />
-
             <Label
               source="youthProfile.membershipNumber"
               label={t('youthProfiles.membershipNumber')}
             />
-
-            <Label
+            <MaskedLabel
               source="youthProfile.membershipStatus"
+              mask={(value) => value && t(`PROFILE_STATUS.${value}`)}
               label={t('youthProfiles.membershipStatus')}
             />
             <Label
               source="primaryPhone.phone"
               label={t('youthProfiles.phone')}
             />
-            <Label
+            <MaskedLabel
               source="youthProfile.photoUsageApproved"
+              mask={(value) =>
+                value
+                  ? t('youthProfiles.photoUsageApproved')
+                  : t('youthProfiles.photoUsageDenied')
+              }
               label={t('youthProfiles.photoUsage')}
             />
-            <Label
+            <MaskedLabel
               source="youthProfile.languageAtHome"
+              mask={(value) => value && t(`LANGUAGE_OPTIONS.${value}`)}
               label={t('youthProfiles.language')}
             />
           </Datagrid>
