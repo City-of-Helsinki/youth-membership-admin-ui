@@ -28,14 +28,25 @@ const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
 };
 
 const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
+  const { filter } = params;
+
+  // By default we want the profile list view to return empty. We want
+  // to show results only when the users has completed a search. This
+  // list view is meant for finding a specific user instead of browsing
+  // users.
+  if (filter && Object.keys(filter).length === 0) {
+    return [];
+  }
+
   const response = await queryHandler({
     query: profilesQuery,
     variables: {
       serviceType: ServiceType.YOUTH_MEMBERSHIP,
-      ...params,
+      ...filter,
     },
     fetchPolicy: 'network-only',
   });
+
   return (response.data.profiles as YouthProfiles).edges.map((edge) => {
     return edge?.node;
   });
