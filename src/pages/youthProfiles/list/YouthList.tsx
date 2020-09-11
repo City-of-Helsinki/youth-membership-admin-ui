@@ -1,166 +1,118 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useRef, ReactNode } from 'react';
 import {
   Datagrid,
   DateField,
-  Loading,
   TextField as Label,
-  useDataProvider,
-  useNotify,
   useTranslate,
+  ListContextProvider,
+  useListController,
+  FunctionField,
 } from 'react-admin';
 import { TextInput, IconPlus } from 'hds-react';
 import { useHistory, useLocation } from 'react-router';
+import get from 'lodash/get';
 
 import styles from './YouthList.module.css';
-import { Profile_profile as Profile } from '../../../graphql/generatedTypes';
 
-type DatagridData = {
-  [key: string]: Profile;
+type FunctionFieldProps = {
+  [key: string]: unknown;
+  mask: (value: string) => ReactNode;
 };
 
-const YouthList = () => {
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [queryCount, setQueryCount] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<Error>();
+const MaskedLabel = ({ mask, ...props }: FunctionFieldProps) => {
+  return (
+    <FunctionField
+      {...props}
+      render={(record: unknown, source: string) => mask(get(record, source))}
+    />
+  );
+};
 
-  const history = useHistory();
+type SearchState = {
+  firstName?: string;
+  lastName?: string;
+};
+
+const YouthList = (props: unknown) => {
+  const isInitialSearch = useRef<boolean>(true);
+  const controllerProps = useListController(props);
+  const { setFilters, filterValues, loading, total } = controllerProps;
   const location = useLocation();
-  const notify = useNotify();
+  const history = useHistory();
   const t = useTranslate();
+  const [search, setSearch] = useState<SearchState>(filterValues);
 
-  const dataProvider = useDataProvider();
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const field = e.target.name;
 
-  const urlParameters = new URLSearchParams(location.search);
-  const firstName = urlParameters.get('firstName') || '';
-  const lastName = urlParameters.get('lastName') || '';
-
-  const onChange = (value: string, field: string) => {
-    history.replace(
-      `/youthProfiles?firstName=${
-        field === 'firstName' ? value : firstName
-      }&lastName=${field === 'lastName' ? value : lastName}`
-    );
+    setSearch((previousSearch) => ({
+      ...previousSearch,
+      [field]: value,
+    }));
   };
 
-  // At this point we dont want search to return all found profiles,
-  // so to prevent that happening add dummy data to search parameters
-  const getProfiles = useCallback(() => {
-    const checkSearchParams = () => firstName || lastName;
-    dataProvider
-      .getList('youthProfiles', {
-        firstName: checkSearchParams() ? firstName : 'dummy',
-        lastName: checkSearchParams() ? lastName : 'data',
-      })
-      .then((result: { data: Profile[]; total: number }) => {
-        setProfiles(result.data);
-        setQueryCount((prevState) => prevState + 1);
-        setLoading(false);
-      })
-      .catch((error: Error) => {
-        setError(error);
-        notify(t('ra.message.error'), 'warning');
-      });
-  }, [dataProvider, firstName, lastName, notify, t]);
+  const onSearch = ({ firstName, lastName }: SearchState) => {
+    setFilters({ firstName, lastName });
 
-  useEffect(() => {
-    // Using query count triggers getProfiles only once
-    if (queryCount === 0) {
-      getProfiles();
-    }
-  }, [firstName, lastName, queryCount, getProfiles]);
-
-  const transformData = () => {
-    const dataObject: DatagridData = {};
-    profiles.forEach((profile: Profile) => {
-      dataObject[profile.id] = {
-        ...profile,
-        youthProfile: {
-          ...profile.youthProfile,
-          membershipStatus:
-            profile.youthProfile?.membershipStatus &&
-            t(`PROFILE_STATUS.${profile.youthProfile?.membershipStatus}`),
-          photoUsageApproved: profile.youthProfile?.photoUsageApproved
-            ? t('youthProfiles.photoUsageApproved')
-            : t('youthProfiles.photoUsageDenied'),
-          languageAtHome:
-            profile.youthProfile?.languageAtHome &&
-            t(`LANGUAGE_OPTIONS.${profile.youthProfile?.languageAtHome}`),
-        },
-      } as Profile;
-    });
-    return dataObject;
+    isInitialSearch.current = false;
   };
+
+  const isSearchCountVisible =
+    !isInitialSearch.current || Object.keys(filterValues).length > 0;
 
   const show = (id: string) => `/youthProfiles/${id}/show${location.search}`;
 
   return (
-    <div>
-      <div className={styles.actionRow}>
-        <TextInput
-          id="firstName"
-          className={styles.textFieldFirstName}
-          value={firstName}
-          onChange={(e) => {
-            const value = (e as React.ChangeEvent<HTMLInputElement>).target
-              .value;
-            onChange(value, 'firstName');
-          }}
-          labelText={t('youthProfiles.firstName')}
-        />
-
-        <TextInput
-          id="lastName"
-          className={styles.textFieldLastName}
-          value={lastName}
-          onChange={(e) => {
-            const value = (e as React.ChangeEvent<HTMLInputElement>).target
-              .value;
-            onChange(value, 'lastName');
-          }}
-          labelText={t('youthProfiles.lastName')}
-        />
-        <button
-          className={styles.search}
-          onClick={() => {
-            setLoading(true);
-            getProfiles();
-          }}
-        >
-          {t('youthProfiles.search')}
-        </button>
-        <button
-          className={styles.create}
-          onClick={() =>
-            history.push(`/youthProfiles/create${location.search}`)
-          }
-        >
-          <IconPlus />
-          {t('youthProfiles.create')}
-        </button>
-      </div>
-
-      {loading && !error && <Loading />}
-
-      {!loading && queryCount > 0 && (
-        <div className={styles.searchResultText}>
-          {t('youthProfiles.searchResults', {
-            /* eslint-disable @typescript-eslint/camelcase */
-            smart_count: profiles?.length,
-          })}
-        </div>
-      )}
-
-      {!loading && profiles.length > 0 && (
-        <div className={styles.dataGrid}>
-          <Datagrid
-            data={transformData()}
-            ids={profiles.map(({ id }) => id)}
-            currentSort={{ field: 'id', order: 'ASC' }}
-            basePath="/youthProfiles"
-            rowClick={show}
-            style={{ padding: '0 20px' }}
+    <ListContextProvider value={controllerProps}>
+      <div>
+        <div className={styles.actionRow}>
+          <TextInput
+            id="firstName"
+            name="firstName"
+            className={styles.textFieldFirstName}
+            value={search.firstName || ''}
+            onChange={onChange}
+            labelText={t('youthProfiles.firstName')}
+          />
+          <TextInput
+            id="lastName"
+            name="lastName"
+            className={styles.textFieldLastName}
+            value={search.lastName || ''}
+            onChange={onChange}
+            labelText={t('youthProfiles.lastName')}
+          />
+          <button
+            className={styles.search}
+            onClick={() => {
+              onSearch(search);
+            }}
           >
+            {t('youthProfiles.search')}
+          </button>
+          <button
+            className={styles.create}
+            onClick={() =>
+              history.push(`/youthProfiles/create${location.search}`)
+            }
+          >
+            <IconPlus />
+            {t('youthProfiles.create')}
+          </button>
+        </div>
+
+        {!loading && isSearchCountVisible && (
+          <div className={styles.searchResultText}>
+            {t('youthProfiles.searchResults', {
+              /* eslint-disable @typescript-eslint/camelcase */
+              smart_count: total,
+            })}
+          </div>
+        )}
+
+        <div className={styles.dataGrid}>
+          <Datagrid rowClick={show} style={{ padding: '0 20px' }}>
             <Label source="firstName" label={t('youthProfiles.firstName')} />
             <Label source="lastName" label={t('youthProfiles.lastName')} />
             <DateField
@@ -168,32 +120,37 @@ const YouthList = () => {
               label={t('youthProfiles.birthDateWithoutHelp')}
               locales="fi-FI"
             />
-
             <Label
               source="youthProfile.membershipNumber"
               label={t('youthProfiles.membershipNumber')}
             />
-
-            <Label
+            <MaskedLabel
               source="youthProfile.membershipStatus"
+              mask={(value) => value && t(`PROFILE_STATUS.${value}`)}
               label={t('youthProfiles.membershipStatus')}
             />
             <Label
               source="primaryPhone.phone"
               label={t('youthProfiles.phone')}
             />
-            <Label
+            <MaskedLabel
               source="youthProfile.photoUsageApproved"
+              mask={(value) =>
+                value
+                  ? t('youthProfiles.photoUsageApproved')
+                  : t('youthProfiles.photoUsageDenied')
+              }
               label={t('youthProfiles.photoUsage')}
             />
-            <Label
+            <MaskedLabel
               source="youthProfile.languageAtHome"
+              mask={(value) => value && t(`LANGUAGE_OPTIONS.${value}`)}
               label={t('youthProfiles.language')}
             />
           </Datagrid>
         </div>
-      )}
-    </div>
+      </div>
+    </ListContextProvider>
   );
 };
 
