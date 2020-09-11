@@ -34,7 +34,13 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
   // to show results only when the users has completed a search. This
   // list view is meant for finding a specific user instead of browsing
   // users.
-  if (filter && Object.keys(filter).length === 0) {
+  if (
+    filter &&
+    // The filter object has empty values when the user has searched for
+    // something and then erases their search. When there are no filter
+    // values we know that we should avoid making a search.
+    Object.values(filter).filter((item) => Boolean(item)).length === 0
+  ) {
     return [];
   }
 
