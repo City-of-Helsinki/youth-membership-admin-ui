@@ -48,7 +48,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
-    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://profiili-api.test.kuva.hel.ninja/graphql/"
+    "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://profiili-api.test.kuva.hel.ninja/graphql/",
+    "browser-test": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -69,6 +70,7 @@
     "apollo": "^2.28.3",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "testcafe": "^1.9.2"
   }
 }
