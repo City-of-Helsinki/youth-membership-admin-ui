@@ -117,7 +117,12 @@ function validateObject<T extends object>(
   const error = {};
 
   (Object.keys(object) as Array<keyof typeof object>).forEach((key) => {
-    if (fields.includes(key.toString()) && !object[key]) {
+    if (
+      fields.includes(key.toString()) &&
+      !object[key] &&
+      key.toString() !== 'email' &&
+      isProperLength((object[key] as unknown) as string, get(schema, key))
+    ) {
       set(error, key, 'validation.required');
     } else if (
       EMAIL_FIELDS.includes(key.toString()) &&
@@ -303,6 +308,12 @@ const youthFormValidator = (formValues: FormValues): ValidationErrors => {
           age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT &&
           !formValues[value]
         ) {
+          if (
+            EMAIL_FIELDS.includes(value) &&
+            !Validator.isEmail(((formValues[value] as unknown) as string) || '')
+          ) {
+            return set(errors, value, 'validation.email');
+          }
           return set(errors, value, 'validation.required');
         }
         // If values exist execute checks below, otherwise return

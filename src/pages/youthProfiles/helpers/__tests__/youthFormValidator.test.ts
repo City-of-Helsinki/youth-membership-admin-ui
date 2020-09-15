@@ -70,7 +70,7 @@ describe('test if approver fields are required', () => {
     expect(errors.approverFirstName).toEqual('validation.required');
     expect(errors.approverLastName).toEqual('validation.required');
     expect(errors.approverPhone).toEqual('validation.required');
-    expect(errors.approverEmail).toEqual('validation.required');
+    expect(errors.approverEmail).toEqual('validation.email');
   });
 
   test('user is adult', () => {
@@ -115,10 +115,10 @@ describe('additional contact person validation', () => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         {
-          firstName: null,
-          lastName: null,
-          phone: null,
-          email: null,
+          firstName: '',
+          lastName: '',
+          phone: '',
+          email: '',
         },
       ],
     });
@@ -133,7 +133,7 @@ describe('additional contact person validation', () => {
       'validation.required'
     );
     expect(errors.additionalContactPersons?.[1].email).toEqual(
-      'validation.required'
+      'validation.email'
     );
   });
 
