@@ -14,6 +14,7 @@ type Props = {
     label: string;
     onClick: (index: number) => void;
   }>;
+  additionalHelperText?: string;
 };
 
 function YouthProfileArrayField({
@@ -23,6 +24,7 @@ function YouthProfileArrayField({
   removeItemLabel,
   onPushItem,
   additionalFieldControls,
+  additionalHelperText,
 }: Props) {
   return (
     <FieldArray name={name}>
@@ -30,6 +32,11 @@ function YouthProfileArrayField({
         <div className={[styles.stack, styles.l].join(' ')}>
           {fields.value.length > 0 && (
             <div className={[styles.stack, styles.m].join(' ')}>
+              {additionalHelperText && (
+                <p className={styles.additionalHelperText}>
+                  {additionalHelperText}
+                </p>
+              )}
               {fields.map((name: string, index: number) => (
                 <div key={name}>
                   {renderField(name, index)}

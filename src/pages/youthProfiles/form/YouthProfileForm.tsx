@@ -47,6 +47,7 @@ const YouthProfileForm = (props: Props) => {
   const t = useTranslate();
   const history = useHistory();
   const params: Params = useParams();
+  console.log(params);
 
   const onSave = (values: FormValues) => {
     const nextErrors = youthFormValidator(values);
@@ -121,6 +122,7 @@ const YouthProfileForm = (props: Props) => {
       label: countryList[key] as string,
     };
   });
+  const isUpdatingProfile = params?.method === 'update';
 
   return (
     <FormWithRedirect
@@ -336,6 +338,12 @@ const YouthProfileForm = (props: Props) => {
 
           <div className={styles.infoContainer}>
             <p className={styles.title}>{t('youthProfiles.approverInfo')}</p>
+            <p>
+              {isUpdatingProfile
+                ? t('youthProfiles.guardianConfirmationSent')
+                : t('youthProfiles.guardianConfirmationWillBeSent')}
+            </p>
+
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.firstName')}
@@ -369,6 +377,7 @@ const YouthProfileForm = (props: Props) => {
             <div className={styles.rowContainer}>
               <YouthProfileArrayField
                 name="additionalContactPersons"
+                additionalHelperText={t('youthProfiles.addGuardiansText')}
                 renderField={(name, index) => (
                   <>
                     <div className={styles.rowContainer}>
