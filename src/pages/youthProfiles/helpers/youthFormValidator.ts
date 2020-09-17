@@ -116,14 +116,17 @@ function validateObject<T extends object>(
 ): { [K in keyof T]?: string } | null {
   const error = {};
 
-  (Object.keys(object) as Array<keyof typeof object>).forEach((key) => {
-    if (
-      fields.includes(key.toString()) &&
-      !object[key] &&
-      key.toString() !== 'email' &&
-      isProperLength((object[key] as unknown) as string, get(schema, key))
-    ) {
+  (fields as Array<keyof typeof object>).forEach((key) => {
+    const keySchema = get(schema, key);
+    if (!object[key] && key.toString() !== 'email') {
       set(error, key, 'validation.required');
+    }
+    if (object[key] && keySchema) {
+      const isLength = isProperLength(
+        (object[key] as unknown) as string,
+        keySchema
+      );
+      if (isLength) set(error, key, isLength);
     } else if (
       EMAIL_FIELDS.includes(key.toString()) &&
       !Validator.isEmail((object[key] as unknown) as string)
