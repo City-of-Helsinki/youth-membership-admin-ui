@@ -47,7 +47,6 @@ const YouthProfileForm = (props: Props) => {
   const t = useTranslate();
   const history = useHistory();
   const params: Params = useParams();
-  console.log(params);
 
   const onSave = (values: FormValues) => {
     const nextErrors = youthFormValidator(values);
