@@ -3,16 +3,16 @@ import { useField } from 'react-final-form';
 
 type Props = {
   description: string;
-  formGroup: string;
+  name: string;
   className?: string;
 };
 
-const FormGroupDescription = ({ description, formGroup }: Props) => {
+const FormGroupDescription = ({ description, name, className }: Props) => {
   const {
     input: { value },
-  } = useField(formGroup);
+  } = useField(name);
   if (value?.length === 0) return null;
-  return <p className="formGroupDescription">{description}</p>;
+  return <p className={className}>{description}</p>;
 };
 
 export default FormGroupDescription;

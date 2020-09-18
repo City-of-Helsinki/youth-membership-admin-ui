@@ -377,7 +377,7 @@ const YouthProfileForm = (props: Props) => {
             <div className={styles.rowContainer}>
               <FormGroupDescription
                 description={t('youthProfiles.addGuardiansText')}
-                formGroup="additionalContactPersons"
+                name="additionalContactPersons"
                 className={styles.additionalContactDescription}
               />
               <YouthProfileArrayField
