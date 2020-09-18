@@ -25,6 +25,7 @@ import youthFormValidator, {
   ValidationErrors,
 } from '../helpers/youthFormValidator';
 import YouthProfileArrayField from './YouthProfileArrayField';
+import FormGroupDescription from './FormGroupDescription';
 
 type Props = {
   record?: FormValues;
@@ -374,9 +375,13 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
             <div className={styles.rowContainer}>
+              <FormGroupDescription
+                description={t('youthProfiles.addGuardiansText')}
+                formGroup="additionalContactPersons"
+                className={styles.additionalContactDescription}
+              />
               <YouthProfileArrayField
                 name="additionalContactPersons"
-                additionalHelperText={t('youthProfiles.addGuardiansText')}
                 renderField={(name, index) => (
                   <>
                     <div className={styles.rowContainer}>

@@ -16,7 +16,3 @@
 .additionalActionButton:not(:first-child) {
   margin-left: var(--spacing-m);;
 }
-
-.additionalHelperText {
-  margin-bottom: calc(var(--spacing-m) * -1);
-}
