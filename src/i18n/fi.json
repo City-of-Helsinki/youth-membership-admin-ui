@@ -50,7 +50,10 @@
     "removeAddress": "Poista",
     "addAnotherAddress": "Lisää toinen osoite",
     "removeAdditionalContactPerson": "Poista",
-    "addAdditionalContactPerson": "Lisää toinen huoltaja"
+    "addAdditionalContactPerson": "Lisää toinen huoltaja",
+    "guardianConfirmationWillBeSent": "Vahvistuspyyntö jäsenyydestä lähetetään tähän osoitteeseen.",
+    "guardianConfirmationSent": "Vahvistuspyyntö jäsenyydestä on lähetetty tähän osoitteeseen, huoltaja on varmistanut tiedot ja hyväksynyt jäsenyyden.",
+    "addGuardiansText": "Muihin ilmotettuihin huoltajiin voidaan olla yhteydessä lasta koskevissa asioissa."
   },
   "validation": {
     "tooLong": "Liian pitkä",

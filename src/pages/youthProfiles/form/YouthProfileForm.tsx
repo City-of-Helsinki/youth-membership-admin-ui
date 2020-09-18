@@ -25,6 +25,7 @@ import youthFormValidator, {
   ValidationErrors,
 } from '../helpers/youthFormValidator';
 import YouthProfileArrayField from './YouthProfileArrayField';
+import FormGroupDescription from './FormGroupDescription';
 
 type Props = {
   record?: FormValues;
@@ -121,6 +122,7 @@ const YouthProfileForm = (props: Props) => {
       label: countryList[key] as string,
     };
   });
+  const isUpdatingProfile = params?.method === 'update';
 
   return (
     <FormWithRedirect
@@ -336,6 +338,12 @@ const YouthProfileForm = (props: Props) => {
 
           <div className={styles.infoContainer}>
             <p className={styles.title}>{t('youthProfiles.approverInfo')}</p>
+            <p>
+              {isUpdatingProfile
+                ? t('youthProfiles.guardianConfirmationSent')
+                : t('youthProfiles.guardianConfirmationWillBeSent')}
+            </p>
+
             <div className={styles.rowContainer}>
               <TextInput
                 label={t('youthProfiles.firstName')}
@@ -367,6 +375,11 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
             <div className={styles.rowContainer}>
+              <FormGroupDescription
+                description={t('youthProfiles.addGuardiansText')}
+                name="additionalContactPersons"
+                className={styles.additionalContactDescription}
+              />
               <YouthProfileArrayField
                 name="additionalContactPersons"
                 renderField={(name, index) => (

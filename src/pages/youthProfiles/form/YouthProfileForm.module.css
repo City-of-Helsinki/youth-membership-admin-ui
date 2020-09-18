@@ -58,6 +58,10 @@
   flex-basis: 150px;
 }
 
+.additionalContactDescription {
+  margin-bottom: calc(var(--spacing-xxs) * -1);
+}
+
 @media (min-width: 722px) {
   .addressRowContainer > *:nth-child(1) {
     margin-bottom: 0;

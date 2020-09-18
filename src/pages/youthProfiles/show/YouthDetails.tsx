@@ -223,11 +223,19 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       </div>
 
       <h3>{t('youthProfiles.approverInfo')}</h3>
+      <p className={styles.approverDescriptions}>
+        {t('youthProfiles.guardianConfirmationSent')}
+      </p>
       <Approver
         name={getName(profile, 'approver')}
         email={profile?.youthProfile?.approverEmail}
         phone={profile?.youthProfile?.approverPhone}
       />
+      {additionalContactPersons.length > 0 && (
+        <p className={styles.approverDescriptions}>
+          {t('youthProfiles.addGuardiansText')}
+        </p>
+      )}
       {additionalContactPersons.map(({ firstName, lastName, phone, email }) => (
         <Approver
           key={[firstName, lastName, phone, email].join('')}
