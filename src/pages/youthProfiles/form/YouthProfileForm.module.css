@@ -59,7 +59,8 @@
 }
 
 .additionalContactDescription {
-  margin-bottom: calc(var(--spacing-xxs) * -1);
+  margin-top: var(--spacing-l);
+  margin-bottom: calc(var(--spacing-s) * -1);
 }
 
 @media (min-width: 722px) {

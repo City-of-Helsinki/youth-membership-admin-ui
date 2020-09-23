@@ -374,12 +374,12 @@ const YouthProfileForm = (props: Props) => {
                 error={errors.approverPhone}
               />
             </div>
+            <FormGroupDescription
+              description={t('youthProfiles.addGuardiansText')}
+              name="additionalContactPersons"
+              className={styles.additionalContactDescription}
+            />
             <div className={styles.rowContainer}>
-              <FormGroupDescription
-                description={t('youthProfiles.addGuardiansText')}
-                name="additionalContactPersons"
-                className={styles.additionalContactDescription}
-              />
               <YouthProfileArrayField
                 name="additionalContactPersons"
                 renderField={(name, index) => (
