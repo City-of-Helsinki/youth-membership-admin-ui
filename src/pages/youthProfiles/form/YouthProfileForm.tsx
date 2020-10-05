@@ -64,6 +64,7 @@ const YouthProfileForm = (props: Props) => {
 
     return (
       <SaveButton
+        type="submit"
         label={
           props.method === 'renew'
             ? 'youthProfiles.renew'
