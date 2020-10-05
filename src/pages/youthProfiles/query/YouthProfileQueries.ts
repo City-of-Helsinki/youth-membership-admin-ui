@@ -84,6 +84,17 @@ export const profileQuery = gql`
         approverEmail
         approverPhone
         renewable
+        additionalContactPersons {
+          edges {
+            node {
+              id
+              firstName
+              lastName
+              phone
+              email
+            }
+          }
+        }
       }
     }
   }

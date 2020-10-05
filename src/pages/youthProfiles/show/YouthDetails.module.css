@@ -41,6 +41,10 @@
   margin-right: 15px;
 }
 
+.approverDescriptions {
+  margin-bottom: 0;
+}
+
 .editButtons {
   margin-left: 0;
   display: flex;

@@ -8,7 +8,7 @@
   "youthProfiles": {
     "title": "Youth profiles",
     "search": "Search",
-    "create": "Create",
+    "create": "Create new youth profile",
     "basicInfo": "Basic info",
     "extraInfo": "Additional info",
     "approverInfo": "Parental information",
@@ -48,7 +48,12 @@
     "searchResults": "Search found %{smart_count} result |||| Search found %{smart_count} results",
     "makePrimaryAddress": "Make into primary address",
     "removeAddress": "Remove",
-    "addAnotherAddress": "Add another address"
+    "addAnotherAddress": "Add another address",
+    "removeAdditionalContactPerson": "Remove",
+    "addAdditionalContactPerson": "Add another guardian",
+    "guardianConfirmationWillBeSent": "Confirmation request will be sent to this address.",
+    "guardianConfirmationSent": "A confirmation request for membership has been sent to this address, the guardian has verified the information and approved the membership.",
+    "addGuardiansText": "Additional guardians may be contacted in issues relating to child's youth membership."
   },
   "validation": {
     "tooLong": "Too long",

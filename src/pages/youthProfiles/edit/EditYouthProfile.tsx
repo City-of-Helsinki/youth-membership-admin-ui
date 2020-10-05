@@ -12,6 +12,7 @@ import { useParams, useHistory, useLocation } from 'react-router';
 import YouthProfileForm from '../form/YouthProfileForm';
 import { FormValues } from '../types/youthProfileTypes';
 import getAddressesFromNode from '../helpers/getAddressesFromNode';
+import getAdditionalContactPersons from '../helpers/getAdditionalContactPersons';
 
 type Params = {
   id?: string;
@@ -41,7 +42,9 @@ const EditYouthProfile: React.FC = () => {
 
   if (loading) return <Loading />;
   if (!loading && error) return <Error error={error} />;
+
   const profile = data?.data?.profile;
+  const additionalContactPersons = getAdditionalContactPersons(profile);
 
   const handleSave = (values: FormValues) => {
     update(
@@ -92,6 +95,7 @@ const EditYouthProfile: React.FC = () => {
         approverLastName: profile.youthProfile.approverLastName,
         approverEmail: profile.youthProfile.approverEmail,
         approverPhone: profile.youthProfile.approverPhone,
+        additionalContactPersons,
       }}
     />
   );

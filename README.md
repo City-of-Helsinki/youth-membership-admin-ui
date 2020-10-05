@@ -88,6 +88,7 @@ Additionally, you need to add admin privileges to your user.
     groups: youth_membership
 
 ### Run youth-membership-ui
+Before running anything create a new .env file from provided example file `cp .env.example .env`
 If running on Linux or MacOS, easiest way is to just run the app without docker. Any semi-new version of node should probably work, the docker-image is set to use node 12.
 
 `docker-compose up` starts the container.
@@ -97,6 +98,11 @@ OR
 Run `yarn` to install dependencies, start app with `yarn start`.
 
 The graphql-backend for development is located at https://profiili-api.test.kuva.hel.ninja/graphql/, it has graphiql installed so you can browse it in your browser!
+
+## Browser testing
+Browser test are written in TypeScript with [TestCafe](https://devexpress.github.io/testcafe/) framework. For now tests can be run only locally. 
+Make sure the project is running locally and required env variables are set (you can contact Santtu Tuovinen for these).
+Execute tests with `yarn browser-test`
 
 ## Known issues
 https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
