@@ -53,5 +53,5 @@ export const registrationFormSelector = {
   additionalContactPhone: Selector(
     'input[id="additionalContactPersons[0].phone"]'
   ),
-  submitButton: Selector('button[type="submit"]'),
+  submitButton: Selector('button').withText('TALLENNA'),
 };
