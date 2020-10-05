@@ -8,7 +8,7 @@
   "youthProfiles": {
     "title": "Ungdomsprofiler",
     "search": "Sök",
-    "create": "Skapa",
+    "create": "Skapa ny ungdomsprofil",
     "basicInfo": "Grundläggande",
     "extraInfo": "Ytterligare info",
     "approverInfo": "Förälderinformation",
@@ -47,8 +47,13 @@
     "renew": "Förnya medlemskape",
     "searchResults": "Sökningen hittade ett resultat |||| Sökningen hittade %{smart_count} resultat",
     "makePrimaryAddress": "Gör till primäradress",
-    "removeAddress": "Poista",
-    "addAnotherAddress": "Lisää toinen osoite"
+    "removeAddress": "Avlägsna",
+    "addAnotherAddress": "Lägg till en annan adress",
+    "removeAdditionalContactPerson": "Avlägsna",
+    "addAdditionalContactPerson": "Lägg till en annan vårdnadshavare",
+    "guardianConfirmationWillBeSent": "Bekräftelse kommer att skickas till denna adress.",
+    "guardianConfirmationSent": "En bekräftelse på medlemskap har skickats till denna adress, vårdnadshavaren har verifierat informationen och godkänt medlemskapet.",
+    "addGuardiansText": "Ytterligare vårdnadshavare kan kontaktas i frågor som rör barnets ungdomsmedlemskap."
   },
   "validation": {
     "tooLong": "För lång",

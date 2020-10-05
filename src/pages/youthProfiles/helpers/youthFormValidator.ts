@@ -8,6 +8,8 @@ import {
   Profile_profile_addresses_edges_node as Address,
   Profile_profile_primaryAddress as PrimaryAddress,
   YouthLanguage,
+  CreateAdditionalContactPersonInput,
+  UpdateAdditionalContactPersonInput,
 } from '../../../graphql/generatedTypes';
 import youthProfileConstants from '../constants/youthProfileConstants';
 
@@ -32,6 +34,12 @@ const APPROVAL_FIELDS = [
 ];
 
 const REQUIRED_ADDRESS_FIELDS = ['address', 'postalCode', 'city'];
+const REQUIRED_ADDITIONAL_CONTACT_PERSON_FIELDS = [
+  'firstName',
+  'lastName',
+  'phone',
+  'email',
+];
 
 const EMAIL_FIELDS = ['email', 'approverEmail'];
 
@@ -39,6 +47,17 @@ type AddressError = {
   address?: string;
   postalCode?: string;
   city?: string;
+};
+
+type AdditionalContactPerson =
+  | CreateAdditionalContactPersonInput
+  | UpdateAdditionalContactPersonInput;
+
+type AdditionalContactPersonError = {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
 };
 
 export type ValidationErrors = {
@@ -58,6 +77,7 @@ export type ValidationErrors = {
   approverLastName?: string;
   approverEmail?: string;
   approverPhone?: string;
+  additionalContactPersons?: AdditionalContactPersonError[];
 };
 
 type LengthOptions = {
@@ -87,28 +107,64 @@ const checkAgeDateString = (dateString: string) => {
   return day.length > 0 && month.length > 0 && year.length > 0;
 };
 
-const getAddressRequiredError = (
-  address: Address | PrimaryAddress
-): AddressError | null => {
-  const addressError = {};
+function validateObject<T extends object>(
+  object: T,
+  fields: string[]
+  // This type (attempts) implies an object whose keys can be found
+  // from object T. Not all of T's keys must be present, but if the key
+  // is present, its value is of type string.
+): { [K in keyof T]?: string } | null {
+  const error = {};
 
-  (Object.keys(address) as Array<keyof typeof address>).forEach((key) => {
-    if (REQUIRED_ADDRESS_FIELDS.includes(key) && !address[key]) {
-      set(addressError, key, 'validation.required');
+  (fields as Array<keyof typeof object>).forEach((key) => {
+    const keySchema = get(schema, key);
+    if (!object[key] && key.toString() !== 'email') {
+      set(error, key, 'validation.required');
+    }
+    if (object[key] && keySchema) {
+      const isLength = isProperLength(
+        (object[key] as unknown) as string,
+        keySchema
+      );
+      if (isLength) set(error, key, isLength);
+    } else if (
+      EMAIL_FIELDS.includes(key.toString()) &&
+      !Validator.isEmail((object[key] as unknown) as string)
+    ) {
+      set(error, key, 'validation.email');
     }
   });
 
-  if (Object.keys(addressError).length > 0) {
-    return addressError;
+  if (Object.keys(error).length > 0) {
+    return error;
   }
 
   return null;
+}
+
+const getAddressRequiredError = (
+  address: Address | PrimaryAddress
+): AddressError | null => {
+  return validateObject(address, REQUIRED_ADDRESS_FIELDS);
+};
+
+const getContactPersonRequiredError = (
+  additionalContactPerson: AdditionalContactPerson
+): AdditionalContactPersonError | null => {
+  return validateObject(
+    additionalContactPerson,
+    REQUIRED_ADDITIONAL_CONTACT_PERSON_FIELDS
+  );
 };
 
 const isRequiredError = (
   field: keyof FormValues,
-  value: string | PrimaryAddress | Address[]
-): string | AddressError | AddressError[] => {
+  value: string | PrimaryAddress | Address[] | AdditionalContactPerson[]
+):
+  | string
+  | AddressError
+  | Array<AddressError | null>
+  | Array<AdditionalContactPersonError | null> => {
   // If value is included in APPROVER_FIELDS return, these are validated later
   if (APPROVAL_FIELDS.includes(field)) return '';
   if (
@@ -120,22 +176,24 @@ const isRequiredError = (
     return 'validation.required';
   }
 
-  if (
-    field === 'primaryAddress' &&
-    typeof value !== 'string' &&
-    !Array.isArray(value)
-  ) {
-    return getAddressRequiredError(value) || '';
+  if (field === 'primaryAddress') {
+    const castValue = value as PrimaryAddress;
+
+    return getAddressRequiredError(castValue) || '';
   }
 
-  if (
-    field === 'addresses' &&
-    typeof value !== 'string' &&
-    Array.isArray(value)
-  ) {
-    return value
-      .map((address) => getAddressRequiredError(address))
-      .filter((error): error is AddressError => error !== null);
+  if (field === 'addresses') {
+    const castValue = value as Address[];
+
+    return castValue.map((address) => getAddressRequiredError(address));
+  }
+
+  if (field === 'additionalContactPersons') {
+    const castValue = value as AdditionalContactPerson[];
+
+    return castValue.map((additionalContactPerson) =>
+      getContactPersonRequiredError(additionalContactPerson)
+    );
   }
 
   return '';
@@ -172,7 +230,33 @@ const isProperLength = (value: string, options: LengthOptions) => {
   return '';
 };
 
-const youthFormValidator = (formValues: FormValues) => {
+const cleanArrayFields = (
+  youthFormErrorObject: ValidationErrors
+): ValidationErrors => {
+  const cleanedErrors = {};
+
+  Object.entries(youthFormErrorObject).forEach(([key, value]) => {
+    if (Array.isArray(value)) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // @ts-ignore
+      const nonNullFieldCount = value.filter((item) => item !== null).length;
+      const isValid = nonNullFieldCount === 0;
+
+      if (isValid) {
+        // Omit from errors
+        return;
+      }
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    cleanedErrors[key] = value;
+  });
+
+  return cleanedErrors;
+};
+
+const youthFormValidator = (formValues: FormValues): ValidationErrors => {
   const fv: FormValues = {
     ...formValues,
   };
@@ -227,6 +311,12 @@ const youthFormValidator = (formValues: FormValues) => {
           age < youthProfileConstants.PROFILE_CREATION.AGE_ADULT &&
           !formValues[value]
         ) {
+          if (
+            EMAIL_FIELDS.includes(value) &&
+            !Validator.isEmail(((formValues[value] as unknown) as string) || '')
+          ) {
+            return set(errors, value, 'validation.email');
+          }
           return set(errors, value, 'validation.required');
         }
         // If values exist execute checks below, otherwise return
@@ -289,7 +379,16 @@ const youthFormValidator = (formValues: FormValues) => {
     }
   });
 
-  return errors;
+  // Errors for array fields are returned in a list. An array item N's
+  // error can be found from the Nth place on the error array. This
+  // means that when we validate, we have to represent valid array items
+  // as null to ensure that array indexes match as expected.
+
+  // But validation logic in this application expects that this function
+  // return an empty object when the form is valid. This means that we
+  // need to remove array fields if they are valid, meaning that they
+  // only contain null values. That's what we are doing here.
+  return cleanArrayFields(errors);
 };
 
 export default youthFormValidator;

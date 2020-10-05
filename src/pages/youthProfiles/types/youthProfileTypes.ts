@@ -3,7 +3,13 @@ import {
   YouthLanguage,
   Profile_profile_primaryAddress as PrimaryAddress,
   Profile_profile_addresses_edges_node as Address,
+  CreateAdditionalContactPersonInput,
+  UpdateAdditionalContactPersonInput,
 } from '../../../graphql/generatedTypes';
+
+type AdditionalContactPerson =
+  | CreateAdditionalContactPersonInput
+  | UpdateAdditionalContactPersonInput;
 
 type Index =
   | 'firstName'
@@ -20,7 +26,8 @@ type Index =
   | 'approverFirstName'
   | 'approverLastName'
   | 'approverEmail'
-  | 'approverPhone';
+  | 'approverPhone'
+  | 'additionalContactPerson';
 
 export type Values = {
   firstName: string;
@@ -39,6 +46,7 @@ export type Values = {
   approverLastName: string;
   approverEmail: string;
   approverPhone: string;
+  additionalContactPersons: AdditionalContactPerson[];
 };
 
 export type Errors = {
@@ -78,4 +86,5 @@ export type FormValues = {
   approverLastName: string;
   approverEmail: string;
   approverPhone: string;
+  additionalContactPersons: AdditionalContactPerson[];
 };

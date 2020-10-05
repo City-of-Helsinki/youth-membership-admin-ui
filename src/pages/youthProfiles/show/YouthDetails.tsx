@@ -11,8 +11,41 @@ import {
   Profile_profile_addresses_edges_node as Address,
 } from '../../../graphql/generatedTypes';
 import { getName, getSchool, getAddress } from '../helpers/utils';
+import getAdditionalContactPersons from '../helpers/getAdditionalContactPersons';
 import styles from './YouthDetails.module.css';
 import getAddressesFromNode from '../helpers/getAddressesFromNode';
+
+type Label = {
+  label: string;
+  value: string | undefined | null;
+};
+
+const Label = ({ value, label }: Label) => {
+  return (
+    <div className={styles.label}>
+      <p className={styles.labelTitle}>{label}</p>
+      <p className={styles.labelValue}>{value}</p>
+    </div>
+  );
+};
+
+type ApproverProps = {
+  name: string;
+  email?: string | null;
+  phone?: string | null;
+};
+
+const Approver = ({ name, email, phone }: ApproverProps) => {
+  const t = useTranslate();
+
+  return (
+    <div className={styles.row}>
+      <Label value={name} label={t('youthProfiles.name')} />
+      <Label value={email || ' - '} label={t('youthProfiles.email')} />
+      <Label value={phone || ' - '} label={t('youthProfiles.phone')} />
+    </div>
+  );
+};
 
 type Params = {
   id?: string;
@@ -47,20 +80,6 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
     getProfile();
   }, [getProfile]);
 
-  type Label = {
-    label: string;
-    value: string | undefined | null;
-  };
-
-  const Label = ({ value, label }: Label) => {
-    return (
-      <div className={styles.label}>
-        <p className={styles.labelTitle}>{label}</p>
-        <p className={styles.labelValue}>{value}</p>
-      </div>
-    );
-  };
-
   const getAdditionalAddresses = (address: Address) => {
     const country = countries.getName(address.countryCode || 'FI', 'FI');
     return [address.address, address.postalCode, address.city, country]
@@ -70,7 +89,10 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
 
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
+
   const addresses = getAddressesFromNode(profile);
+  const additionalContactPersons = getAdditionalContactPersons(profile);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.goBack}>
@@ -201,22 +223,27 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       </div>
 
       <h3>{t('youthProfiles.approverInfo')}</h3>
-      <div className={styles.row}>
-        <Label
-          value={getName(profile, 'approver')}
-          label={t('youthProfiles.name')}
+      <p className={styles.approverDescriptions}>
+        {t('youthProfiles.guardianConfirmationSent')}
+      </p>
+      <Approver
+        name={getName(profile, 'approver')}
+        email={profile?.youthProfile?.approverEmail}
+        phone={profile?.youthProfile?.approverPhone}
+      />
+      {additionalContactPersons.length > 0 && (
+        <p className={styles.approverDescriptions}>
+          {t('youthProfiles.addGuardiansText')}
+        </p>
+      )}
+      {additionalContactPersons.map(({ firstName, lastName, phone, email }) => (
+        <Approver
+          key={[firstName, lastName, phone, email].join('')}
+          name={[firstName, lastName].join(' ')}
+          email={email}
+          phone={phone}
         />
-      </div>
-      <div className={styles.row}>
-        <Label
-          value={profile?.youthProfile?.approverEmail || ' - '}
-          label={t('youthProfiles.email')}
-        />
-        <Label
-          value={profile?.youthProfile?.approverPhone || ' - '}
-          label={t('youthProfiles.phone')}
-        />
-      </div>
+      ))}
     </div>
   );
 };

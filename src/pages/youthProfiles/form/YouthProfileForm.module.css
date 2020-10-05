@@ -38,17 +38,8 @@
   margin-left: 20px;
 }
 
-.makePrimaryAddressButton {
-  margin-left: var(--spacing-m);
-}
-
 .fieldGroup {
   margin: var(--spacing-l) 0 var(--spacing-m);
-}
-
-.addButton {
-  margin-left: calc(-1 * var(--spacing-m));
-  margin-bottom: var(--spacing-l);
 }
 
 .addressRowContainer {
@@ -67,12 +58,13 @@
   flex-basis: 150px;
 }
 
+.additionalContactDescription {
+  margin-top: var(--spacing-l);
+  margin-bottom: calc(var(--spacing-s) * -1);
+}
+
 @media (min-width: 722px) {
   .addressRowContainer > *:nth-child(1) {
     margin-bottom: 0;
   }
-}
-
-.arrayItemControl {
-  margin-top: var(--spacing-xs);
 }

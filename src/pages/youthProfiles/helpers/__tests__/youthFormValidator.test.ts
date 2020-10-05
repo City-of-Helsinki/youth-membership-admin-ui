@@ -31,6 +31,7 @@ const values: Values = {
   approverLastName: '',
   approverEmail: 'incorrect.email',
   approverPhone: '',
+  additionalContactPersons: [],
 };
 
 test('test validation functionality', () => {
@@ -69,7 +70,7 @@ describe('test if approver fields are required', () => {
     expect(errors.approverFirstName).toEqual('validation.required');
     expect(errors.approverLastName).toEqual('validation.required');
     expect(errors.approverPhone).toEqual('validation.required');
-    expect(errors.approverEmail).toEqual('validation.required');
+    expect(errors.approverEmail).toEqual('validation.email');
   });
 
   test('user is adult', () => {
@@ -98,4 +99,58 @@ test('no empty object in error.primaryAddress when primaryAddress is valid', () 
   });
 
   expect(errors.primaryAddress).toBeUndefined();
+});
+
+describe('additional contact person validation', () => {
+  test('all fields are required for additional contact person', () => {
+    const errors: ValidationErrors = youthFormValidator({
+      ...values,
+      additionalContactPersons: [
+        {
+          firstName: 'Jocelyn',
+          lastName: 'Wu',
+          phone: '000000000',
+          email: 'fake@email.com',
+        },
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        {
+          firstName: '',
+          lastName: '',
+          phone: '',
+          email: '',
+        },
+      ],
+    });
+
+    expect(errors.additionalContactPersons?.[1].firstName).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[1].lastName).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[1].phone).toEqual(
+      'validation.required'
+    );
+    expect(errors.additionalContactPersons?.[1].email).toEqual(
+      'validation.email'
+    );
+  });
+
+  test('email needs to be an email', () => {
+    const errors: ValidationErrors = youthFormValidator({
+      ...values,
+      additionalContactPersons: [
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore
+        {
+          email: 'not email like',
+        },
+      ],
+    });
+
+    expect(errors.additionalContactPersons?.[0].email).toEqual(
+      'validation.email'
+    );
+  });
 });
