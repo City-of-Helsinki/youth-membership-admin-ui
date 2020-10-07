@@ -49,7 +49,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,ts,tsx src",
     "codegen": "apollo client:codegen --target=typescript --no-addTypename --outputFlat src/graphql/generatedTypes.ts --useReadOnlyTypes --endpoint=https://profiili-api.test.kuva.hel.ninja/graphql/",
-    "browser-test": "testcafe \"chrome --window-size='1920,1080'\""
+    "browser-test": "testcafe \"chrome --window-size='1920,1080'\" browser-tests/"
   },
   "eslintConfig": {
     "extends": "react-app"
