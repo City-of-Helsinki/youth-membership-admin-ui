@@ -120,4 +120,20 @@ test('Edit youths profile information', async (t) => {
     ['ursula.user@mailinator.com', 'uriel.user@mailinator.com'],
     '0501234567'
   );
+
+  // One last round, test "Make address primary" functionality
+  await t
+    .click(youthInformationSelector.editProfile)
+    .click(registrationFormSelector.additionalAddressMakePrimary)
+    .click(registrationFormSelector.submitButton)
+    .expect(youthInformationSelector.mainAddress.innerText)
+    .eql('Test street 202, 00200, Helsinki, Suomi');
+
+  // And change address back
+  await t
+    .click(youthInformationSelector.editProfile)
+    .click(registrationFormSelector.additionalAddressMakePrimary)
+    .click(registrationFormSelector.submitButton)
+    .expect(youthInformationSelector.mainAddress.innerText)
+    .eql('Test street 101, 00200, Helsinki, Ruotsi');
 });
