@@ -18,8 +18,8 @@ export const registrationFormSelector = {
   schoolName: Selector('input[id="schoolName"]'),
   schoolClass: Selector('input[id="schoolClass"]'),
   languageFinnish: Selector('label').withText('Suomi'),
-  languageSwedish: Selector('label').withText('Englanti'),
-  languageEnglish: Selector('label').withText('Ruotsi'),
+  languageSwedish: Selector('label').withText('Ruotsi'),
+  languageEnglish: Selector('label').withText('Englanti'),
   photoUsageYes: Selector('label').withText('Kyllä'),
   photoUsageNo: Selector('label').withText('Ei'),
   approverFirstName: Selector('input[id="approverFirstName"]'),
@@ -32,6 +32,9 @@ export const registrationFormSelector = {
   )
     .withText('Poista')
     .nth(0),
+  additionalAddressMakePrimary: Selector('button').withText(
+    'Muuta ensisijaiseksi osoitteeksi'
+  ),
   additionalAddressAddress: Selector('input[id="addresses[0].address"]'),
   additionalAddressPostalCode: Selector('input[id="addresses[0].postalCode"]'),
   additionalAddressCity: Selector('input[id="addresses[0].city"]'),
