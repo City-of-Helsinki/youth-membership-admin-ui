@@ -129,3 +129,23 @@ export const updateProfile = gql`
     }
   }
 `;
+
+export const CreateYouthProfile = gql`
+  mutation CreateYouthProfile($input: CreateYouthProfileMutationInput!) {
+    createYouthProfile(input: $input) {
+      youthProfile {
+        id
+      }
+    }
+  }
+`;
+
+export const UpdateYouthProfile = gql`
+  mutation UpdateYouthProfile($input: UpdateYouthProfileMutationInput!) {
+    updateYouthProfile(input: $input) {
+      youthProfile {
+        id
+      }
+    }
+  }
+`;
