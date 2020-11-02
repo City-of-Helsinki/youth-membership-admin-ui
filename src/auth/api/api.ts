@@ -7,13 +7,13 @@ export type RoleResponse = {
   };
 };
 
-const getRole = async (token: string): Promise<RoleResponse> => {
+const getRole = async (tokens: string): Promise<RoleResponse> => {
   try {
     await client.query({
       query: hasPermissionQuery,
       context: {
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Api-Tokens': tokens,
         },
       },
     });
