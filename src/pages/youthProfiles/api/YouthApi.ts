@@ -74,8 +74,7 @@ const renewYouthProfile: MethodHandler = async (
 ) => {
   const variables: RenewYouthProfileVariables = {
     input: {
-      profileId: params.id,
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+      id: params.id,
     },
   };
 
