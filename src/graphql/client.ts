@@ -2,14 +2,15 @@ import ApolloClient from 'apollo-boost';
 
 export default new ApolloClient({
   request: async (operation) => {
-    const token = localStorage.getItem('apiToken');
-    if (token) {
+    const tokens = localStorage.getItem('apiToken');
+
+    if (tokens) {
       operation.setContext({
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Api-Tokens': tokens,
         },
       });
     }
   },
-  uri: process.env.REACT_APP_PROFILE_GRAPHQL,
+  uri: process.env.REACT_APP_JASSARI_FEDERATION_GRAPHQL,
 });

@@ -6,7 +6,7 @@ import { RouteChildrenProps } from 'react-router';
 import * as Sentry from '@sentry/browser';
 
 import userManager from '../../userManager';
-import fetchApiToken from '../../fetchApiToken';
+import fetchApiTokens from '../../fetchApiTokens';
 import { RoleResponse } from '../../api/api';
 
 const handleRoleResponse = (roleResponse: RoleResponse) =>
@@ -19,10 +19,11 @@ function OidcCallBack(props: RouteChildrenProps) {
 
   const onSuccess = async (user: User) => {
     try {
-      const apiToken = await fetchApiToken(user.access_token);
-      const role = handleRoleResponse(await dataProvider.getRole(apiToken));
+      const apiToken = await fetchApiTokens(user.access_token);
+      const stringToken = JSON.stringify(apiToken);
+      const role = handleRoleResponse(await dataProvider.getRole(stringToken));
 
-      localStorage.setItem('apiToken', apiToken);
+      localStorage.setItem('apiToken', JSON.stringify(apiToken));
       localStorage.setItem('permissions', role);
 
       // Send user to check permissions in order to allow permissions
