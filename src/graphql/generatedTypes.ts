@@ -7,20 +7,20 @@
 // GraphQL query operation: HasPermission
 // ====================================================
 
-export interface HasPermission_profiles_edges_node {
+export interface HasPermission_youthProfiles_edges_node {
   readonly id: string;
 }
 
-export interface HasPermission_profiles_edges {
-  readonly node: HasPermission_profiles_edges_node | null;
+export interface HasPermission_youthProfiles_edges {
+  readonly node: HasPermission_youthProfiles_edges_node | null;
 }
 
-export interface HasPermission_profiles {
-  readonly edges: ReadonlyArray<(HasPermission_profiles_edges | null)>;
+export interface HasPermission_youthProfiles {
+  readonly edges: ReadonlyArray<(HasPermission_youthProfiles_edges | null)>;
 }
 
 export interface HasPermission {
-  readonly profiles: HasPermission_profiles | null;
+  readonly youthProfiles: HasPermission_youthProfiles | null;
 }
 
 /* tslint:disable */
