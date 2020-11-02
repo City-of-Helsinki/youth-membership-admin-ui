@@ -2,7 +2,7 @@ import { createUserManager } from 'redux-oidc';
 import { UserManagerSettings, Log, WebStorageStateStore } from 'oidc-client';
 import * as Sentry from '@sentry/browser';
 
-import fetchApiToken from './fetchApiToken';
+import fetchApiTokens from './fetchApiTokens';
 
 const location = `${window.location.protocol}//${window.location.hostname}${
   window.location.port ? `:${window.location.port}` : ''
@@ -39,8 +39,8 @@ userManager.events.addAccessTokenExpiring(async () => {
     await userManager.storeUser(newUser);
     // Remove API token to force logout if renewal fails (see authProvider.ts)
     localStorage.removeItem('apiToken');
-    const apiToken = await fetchApiToken(newUser.access_token);
-    localStorage.setItem('apiToken', apiToken);
+    const apiToken = await fetchApiTokens(newUser.access_token);
+    localStorage.setItem('apiToken', JSON.stringify(apiToken));
   } catch (error) {
     // This happens if you're offline for example, and it is responsible to log out.
     localStorage.removeItem('apiToken');

@@ -12,5 +12,5 @@ export default async function (accessToken: string) {
       },
     }
   );
-  return response.data['https://api.hel.fi/auth/helsinkiprofile'];
+  return response.data;
 }
