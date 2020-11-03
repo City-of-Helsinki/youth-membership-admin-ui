@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-
-import userManager from './userManager';
+import { useAuthProvider } from 'react-admin';
 
 const Logout = () => {
+  const authProvider = useAuthProvider();
+
   useEffect(() => {
-    userManager.signoutRedirect();
+    authProvider.logout();
   });
   return null;
 };
