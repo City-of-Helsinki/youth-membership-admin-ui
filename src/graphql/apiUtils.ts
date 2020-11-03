@@ -6,6 +6,7 @@ import {
 import { HttpError } from 'react-admin';
 import * as Sentry from '@sentry/browser';
 
+import authService from '../auth/authService';
 import client from './client';
 
 export const queryHandler = async (
@@ -18,8 +19,7 @@ export const queryHandler = async (
       error.message ===
       'GraphQL error: Invalid Authorization header. JWT has expired.'
     ) {
-      // JWT has expired. Probably because user has been offline. Remove old apiToken to trigger logout
-      localStorage.removeItem('apiToken');
+      authService.logout();
     } else if (
       error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR'
     ) {
