@@ -4,7 +4,7 @@ import authService from './authService';
 import authorizationService from './authorizationService';
 
 const authProvider: AuthProvider = {
-  login: () => authService.login(),
+  login: (next?: string) => authService.login(next),
   logout: async () => {
     const isAuthenticated = authService.isAuthenticated();
 
