@@ -1,10 +1,9 @@
 import React from 'react';
-import { Login, useTranslate } from 'react-admin';
+import { Login, useTranslate, useAuthProvider } from 'react-admin';
 import { Button, Card, CardContent } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
-import authenticate from '../../authenticate';
 import theme from '../../../common/materialUI/themeConfig';
 
 const useStyles = makeStyles({
@@ -23,6 +22,7 @@ const useStyles = makeStyles({
 const LoginPageContent: React.FC = () => {
   const classes = useStyles();
   const t = useTranslate();
+  const authProvider = useAuthProvider();
   return (
     <ThemeProvider theme={theme}>
       <Card>
@@ -33,7 +33,7 @@ const LoginPageContent: React.FC = () => {
               className={classes.button}
               variant="contained"
               color="secondary"
-              onClick={() => authenticate()}
+              onClick={() => authProvider.login()}
             >
               {t('ra.auth.sign_in')}
             </Button>
