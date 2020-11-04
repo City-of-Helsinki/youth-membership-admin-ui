@@ -2,7 +2,7 @@ import { Selector } from 'testcafe';
 
 export const registrationFormSelector = {
   inputErrors: Selector('div[class^="TextInput-module_helperText"]'),
-  birthDateError: Selector('p[class^="makeStyles-errorHelper"]'),
+  birthDateError: Selector('.MuiBox-root > p').withText('Vaadittu'),
   firstName: Selector('input[id="firstName"]'),
   lastName: Selector('input[id="lastName"]'),
   primaryCountry: Selector('select[name="primaryAddress.countryCode"]'),

@@ -6,5 +6,7 @@ export const loginSelector = {
   helUsername: Selector('#username'),
   helPassword: Selector('#password'),
   helLogin: Selector('#kc-login'),
-  noAccess: Selector('p[class^="makeStyles-description"]'),
+  noAccess: Selector('p').withText(
+    'Sinulla ei ole oikeuksia käyttää tätä järjestelmää'
+  ),
 };
