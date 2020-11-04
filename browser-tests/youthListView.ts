@@ -23,7 +23,7 @@ test('Test search functionality', async (t) => {
     .expect(youthListSelector.firstName.value)
     .eql(userFirstName())
     .expect(youthListSelector.lastName.value)
-    .eql('TestProfile')
+    .eql(userLastName())
     .expect(youthListSelector.dataGrid.exists)
     .ok();
 });
