@@ -100,10 +100,20 @@ export const profileQuery = gql`
   }
 `;
 
-export const createProfileMutation = gql`
+export const createHelsinkiProfileMutation = gql`
   mutation CreateProfile($input: CreateProfileMutationInput!) {
     createProfile(input: $input) {
       profile {
+        id
+      }
+    }
+  }
+`;
+
+export const createYouthProfile = gql`
+  mutation CreateYouthProfile($input: CreateYouthProfileMutationInput!) {
+    createYouthProfile(input: $input) {
+      youthProfile {
         id
       }
     }
@@ -115,16 +125,6 @@ export const renewYouthProfileMutation = gql`
     renewYouthProfile(input: $input) {
       youthProfile {
         expiration
-      }
-    }
-  }
-`;
-
-export const createYouthProfile = gql`
-  mutation CreateYouthProfile($input: CreateYouthProfileMutationInput!) {
-    createYouthProfile(input: $input) {
-      youthProfile {
-        id
       }
     }
   }

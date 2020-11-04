@@ -1,19 +1,37 @@
+import merge from 'lodash/merge';
+
+import getEnvVar from '../../../common/getEnvVar';
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
-  createProfileMutation,
+  createHelsinkiProfileMutation,
+  createYouthProfile,
   profileQuery,
   profilesQuery,
   renewYouthProfileMutation,
   updateProfiles,
 } from '../query/YouthProfileQueries';
 import {
-  CreateProfileVariables,
   Profiles_profiles as YouthProfiles,
   RenewYouthProfileVariables,
   ServiceType,
 } from '../../../graphql/generatedTypes';
-import getMutationVariables from '../helpers/youthProfileMutationVariables';
+import {
+  getUpdateProfilesVariables,
+  getCreateHelsinkiProfileVariables,
+  getCreateYouthProfileVariables,
+} from '../helpers/youthProfileMutationVariables';
+import authService from '../../../auth/authService';
+
+function getToken(tokens: string, key: string): string {
+  const token = JSON.parse(tokens)[key];
+
+  if (!token) {
+    throw Error(`Token ${key} not found`);
+  }
+
+  return token;
+}
 
 const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
   return await queryHandler({
@@ -57,18 +75,46 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
   });
 };
 
-const createYouthProfile: MethodHandler = async (
-  params: MethodHandlerParams
-) => {
-  // TODO: Fix later
-  const variables: CreateProfileVariables = (getMutationVariables(
-    params.data
-  ) as unknown) as CreateProfileVariables;
+const createProfiles: MethodHandler = async ({ data }: MethodHandlerParams) => {
+  const apiTokens = authService.getTokens();
 
-  return await mutateHandler({
-    mutation: createProfileMutation,
-    variables: variables,
-  });
+  if (!apiTokens) {
+    throw Error('Api tokens not found');
+  }
+
+  const helsinkiProfileToken = getToken(
+    apiTokens,
+    getEnvVar('REACT_APP_PROFILE_AUDIENCE')
+  );
+
+  try {
+    const helsinkiProfileCreationResponse = await mutateHandler({
+      mutation: createHelsinkiProfileMutation,
+      variables: getCreateHelsinkiProfileVariables(data),
+    });
+
+    const profileId =
+      helsinkiProfileCreationResponse?.data?.createProfile?.profile?.id;
+
+    if (!profileId) {
+      throw Error(
+        "Could not find profile id for newly created profile. Can't create youth profile."
+      );
+    }
+
+    const youthProfileCreationResponse = await mutateHandler({
+      mutation: createYouthProfile,
+      variables: getCreateYouthProfileVariables(
+        data,
+        profileId,
+        helsinkiProfileToken
+      ),
+    });
+
+    return merge(helsinkiProfileCreationResponse, youthProfileCreationResponse);
+  } catch (e) {
+    throw e;
+  }
 };
 
 const renewYouthProfile: MethodHandler = async (
@@ -91,7 +137,7 @@ const updateYouthProfile: MethodHandler = async (
 ) => {
   return await mutateHandler({
     mutation: updateProfiles,
-    variables: getMutationVariables(
+    variables: getUpdateProfilesVariables(
       params.data,
       params.previousData.data.profile
     ),
@@ -99,7 +145,7 @@ const updateYouthProfile: MethodHandler = async (
 };
 
 export {
-  createYouthProfile,
+  createProfiles,
   getYouthProfiles,
   getYouthProfile,
   renewYouthProfile,
