@@ -57,28 +57,32 @@ describe('authProvider', () => {
 
   describe('checkAuth', () => {
     it('should resolve when user is not authenticated according to authService', () => {
+      expect.assertions(1);
       jest.spyOn(authService, 'isAuthenticated').mockImplementation(() => true);
 
-      expect(authProvider.checkAuth()).resolves.toEqual();
+      return expect(authProvider.checkAuth()).resolves.toEqual();
     });
 
     it('should reject when user is not authenticated according to authService', () => {
+      expect.assertions(1);
       jest
         .spyOn(authService, 'isAuthenticated')
         .mockImplementation(() => false);
 
-      expect(authProvider.checkAuth()).rejects.toEqual();
+      return expect(authProvider.checkAuth()).rejects.toEqual();
     });
   });
 
   describe('checkError', () => {
     it('should resolve when tokens are present', () => {
+      expect.assertions(1);
       jest.spyOn(authService, 'getTokens').mockImplementation(() => fakeTokens);
 
-      expect(authProvider.checkError()).resolves.toEqual();
+      return expect(authProvider.checkError()).resolves.toEqual();
     });
 
     it('should reject when required tokens are missing', () => {
+      expect.assertions(1);
       jest.spyOn(authService, 'getTokens').mockImplementation(() =>
         JSON.stringify({
           'https://unrelated-audience.com': 'token content',
@@ -86,17 +90,18 @@ describe('authProvider', () => {
         })
       );
 
-      expect(authProvider.checkError()).rejects.toEqual();
+      return expect(authProvider.checkError()).rejects.toEqual();
     });
   });
 
   describe('getPermissions', () => {
     it('should find permissions by using the authorizationService', () => {
+      expect.assertions(1);
       const role = 'admin';
 
       jest.spyOn(authorizationService, 'getRole').mockReturnValue(role);
 
-      expect(authProvider.getPermissions()).resolves.toEqual(role);
+      return expect(authProvider.getPermissions()).resolves.toEqual(role);
     });
   });
 });
