@@ -9,5 +9,12 @@ export const hasPermissionQuery = gql`
         }
       }
     }
+    profiles(serviceType: YOUTH_MEMBERSHIP, first: 1) {
+      edges {
+        node {
+          id
+        }
+      }
+    }
   }
 `;
