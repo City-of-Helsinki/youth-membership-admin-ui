@@ -228,31 +228,6 @@ export interface RenewYouthProfileVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: UpdateProfile
-// ====================================================
-
-export interface UpdateProfile_updateProfile_profile {
-  readonly id: string;
-}
-
-export interface UpdateProfile_updateProfile {
-  readonly profile: UpdateProfile_updateProfile_profile | null;
-}
-
-export interface UpdateProfile {
-  readonly updateProfile: UpdateProfile_updateProfile | null;
-}
-
-export interface UpdateProfileVariables {
-  readonly input: UpdateProfileMutationInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: CreateYouthProfile
 // ====================================================
 
@@ -281,6 +256,14 @@ export interface CreateYouthProfileVariables {
 // GraphQL mutation operation: UpdateYouthProfile
 // ====================================================
 
+export interface UpdateYouthProfile_updateProfile_profile {
+  readonly id: string;
+}
+
+export interface UpdateYouthProfile_updateProfile {
+  readonly profile: UpdateYouthProfile_updateProfile_profile | null;
+}
+
 export interface UpdateYouthProfile_updateYouthProfile_youthProfile {
   readonly id: string;
 }
@@ -290,11 +273,13 @@ export interface UpdateYouthProfile_updateYouthProfile {
 }
 
 export interface UpdateYouthProfile {
+  readonly updateProfile: UpdateYouthProfile_updateProfile | null;
   readonly updateYouthProfile: UpdateYouthProfile_updateYouthProfile | null;
 }
 
 export interface UpdateYouthProfileVariables {
-  readonly input: UpdateYouthProfileMutationInput;
+  readonly helsinkiProfileInput: UpdateProfileMutationInput;
+  readonly youthProfileInput: UpdateYouthProfileMutationInput;
 }
 
 /* tslint:disable */

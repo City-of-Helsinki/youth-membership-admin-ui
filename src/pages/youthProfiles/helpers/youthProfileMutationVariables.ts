@@ -164,17 +164,21 @@ const getEmail = (formValues: FormValues, profile?: Profile) => {
 
 const getMutationVariables = (formValues: FormValues, profile?: Profile) => {
   return {
-    input: {
+    helsinkiProfileInput: {
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
       profile: {
+        id: profile?.id,
         firstName: formValues.firstName,
         lastName: formValues.lastName,
         language: formValues.profileLanguage,
         ...getAddress(formValues, profile),
         ...getPhone(formValues, profile),
         ...getEmail(formValues, profile),
-        ...getYouthProfile(formValues, profile),
       },
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+    },
+    youthProfileInput: {
+      id: profile?.id,
+      ...getYouthProfile(formValues, profile),
     },
   };
 };

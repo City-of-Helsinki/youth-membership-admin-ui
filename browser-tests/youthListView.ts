@@ -1,6 +1,6 @@
 import { navigationSelector } from './pages/navigationSelector';
 import { login } from './util/login';
-import { testUrl } from './util/settings';
+import { testUrl, userFirstName, userLastName } from './util/settings';
 import { youthListSelector } from './pages/youthListSelector';
 import { youthInformationSelector } from './pages/youthInformationSelector';
 
@@ -11,8 +11,8 @@ test('Test search functionality', async (t) => {
 
   await t
     .click(navigationSelector.youthProfiles)
-    .typeText(youthListSelector.firstName, 'Existing')
-    .typeText(youthListSelector.lastName, 'TestProfile')
+    .typeText(youthListSelector.firstName, userFirstName())
+    .typeText(youthListSelector.lastName, userLastName())
     .click(youthListSelector.searchButton)
     .expect(youthListSelector.dataGrid.exists)
     .ok()
@@ -21,7 +21,7 @@ test('Test search functionality', async (t) => {
     .ok()
     .click(youthInformationSelector.backToSearchResults)
     .expect(youthListSelector.firstName.value)
-    .eql('Existing')
+    .eql(userFirstName())
     .expect(youthListSelector.lastName.value)
     .eql('TestProfile')
     .expect(youthListSelector.dataGrid.exists)

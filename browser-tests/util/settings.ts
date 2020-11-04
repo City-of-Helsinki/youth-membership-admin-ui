@@ -1,27 +1,32 @@
 // @ts-ignore
 require('dotenv').config({ path: '.env' });
 
-export const username = (): string => {
-  if (!process.env.REACT_APP_TESTING_USERNAME) {
-    throw new Error('No REACT_APP_TESTING_USERNAME specified.');
+function getEnvOrError(key: string) {
+  const variable = process.env[key];
+
+  if (!variable) {
+    throw new Error(`No ${key} specified.`);
   }
-  return process.env.REACT_APP_TESTING_USERNAME;
-};
-export const usernameNoAccess = (): string => {
-  if (!process.env.REACT_APP_TESTING_USERNAME_NO_ACCESS) {
-    throw new Error('No REACT_APP_TESTING_USERNAME_NO_ACCESS specified.');
-  }
-  return process.env.REACT_APP_TESTING_USERNAME_NO_ACCESS;
-};
-export const password = (): string => {
-  if (!process.env.REACT_APP_TESTING_PASSWORD) {
-    throw new Error('No REACT_APP_TESTING_PASSWORD specified.');
-  }
-  return process.env.REACT_APP_TESTING_PASSWORD;
-};
-export const testUrl = (): string => {
-  if (!process.env.REACT_APP_BASE_URL) {
-    throw new Error('No REACT_APP_BASE_URL specified.');
-  }
-  return process.env.REACT_APP_BASE_URL;
-};
+
+  return variable;
+}
+
+export const username = (): string =>
+  getEnvOrError('REACT_APP_TESTING_USERNAME');
+
+export const usernameNoAccess = (): string =>
+  getEnvOrError('REACT_APP_TESTING_USERNAME_NO_ACCESS');
+
+export const password = (): string =>
+  getEnvOrError('REACT_APP_TESTING_PASSWORD');
+
+export const testUrl = (): string => getEnvOrError('REACT_APP_BASE_URL');
+
+export const userYouthProfileId = (): string =>
+  getEnvOrError('REACT_APP_TESTING_EXISTING_USER_YOUTH_PROFILE_ID');
+
+export const userFirstName = (): string =>
+  getEnvOrError('REACT_APP_TESTING_EXISTING_USER_FIRST_NAME');
+
+export const userLastName = (): string =>
+  getEnvOrError('REACT_APP_TESTING_EXISTING_USER_LAST_NAME');
