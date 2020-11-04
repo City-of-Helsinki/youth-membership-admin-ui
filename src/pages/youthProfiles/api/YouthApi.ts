@@ -5,14 +5,13 @@ import {
   profileQuery,
   profilesQuery,
   renewYouthProfileMutation,
-  updateProfile,
+  updateProfiles,
 } from '../query/YouthProfileQueries';
 import {
   CreateProfileVariables,
   Profiles_profiles as YouthProfiles,
   RenewYouthProfileVariables,
   ServiceType,
-  UpdateProfileVariables,
 } from '../../../graphql/generatedTypes';
 import getMutationVariables from '../helpers/youthProfileMutationVariables';
 
@@ -61,7 +60,10 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
 const createYouthProfile: MethodHandler = async (
   params: MethodHandlerParams
 ) => {
-  const variables: CreateProfileVariables = getMutationVariables(params.data);
+  // TODO: Fix later
+  const variables: CreateProfileVariables = (getMutationVariables(
+    params.data
+  ) as unknown) as CreateProfileVariables;
 
   return await mutateHandler({
     mutation: createProfileMutation,
@@ -87,26 +89,12 @@ const renewYouthProfile: MethodHandler = async (
 const updateYouthProfile: MethodHandler = async (
   params: MethodHandlerParams
 ) => {
-  // Store values to another variable for second. This way we can use spread operator to add ID.
-  // (UpdateProfileVariables is a readonly so adding ID in another way is not possible)
-  const updateVariables = getMutationVariables(
-    params.data,
-    params.previousData.data.profile
-  );
-
-  const variables: UpdateProfileVariables = {
-    input: {
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
-      profile: {
-        ...updateVariables.input.profile,
-        id: params.previousData.data.profile.id,
-      },
-    },
-  };
-
   return await mutateHandler({
-    mutation: updateProfile,
-    variables,
+    mutation: updateProfiles,
+    variables: getMutationVariables(
+      params.data,
+      params.previousData.data.profile
+    ),
   });
 };
 
