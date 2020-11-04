@@ -19,8 +19,21 @@ export interface HasPermission_youthProfiles {
   readonly edges: ReadonlyArray<(HasPermission_youthProfiles_edges | null)>;
 }
 
+export interface HasPermission_profiles_edges_node {
+  readonly id: string;
+}
+
+export interface HasPermission_profiles_edges {
+  readonly node: HasPermission_profiles_edges_node | null;
+}
+
+export interface HasPermission_profiles {
+  readonly edges: ReadonlyArray<(HasPermission_profiles_edges | null)>;
+}
+
 export interface HasPermission {
   readonly youthProfiles: HasPermission_youthProfiles | null;
+  readonly profiles: HasPermission_profiles | null;
 }
 
 /* tslint:disable */
@@ -203,31 +216,6 @@ export interface CreateProfileVariables {
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: RenewYouthProfile
-// ====================================================
-
-export interface RenewYouthProfile_renewYouthProfile_youthProfile {
-  readonly expiration: any;
-}
-
-export interface RenewYouthProfile_renewYouthProfile {
-  readonly youthProfile: RenewYouthProfile_renewYouthProfile_youthProfile | null;
-}
-
-export interface RenewYouthProfile {
-  readonly renewYouthProfile: RenewYouthProfile_renewYouthProfile | null;
-}
-
-export interface RenewYouthProfileVariables {
-  readonly input: RenewYouthProfileMutationInput;
-}
-
-/* tslint:disable */
-/* eslint-disable */
-// @generated
-// This file was automatically generated and should not be edited.
-
-// ====================================================
 // GraphQL mutation operation: CreateYouthProfile
 // ====================================================
 
@@ -245,6 +233,31 @@ export interface CreateYouthProfile {
 
 export interface CreateYouthProfileVariables {
   readonly input: CreateYouthProfileMutationInput;
+}
+
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL mutation operation: RenewYouthProfile
+// ====================================================
+
+export interface RenewYouthProfile_renewYouthProfile_youthProfile {
+  readonly expiration: any;
+}
+
+export interface RenewYouthProfile_renewYouthProfile {
+  readonly youthProfile: RenewYouthProfile_renewYouthProfile_youthProfile | null;
+}
+
+export interface RenewYouthProfile {
+  readonly renewYouthProfile: RenewYouthProfile_renewYouthProfile | null;
+}
+
+export interface RenewYouthProfileVariables {
+  readonly input: RenewYouthProfileMutationInput;
 }
 
 /* tslint:disable */
