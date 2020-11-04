@@ -1,7 +1,19 @@
 import { AuthProvider } from 'ra-core';
+import get from 'lodash/get';
 
 import authService from './authService';
 import authorizationService from './authorizationService';
+
+function getEnv(
+  value: Record<string, string>,
+  key?: string
+): string | undefined {
+  if (!key) {
+    return;
+  }
+
+  return get(value, key);
+}
 
 const authProvider: AuthProvider = {
   login: (next?: string) => authService.login(next),
@@ -28,9 +40,14 @@ const authProvider: AuthProvider = {
     return Promise.reject();
   },
   checkError: () => {
-    const apiTokens = authService.getTokens();
-    const hasTokens =
-      apiTokens && Object.keys(JSON.stringify(apiTokens)).length === 2;
+    const apiTokens = JSON.parse(authService.getTokens() || '');
+    const hasProfileToken =
+      typeof getEnv(apiTokens, process.env.REACT_APP_PROFILE_AUDIENCE) ===
+      'string';
+    const hasJassariToken =
+      typeof getEnv(apiTokens, process.env.REACT_APP_JASSARI_AUDIENCE) ===
+      'string';
+    const hasTokens = hasProfileToken && hasJassariToken;
 
     if (hasTokens) {
       return Promise.resolve();
