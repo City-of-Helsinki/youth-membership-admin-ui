@@ -20,3 +20,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# do not store env in version control in order to avoid leaking secrets
+.env
+.env.development
+.env.test
+.env.production
