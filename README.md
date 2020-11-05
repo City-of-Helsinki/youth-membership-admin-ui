@@ -104,6 +104,8 @@ Browser test are written in TypeScript with [TestCafe](https://devexpress.github
 Make sure the project is running locally and required env variables are set (you can contact Santtu Tuovinen for these).
 Execute tests with `yarn browser-test`
 
+Browser tests are ran configured to run in Travis against the cron event with the `browser-test:ci` command. Cron is configured to run once a day.
+
 ## Known issues
 https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
 
