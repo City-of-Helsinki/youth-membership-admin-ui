@@ -2,6 +2,7 @@ import { UserManager, User, UserManagerSettings, Log } from 'oidc-client';
 import axios from 'axios';
 import * as Sentry from '@sentry/browser';
 
+import configService from '../config/configService';
 import authorizationService from './authorizationService';
 
 const origin = window.location.origin;
@@ -14,15 +15,15 @@ export class AuthService {
     /* eslint-disable @typescript-eslint/camelcase */
     const settings: UserManagerSettings = {
       loadUserInfo: true,
-      authority: process.env.REACT_APP_OIDC_AUTHORITY,
-      client_id: process.env.REACT_APP_OIDC_CLIENT_ID,
+      authority: configService.getConfig('REACT_APP_OIDC_AUTHORITY'),
+      client_id: configService.getConfig('REACT_APP_OIDC_CLIENT_ID'),
       redirect_uri: `${origin}/callback`,
       // For debugging, set it to 1 minute by removing comment:
       // accessTokenExpiringNotificationTime: 59.65 * 60,
       automaticSilentRenew: false,
       silent_redirect_uri: `${origin}/silent_renew.html`,
       response_type: 'id_token token',
-      scope: process.env.REACT_APP_OIDC_SCOPE,
+      scope: configService.getConfig('REACT_APP_OIDC_SCOPE'),
       post_logout_redirect_uri: origin,
     };
     /* eslint-enable @typescript-eslint/camelcase */
@@ -103,7 +104,9 @@ export class AuthService {
   }
 
   public isAuthenticated() {
-    const userKey = `oidc.user:${process.env.REACT_APP_OIDC_AUTHORITY}:${process.env.REACT_APP_OIDC_CLIENT_ID}`;
+    const userKey = `oidc.user:${configService.getConfig(
+      'REACT_APP_OIDC_AUTHORITY'
+    )}:${configService.getConfig('REACT_APP_OIDC_CLIENT_ID')}`;
     const oidcStorage = sessionStorage.getItem(userKey);
     const apiTokens = this.getTokens();
 
@@ -143,9 +146,11 @@ export class AuthService {
   }
 
   private async fetchApiTokens(user: User): Promise<void> {
-    const url = `${process.env.REACT_APP_OIDC_AUTHORITY}api-tokens/`;
+    const url = `${configService.getConfig(
+      'REACT_APP_OIDC_AUTHORITY'
+    )}api-tokens/`;
     const { data: apiTokens } = await axios.get(url, {
-      baseURL: process.env.REACT_APP_TUNNISTAMO_URI,
+      baseURL: configService.getConfig('REACT_APP_OIDC_AUTHORITY'),
       headers: {
         Authorization: `bearer ${user.access_token}`,
       },

@@ -1,5 +1,6 @@
 import ApolloClient from 'apollo-boost';
 
+import configService from '../config/configService';
 import authService from '../auth/authService';
 
 export default new ApolloClient({
@@ -14,5 +15,5 @@ export default new ApolloClient({
       });
     }
   },
-  uri: process.env.REACT_APP_JASSARI_FEDERATION_GRAPHQL,
+  uri: configService.getConfig('REACT_APP_JASSARI_FEDERATION_GRAPHQL'),
 });

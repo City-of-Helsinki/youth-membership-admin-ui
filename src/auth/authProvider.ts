@@ -1,6 +1,7 @@
 import { AuthProvider } from 'ra-core';
 import get from 'lodash/get';
 
+import configService from '../config/configService';
 import authService from './authService';
 import authorizationService from './authorizationService';
 
@@ -42,11 +43,15 @@ const authProvider: AuthProvider = {
   checkError: () => {
     const apiTokens = JSON.parse(authService.getTokens() || '');
     const hasProfileToken =
-      typeof getEnv(apiTokens, process.env.REACT_APP_PROFILE_AUDIENCE) ===
-      'string';
+      typeof getEnv(
+        apiTokens,
+        configService.getConfig('REACT_APP_PROFILE_AUDIENCE')
+      ) === 'string';
     const hasJassariToken =
-      typeof getEnv(apiTokens, process.env.REACT_APP_JASSARI_AUDIENCE) ===
-      'string';
+      typeof getEnv(
+        apiTokens,
+        configService.getConfig('REACT_APP_JASSARI_AUDIENCE')
+      ) === 'string';
     const hasTokens = hasProfileToken && hasJassariToken;
 
     if (hasTokens) {

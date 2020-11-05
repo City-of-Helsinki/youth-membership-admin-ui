@@ -23,3 +23,9 @@ yarn-error.log*
 
 # browser test screenshots on error
 screenshots
+
+# do not store env in version control in order to avoid leaking secrets
+.env
+.env.development
+.env.test
+.env.production

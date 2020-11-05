@@ -4,3 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom/extend-expect';
 import 'jest-localstorage-mock';
+import dotenv from 'dotenv';
+
+// Use the example env as test environment
+dotenv.config({ path: '.env.example' });

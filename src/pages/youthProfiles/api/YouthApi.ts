@@ -1,6 +1,6 @@
 import merge from 'lodash/merge';
 
-import getEnvVar from '../../../common/getEnvVar';
+import configService from '../../../config/configService';
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
@@ -84,7 +84,7 @@ const createProfiles: MethodHandler = async ({ data }: MethodHandlerParams) => {
 
   const helsinkiProfileToken = getToken(
     apiTokens,
-    getEnvVar('REACT_APP_PROFILE_AUDIENCE')
+    configService.getConfig('REACT_APP_PROFILE_AUDIENCE')
   );
 
   try {
