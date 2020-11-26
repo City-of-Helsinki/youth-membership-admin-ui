@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![codecov](https://codecov.io/gh/City-of-Helsinki/youth-membership-admin-ui/branch/develop/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/youth-membership-admin-ui)
+![Build status](https://github.com/City-of-Helsinki/youth-membership-admin-ui/workflows/CI/badge.svg?branch=develop)
+![Browser tests](https://github.com/City-of-Helsinki/youth-membership-admin-ui/workflows/Browser%20tests/badge.svg?branch=develop)
 
 ## Youth-membership-admin
 Staff interface for Youth membership
@@ -7,7 +9,7 @@ Staff interface for Youth membership
 
 Test: https://jassari-admin.test.kuva.hel.ninja/
 
-Production: -
+Production: https://jassari-admin.hel.fi/
 
 ### Issues board
 
@@ -43,6 +45,12 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `yarn codegen`
 
 Generate static types for GraphQL queries by using the schema from the backend server.
+
+### `yarn browser-test`
+
+The `ci` variant of `browser-test` is ran against a headless browser, making it suitable for CI environments.
+
+Browser tests are configured to run with GitHub actions during each weekday with the `browser-test:ci` command.
 
 ## Setting up development environment locally with docker
 
