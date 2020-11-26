@@ -1,5 +1,10 @@
 import { login } from './util/login';
-import { testUrl } from './util/settings';
+import {
+  testUrl,
+  userYouthProfileId,
+  userFirstName,
+  userLastName,
+} from './util/settings';
 import {
   changeAddresses,
   changeApprovers,
@@ -12,7 +17,7 @@ import { registrationFormSelector } from './pages/registrationFormSelector';
 // Enter straight to youth's information with url. This simulates behaviour when staff member reads youth's QR-code.
 // TODO: Figure out better way to implement ID
 fixture('View and edit').page(
-  `${testUrl().trim()}youthProfiles/UHJvZmlsZU5vZGU6M2Y5ZDkzZTEtODEzMi00NzA4LWJmOGQtYTY2ODgyYWQyNjAy/show`
+  `${testUrl().trim()}youthProfiles/${userYouthProfileId()}/show`
 );
 
 test('Edit youths profile information', async (t) => {
@@ -22,9 +27,9 @@ test('Edit youths profile information', async (t) => {
   // Change all of the profile information
   await t
     .selectText(registrationFormSelector.firstName)
-    .typeText(registrationFormSelector.firstName, 'TestProfile')
+    .typeText(registrationFormSelector.firstName, userFirstName())
     .selectText(registrationFormSelector.lastName)
-    .typeText(registrationFormSelector.lastName, 'Existing');
+    .typeText(registrationFormSelector.lastName, userLastName());
 
   await changeAddresses(
     t,
@@ -52,7 +57,7 @@ test('Edit youths profile information', async (t) => {
   // Make sure values changed
   await expectProfileInformation(
     t,
-    'TestProfile Existing',
+    `${userFirstName()} ${userLastName()}`,
     [
       'User street 303, 12345, Espoo, Ruotsi',
       'User street 404, 54321, Vantaa, Suomi',
@@ -74,9 +79,9 @@ test('Edit youths profile information', async (t) => {
 
   await t
     .selectText(registrationFormSelector.firstName)
-    .typeText(registrationFormSelector.firstName, 'Existing')
+    .typeText(registrationFormSelector.firstName, userFirstName())
     .selectText(registrationFormSelector.lastName)
-    .typeText(registrationFormSelector.lastName, 'TestProfile');
+    .typeText(registrationFormSelector.lastName, userLastName());
 
   await changeAddresses(
     t,
@@ -104,7 +109,7 @@ test('Edit youths profile information', async (t) => {
   // Make sure values changed
   await expectProfileInformation(
     t,
-    'Existing TestProfile',
+    `${userFirstName()} ${userLastName()}`,
     [
       'Test street 101, 00200, Helsinki, Ruotsi',
       'Test street 202, 00200, Helsinki, Suomi',

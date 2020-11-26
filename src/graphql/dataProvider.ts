@@ -5,7 +5,7 @@ import {
   DataProviderParams as Params,
 } from './types';
 import {
-  createYouthProfile,
+  createProfiles,
   getYouthProfiles,
   getYouthProfile,
   renewYouthProfile,
@@ -17,7 +17,7 @@ const METHOD_HANDLERS: MethodHandlers = {
   youthProfiles: {
     ONE: getYouthProfile,
     LIST: getYouthProfiles,
-    CREATE: createYouthProfile,
+    CREATE: createProfiles,
     RENEW: renewYouthProfile,
     UPDATE: updateYouthProfile,
   },

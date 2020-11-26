@@ -12,6 +12,8 @@ import {
   UpdateAddressInput,
   CreateAdditionalContactPersonInput,
   UpdateAdditionalContactPersonInput,
+  CreateProfileVariables,
+  CreateYouthProfileVariables,
 } from '../../../graphql/generatedTypes';
 import getAddressesFromNode from './getAddressesFromNode';
 import getAdditionalContactPersons from './getAdditionalContactPersons';
@@ -54,18 +56,16 @@ const getYouthProfile = (formValues: FormValues, profile?: Profile) => {
   }, {});
 
   return {
-    youthProfile: {
-      birthDate: format(new Date(formValues.birthDate), 'yyyy-MM-dd'),
-      schoolName: formValues.schoolName,
-      schoolClass: formValues.schoolClass,
-      approverFirstName: formValues.approverFirstName,
-      approverLastName: formValues.approverLastName,
-      approverPhone: formValues.approverPhone,
-      approverEmail: formValues.approverEmail,
-      languageAtHome: formValues.languageAtHome,
-      photoUsageApproved: formValues.photoUsageApproved === 'true',
-      ...additionalContactPersonChanges,
-    },
+    birthDate: format(new Date(formValues.birthDate), 'yyyy-MM-dd'),
+    schoolName: formValues.schoolName,
+    schoolClass: formValues.schoolClass,
+    approverFirstName: formValues.approverFirstName,
+    approverLastName: formValues.approverLastName,
+    approverPhone: formValues.approverPhone,
+    approverEmail: formValues.approverEmail,
+    languageAtHome: formValues.languageAtHome,
+    photoUsageApproved: formValues.photoUsageApproved === 'true',
+    ...additionalContactPersonChanges,
   };
 };
 
@@ -162,21 +162,55 @@ const getEmail = (formValues: FormValues, profile?: Profile) => {
   };
 };
 
-const getMutationVariables = (formValues: FormValues, profile?: Profile) => {
+const getHelsinkiProfile = (formData: FormValues, profile?: Profile) => ({
+  firstName: formData.firstName,
+  lastName: formData.lastName,
+  language: formData.profileLanguage,
+  ...getAddress(formData, profile),
+  ...getPhone(formData, profile),
+  ...getEmail(formData, profile),
+});
+
+export const getUpdateProfilesVariables = (
+  formValues: FormValues,
+  profile?: Profile
+) => {
   return {
-    input: {
-      profile: {
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
-        language: formValues.profileLanguage,
-        ...getAddress(formValues, profile),
-        ...getPhone(formValues, profile),
-        ...getEmail(formValues, profile),
-        ...getYouthProfile(formValues, profile),
-      },
+    helsinkiProfileInput: {
       serviceType: ServiceType.YOUTH_MEMBERSHIP,
+      profile: {
+        id: profile?.id,
+        ...getHelsinkiProfile(formValues, profile),
+      },
+    },
+    youthProfileInput: {
+      id: profile?.id,
+      youthProfile: getYouthProfile(formValues, profile),
     },
   };
 };
 
-export default getMutationVariables;
+export const getCreateHelsinkiProfileVariables = (
+  formData: FormValues
+): CreateProfileVariables => {
+  return {
+    input: {
+      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+      profile: getHelsinkiProfile(formData),
+    },
+  };
+};
+
+export const getCreateYouthProfileVariables = (
+  data: FormValues,
+  profileId: string,
+  profileApiToken: string
+): CreateYouthProfileVariables => {
+  return {
+    input: {
+      id: profileId,
+      profileApiToken,
+      youthProfile: getYouthProfile(data),
+    },
+  };
+};

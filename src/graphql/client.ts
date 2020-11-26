@@ -1,15 +1,19 @@
 import ApolloClient from 'apollo-boost';
 
+import configService from '../config/configService';
+import authService from '../auth/authService';
+
 export default new ApolloClient({
   request: async (operation) => {
-    const token = localStorage.getItem('apiToken');
-    if (token) {
+    const tokens = authService.getTokens();
+
+    if (tokens) {
       operation.setContext({
         headers: {
-          Authorization: `Bearer ${token}`,
+          'Api-Tokens': tokens,
         },
       });
     }
   },
-  uri: process.env.REACT_APP_PROFILE_GRAPHQL,
+  uri: configService.getConfig('REACT_APP_JASSARI_FEDERATION_GRAPHQL'),
 });

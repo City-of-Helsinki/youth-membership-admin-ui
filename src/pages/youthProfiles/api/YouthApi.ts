@@ -1,20 +1,37 @@
+import merge from 'lodash/merge';
+
+import configService from '../../../config/configService';
 import { MethodHandler, MethodHandlerParams } from '../../../graphql/types';
 import { mutateHandler, queryHandler } from '../../../graphql/apiUtils';
 import {
-  createProfileMutation,
+  createHelsinkiProfileMutation,
+  createYouthProfile,
   profileQuery,
   profilesQuery,
   renewYouthProfileMutation,
-  updateProfile,
+  updateProfiles,
 } from '../query/YouthProfileQueries';
 import {
-  CreateProfileVariables,
   Profiles_profiles as YouthProfiles,
   RenewYouthProfileVariables,
   ServiceType,
-  UpdateProfileVariables,
 } from '../../../graphql/generatedTypes';
-import getMutationVariables from '../helpers/youthProfileMutationVariables';
+import {
+  getUpdateProfilesVariables,
+  getCreateHelsinkiProfileVariables,
+  getCreateYouthProfileVariables,
+} from '../helpers/youthProfileMutationVariables';
+import authService from '../../../auth/authService';
+
+function getToken(tokens: string, key: string): string {
+  const token = JSON.parse(tokens)[key];
+
+  if (!token) {
+    throw Error(`Token ${key} not found`);
+  }
+
+  return token;
+}
 
 const getYouthProfile: MethodHandler = async (params: MethodHandlerParams) => {
   return await queryHandler({
@@ -58,15 +75,46 @@ const getYouthProfiles: MethodHandler = async (params: MethodHandlerParams) => {
   });
 };
 
-const createYouthProfile: MethodHandler = async (
-  params: MethodHandlerParams
-) => {
-  const variables: CreateProfileVariables = getMutationVariables(params.data);
+const createProfiles: MethodHandler = async ({ data }: MethodHandlerParams) => {
+  const apiTokens = authService.getTokens();
 
-  return await mutateHandler({
-    mutation: createProfileMutation,
-    variables: variables,
-  });
+  if (!apiTokens) {
+    throw Error('Api tokens not found');
+  }
+
+  const helsinkiProfileToken = getToken(
+    apiTokens,
+    configService.getConfig('REACT_APP_PROFILE_AUDIENCE')
+  );
+
+  try {
+    const helsinkiProfileCreationResponse = await mutateHandler({
+      mutation: createHelsinkiProfileMutation,
+      variables: getCreateHelsinkiProfileVariables(data),
+    });
+
+    const profileId =
+      helsinkiProfileCreationResponse?.data?.createProfile?.profile?.id;
+
+    if (!profileId) {
+      throw Error(
+        "Could not find profile id for newly created profile. Can't create youth profile."
+      );
+    }
+
+    const youthProfileCreationResponse = await mutateHandler({
+      mutation: createYouthProfile,
+      variables: getCreateYouthProfileVariables(
+        data,
+        profileId,
+        helsinkiProfileToken
+      ),
+    });
+
+    return merge(helsinkiProfileCreationResponse, youthProfileCreationResponse);
+  } catch (e) {
+    throw e;
+  }
 };
 
 const renewYouthProfile: MethodHandler = async (
@@ -74,8 +122,7 @@ const renewYouthProfile: MethodHandler = async (
 ) => {
   const variables: RenewYouthProfileVariables = {
     input: {
-      profileId: params.id,
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
+      id: params.id,
     },
   };
 
@@ -88,31 +135,17 @@ const renewYouthProfile: MethodHandler = async (
 const updateYouthProfile: MethodHandler = async (
   params: MethodHandlerParams
 ) => {
-  // Store values to another variable for second. This way we can use spread operator to add ID.
-  // (UpdateProfileVariables is a readonly so adding ID in another way is not possible)
-  const updateVariables = getMutationVariables(
-    params.data,
-    params.previousData.data.profile
-  );
-
-  const variables: UpdateProfileVariables = {
-    input: {
-      serviceType: ServiceType.YOUTH_MEMBERSHIP,
-      profile: {
-        ...updateVariables.input.profile,
-        id: params.previousData.data.profile.id,
-      },
-    },
-  };
-
   return await mutateHandler({
-    mutation: updateProfile,
-    variables,
+    mutation: updateProfiles,
+    variables: getUpdateProfilesVariables(
+      params.data,
+      params.previousData.data.profile
+    ),
   });
 };
 
 export {
-  createYouthProfile,
+  createProfiles,
   getYouthProfiles,
   getYouthProfile,
   renewYouthProfile,
