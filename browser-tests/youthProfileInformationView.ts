@@ -17,7 +17,7 @@ import { registrationFormSelector } from './pages/registrationFormSelector';
 // Enter straight to youth's information with url. This simulates behaviour when staff member reads youth's QR-code.
 // TODO: Figure out better way to implement ID
 fixture('View and edit').page(
-  `${testUrl().trim()}youthProfiles/${userYouthProfileId()}/show`
+  `${testUrl().trim()}/youthProfiles/${userYouthProfileId()}/show`
 );
 
 test('Edit youths profile information', async (t) => {
