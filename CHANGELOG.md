@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Changed
 - Use GitHub actions instead of Travis
 - Use federated youth membership service
+- Use public address for Jassari API
 
 ## [1.2.0] - 2020-11-03
 ### Added
