@@ -57,13 +57,13 @@ const getYouthProfile = (formValues: FormValues, profile?: Profile) => {
 
   return {
     birthDate: format(new Date(formValues.birthDate), 'yyyy-MM-dd'),
-    schoolName: formValues.schoolName,
-    schoolClass: formValues.schoolClass,
-    approverFirstName: formValues.approverFirstName,
-    approverLastName: formValues.approverLastName,
-    approverPhone: formValues.approverPhone,
-    approverEmail: formValues.approverEmail,
-    languageAtHome: formValues.languageAtHome,
+    schoolName: formValues.schoolName || '',
+    schoolClass: formValues.schoolClass || '',
+    approverFirstName: formValues.approverFirstName || '',
+    approverLastName: formValues.approverLastName || '',
+    approverPhone: formValues.approverPhone || '',
+    approverEmail: formValues.approverEmail || '',
+    languageAtHome: formValues.languageAtHome || '',
     photoUsageApproved: formValues.photoUsageApproved === 'true',
     ...additionalContactPersonChanges,
   };

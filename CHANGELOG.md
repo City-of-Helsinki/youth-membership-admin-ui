@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Use federated youth membership service
 - Use public address for Jassari API
 
+### Fixed
+- Non-required youth profile fields can be cleared
+
 ## [1.2.2] - 2020-02-01
 - Re-release on v.1.2.0 with backend pointing to profile.
 
