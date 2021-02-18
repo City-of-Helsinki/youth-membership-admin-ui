@@ -9,6 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Fixed
 
+- Use production audience for Jassari API
+
+## [1.3.1] - 2020-02-18
+
+### Fixed
+
 - Fix federation location
 
 ## [1.3.0] - 2020-02-18
