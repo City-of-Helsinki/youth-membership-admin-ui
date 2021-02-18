@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Admin, useTranslate } from 'react-admin';
 import { createBrowserHistory as createHistory } from 'history';
 import countries from 'i18n-iso-countries';
@@ -21,19 +21,6 @@ const history = createHistory();
 
 const App: React.FC = () => {
   const t = useTranslate();
-
-  const [appPathSaved, setAppPathSaved] = useState(false);
-
-  const url = window.location.href;
-  const redirectUrlExists = url.search('login');
-  const isCallback = url.search('callback');
-  // Ignore /login and /callback
-  // Change state so we don't access this by accident when navigating around application
-  if (redirectUrlExists === -1 && isCallback === -1 && !appPathSaved) {
-    const redirectPath = url.replace(process.env.REACT_APP_BASE_URL || '', '');
-    localStorage.setItem('redirectPath', redirectPath);
-    setAppPathSaved(true);
-  }
 
   return (
     <Admin

@@ -3,7 +3,6 @@ import { useTranslate, useAuthProvider } from 'react-admin';
 import { Button, Card, CardContent } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
 
 import theme from '../../../common/materialUI/themeConfig';
 
@@ -42,13 +41,10 @@ const useStyles = makeStyles({
 const NotAuthorizedPage: React.FC = () => {
   const classes = useStyles();
   const t = useTranslate();
-  const history = useHistory();
   const authProvider = useAuthProvider();
 
   const handleLogout = async () => {
     await authProvider.logout();
-
-    history.push('/logout');
   };
 
   return (
