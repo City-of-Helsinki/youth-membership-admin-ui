@@ -41,7 +41,7 @@ jobs:
           DOCKER_BUILD_ARG_REACT_APP_JASSARI_AUDIENCE: ${{ env.JASSARI_AUDIENCE }}
           DOCKER_BUILD_ARG_REACT_APP_OIDC_CLIENT_ID: 'https://id.hel.fi/auth/clients/jassari-admin-prod'
           DOCKER_BUILD_ARG_REACT_APP_OIDC_SCOPE: 'openid ${{ env.PROFILE_AUDIENCE }} ${{ env.JASSARI_AUDIENCE }}'
-          DOCKER_BUILD_ARG_REACT_APP_JASSARI_FEDERATION_GRAPHQL: 'https://jassari.api.hel.fi'
+          DOCKER_BUILD_ARG_REACT_APP_JASSARI_FEDERATION_GRAPHQL: 'https://jassari-federation.api.hel.fi/'
           DOCKER_BUILD_ARG_REACT_APP_SENTRY_DSN: 'https://13e1b97fb11c4d10976a27675061c6c3@sentry.hel.ninja/60'
           DOCKER_BUILD_ARG_REACT_APP_BASE_URL: 'https://jassari-admin.hel.fi/'
 
