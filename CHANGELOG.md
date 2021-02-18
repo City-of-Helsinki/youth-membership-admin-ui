@@ -5,13 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+## [1.3.0] - 2020-02-18
+
 ### Changed
-- Use GitHub actions instead of Travis
-- Use federated youth membership service
-- Use public address for Jassari API
+- [#77](https://github.com/City-of-Helsinki/youth-membership-admin-ui/pull/77) Use GitHub actions instead of Travis
+- [#76](https://github.com/City-of-Helsinki/youth-membership-admin-ui/pull/76) Use federated youth membership service
+- [#84](https://github.com/City-of-Helsinki/youth-membership-admin-ui/pull/84) Use public address for Jassari API
 
 ### Fixed
-- Non-required youth profile fields can be cleared
+- [#92](https://github.com/City-of-Helsinki/youth-membership-admin-ui/pull/92) Non-required youth profile fields can be cleared
 
 ## [1.2.2] - 2020-02-01
 - Re-release on v.1.2.0 with backend pointing to profile.
