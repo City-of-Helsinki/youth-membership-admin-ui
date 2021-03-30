@@ -316,16 +316,6 @@ const YouthProfileForm = (props: Props) => {
             </div>
 
             <RadioGroupInput
-              initialValue={props?.record?.languageAtHome || Language.FINNISH}
-              label={t('youthProfiles.languageAtHome')}
-              name="languageAtHome"
-              choices={[
-                { id: Language.FINNISH, name: t('LANGUAGE_OPTIONS.FINNISH') },
-                { id: Language.ENGLISH, name: t('LANGUAGE_OPTIONS.ENGLISH') },
-                { id: Language.SWEDISH, name: t('LANGUAGE_OPTIONS.SWEDISH') },
-              ]}
-            />
-            <RadioGroupInput
               initialValue={props?.record?.photoUsageApproved || 'false'}
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
@@ -372,6 +362,18 @@ const YouthProfileForm = (props: Props) => {
                 name="approverPhone"
                 className={styles.textField}
                 error={errors.approverPhone}
+              />
+            </div>
+            <div className={styles.rowContainer}>
+              <RadioGroupInput
+                initialValue={props?.record?.languageAtHome || Language.FINNISH}
+                label={t('youthProfiles.languageAtHome')}
+                name="languageAtHome"
+                choices={[
+                  { id: Language.FINNISH, name: t('LANGUAGE_OPTIONS.FINNISH') },
+                  { id: Language.ENGLISH, name: t('LANGUAGE_OPTIONS.ENGLISH') },
+                  { id: Language.SWEDISH, name: t('LANGUAGE_OPTIONS.SWEDISH') },
+                ]}
               />
             </div>
             <FormGroupDescription
