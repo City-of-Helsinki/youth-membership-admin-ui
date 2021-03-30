@@ -13,6 +13,7 @@ import countries from 'i18n-iso-countries';
 import styles from './YouthProfileForm.module.css';
 import {
   Language,
+  YouthLanguage,
   Profile_profile_addresses_edges_node as Address,
   Profile_profile_primaryAddress as PrimaryAddress,
 } from '../../../graphql/generatedTypes';
@@ -369,19 +370,18 @@ const YouthProfileForm = (props: Props) => {
                 name="languageAtHome"
                 labelText={t('youthProfiles.languageAtHome')}
                 options={[
-                  {
-                    value: Language.FINNISH,
-                    label: t('LANGUAGE_OPTIONS.FINNISH'),
-                  },
-                  {
-                    value: Language.ENGLISH,
-                    label: t('LANGUAGE_OPTIONS.ENGLISH'),
-                  },
-                  {
-                    value: Language.SWEDISH,
-                    label: t('LANGUAGE_OPTIONS.SWEDISH'),
-                  },
-                ]}
+                  YouthLanguage.FINNISH,
+                  YouthLanguage.SWEDISH,
+                  YouthLanguage.ENGLISH,
+                  YouthLanguage.FRENCH,
+                  YouthLanguage.RUSSIAN,
+                  YouthLanguage.SOMALI,
+                  YouthLanguage.ARABIC,
+                  YouthLanguage.ESTONIAN,
+                ].map((language) => ({
+                  value: language,
+                  label: t(`LANGUAGE_OPTIONS.${language}`),
+                }))}
                 className={styles.select}
               />
             </div>
