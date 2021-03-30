@@ -365,15 +365,24 @@ const YouthProfileForm = (props: Props) => {
               />
             </div>
             <div className={styles.rowContainer}>
-              <RadioGroupInput
-                initialValue={props?.record?.languageAtHome || Language.FINNISH}
-                label={t('youthProfiles.languageAtHome')}
+              <SelectInput
                 name="languageAtHome"
-                choices={[
-                  { id: Language.FINNISH, name: t('LANGUAGE_OPTIONS.FINNISH') },
-                  { id: Language.ENGLISH, name: t('LANGUAGE_OPTIONS.ENGLISH') },
-                  { id: Language.SWEDISH, name: t('LANGUAGE_OPTIONS.SWEDISH') },
+                labelText={t('youthProfiles.languageAtHome')}
+                options={[
+                  {
+                    value: Language.FINNISH,
+                    label: t('LANGUAGE_OPTIONS.FINNISH'),
+                  },
+                  {
+                    value: Language.ENGLISH,
+                    label: t('LANGUAGE_OPTIONS.ENGLISH'),
+                  },
+                  {
+                    value: Language.SWEDISH,
+                    label: t('LANGUAGE_OPTIONS.SWEDISH'),
+                  },
                 ]}
+                className={styles.select}
               />
             </div>
             <FormGroupDescription
