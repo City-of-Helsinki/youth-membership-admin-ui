@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 
+### Changed
+- Label "Profile language" to "Preferred service language"
+
 ## [1.3.1] - 2020-02-18
 
 ### Fixed
