@@ -41,7 +41,8 @@ test('Edit youths profile information', async (t) => {
   await t
     .selectText(registrationFormSelector.phone)
     .typeText(registrationFormSelector.phone, '7654321050')
-    .click(registrationFormSelector.languageFinnish)
+    .click(registrationFormSelector.languageAtHome)
+    .click(registrationFormSelector.languageAtHomeOption.withText('Suomi'))
     .click(registrationFormSelector.photoUsageYes);
 
   await changeApprovers(
@@ -93,7 +94,8 @@ test('Edit youths profile information', async (t) => {
   await t
     .selectText(registrationFormSelector.phone)
     .typeText(registrationFormSelector.phone, '0501234567')
-    .click(registrationFormSelector.languageEnglish)
+    .click(registrationFormSelector.languageAtHome)
+    .click(registrationFormSelector.languageAtHomeOption.withText('Englanti'))
     .click(registrationFormSelector.photoUsageNo);
 
   await changeApprovers(
