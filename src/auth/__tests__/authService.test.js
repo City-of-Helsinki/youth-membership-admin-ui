@@ -4,7 +4,7 @@ import authService, { API_TOKENS } from '../authService';
 import authorizationService from '../authorizationService';
 
 jest.mock('axios');
-jest.mock('../api/api/', () => ({
+jest.mock('../api/api', () => ({
   getRole: jest.fn().mockResolvedValue({ data: { role: 'admin' } }),
 }));
 

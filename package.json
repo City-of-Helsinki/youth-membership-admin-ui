@@ -66,6 +66,9 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "resetMocks": false
+  },
   "devDependencies": {
     "apollo": "^2.28.3",
     "eslint-config-prettier": "^6.11.0",
