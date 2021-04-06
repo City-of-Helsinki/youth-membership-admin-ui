@@ -41,3 +41,9 @@ jobs:
         BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID: ${{ secrets.BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID }}
         BROWSER_TESTING_EXISTING_USER_FIRST_NAME: ${{ secrets.BROWSER_TESTING_EXISTING_USER_FIRST_NAME }}
         BROWSER_TESTING_EXISTING_USER_LAST_NAME: ${{ secrets.BROWSER_TESTING_EXISTING_USER_LAST_NAME }}
+    - name: Upload screenshots of failed tests
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: screenshots
+        path: screenshots/

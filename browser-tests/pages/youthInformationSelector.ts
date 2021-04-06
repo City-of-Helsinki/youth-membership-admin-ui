@@ -8,7 +8,9 @@ export const youthInformationSelector = {
   mainAddress: Selector('p').withText('Osoite').sibling('p').nth(0),
   secondaryAddress: Selector('p').withText('Osoite').sibling('p').nth(1),
   phone: Selector('p').withText('Puhelinnumero').sibling('p'),
-  languageAtHome: Selector('p').withText('Kotona puhuttu kieli').sibling('p'),
+  languageAtHome: Selector('p')
+    .withText('Ensisijainen yhteydenottokieli')
+    .sibling('p'),
   photoUsage: Selector('p').withText('Kuvauslupa').sibling('p'),
   mainApproverName: Selector('p').withText('Nimi').sibling('p').nth(1),
   mainApproverEmail: Selector('p').withText('Sähköposti').sibling('p').nth(1),
