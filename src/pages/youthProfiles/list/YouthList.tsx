@@ -105,7 +105,6 @@ const YouthList = (props: unknown) => {
         {!loading && isSearchCountVisible && (
           <div className={styles.searchResultText}>
             {t('youthProfiles.searchResults', {
-              /* eslint-disable @typescript-eslint/camelcase */
               smart_count: total,
             })}
           </div>

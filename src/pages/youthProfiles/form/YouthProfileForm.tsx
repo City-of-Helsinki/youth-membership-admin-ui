@@ -30,9 +30,12 @@ import FormGroupDescription from './FormGroupDescription';
 
 type Props = {
   record?: FormValues;
+  // eslint-disable-next-line react/no-unused-prop-types
   method?: string;
   save: (values: FormValues) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   saving: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   profileID?: string;
 };
 
