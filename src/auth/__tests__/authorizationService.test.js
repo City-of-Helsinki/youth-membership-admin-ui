@@ -1,7 +1,7 @@
 import { getRole } from '../api/api';
 import authorizationService, { PERMISSIONS } from '../authorizationService';
 
-jest.mock('../api/api/', () => ({
+jest.mock('../api/api', () => ({
   getRole: jest.fn(),
 }));
 

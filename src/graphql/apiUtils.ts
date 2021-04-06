@@ -23,8 +23,10 @@ export const queryHandler = async (
     } else if (
       error.graphQLErrors[0].extensions.code === 'PERMISSION_DENIED_ERROR'
     ) {
+      // eslint-disable-next-line no-console
       console.error('Permission denied');
     } else {
+      // eslint-disable-next-line no-console
       console.error(error);
       Sentry.captureException(error);
     }

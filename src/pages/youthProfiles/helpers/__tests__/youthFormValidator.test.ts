@@ -112,7 +112,8 @@ describe('additional contact person validation', () => {
           phone: '000000000',
           email: 'fake@email.com',
         },
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         {
           firstName: '',
@@ -141,7 +142,7 @@ describe('additional contact person validation', () => {
     const errors: ValidationErrors = youthFormValidator({
       ...values,
       additionalContactPersons: [
-        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         {
           email: 'not email like',

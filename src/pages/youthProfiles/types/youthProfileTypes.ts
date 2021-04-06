@@ -54,7 +54,7 @@ export type Errors = {
 };
 
 export type ValidationErrors = {
-  [key in Index]?: string | object;
+  [key in Index]?: string | Record<string, unknown>;
 };
 
 export interface ValidationOption {

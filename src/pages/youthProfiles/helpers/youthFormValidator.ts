@@ -107,7 +107,7 @@ const checkAgeDateString = (dateString: string) => {
   return day.length > 0 && month.length > 0 && year.length > 0;
 };
 
-function validateObject<T extends object>(
+function validateObject<T>(
   object: T,
   fields: string[]
   // This type (attempts) implies an object whose keys can be found
@@ -237,7 +237,7 @@ const cleanArrayFields = (
 
   Object.entries(youthFormErrorObject).forEach(([key, value]) => {
     if (Array.isArray(value)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const nonNullFieldCount = value.filter((item) => item !== null).length;
       const isValid = nonNullFieldCount === 0;
@@ -248,7 +248,7 @@ const cleanArrayFields = (
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     cleanedErrors[key] = value;
   });

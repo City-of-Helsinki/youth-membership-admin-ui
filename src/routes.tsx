@@ -10,7 +10,7 @@ import NotAuthorized from './auth/components/notAuthorized/NotAuthorized';
 import ProtectedRoute from './auth/components/protectedRoute/ProtectedRoute';
 import CheckPermissions from './auth/components/checkPermissions/CheckPermissions';
 
-export default [
+const routes = [
   <Route exact path="/callback" component={OidcCallback} noLayout />,
   <ProtectedRoute
     exact
@@ -36,3 +36,5 @@ export default [
     noLayout
   />,
 ];
+
+export default routes;

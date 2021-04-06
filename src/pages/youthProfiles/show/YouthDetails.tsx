@@ -15,12 +15,12 @@ import getAdditionalContactPersons from '../helpers/getAdditionalContactPersons'
 import styles from './YouthDetails.module.css';
 import getAddressesFromNode from '../helpers/getAddressesFromNode';
 
-type Label = {
+type LabelProps = {
   label: string;
   value: string | undefined | null;
 };
 
-const Label = ({ value, label }: Label) => {
+const Label = ({ value, label }: LabelProps) => {
   return (
     <div className={styles.label}>
       <p className={styles.labelTitle}>{label}</p>

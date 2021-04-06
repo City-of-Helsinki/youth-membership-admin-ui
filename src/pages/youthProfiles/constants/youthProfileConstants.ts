@@ -1,4 +1,4 @@
-export default {
+const youthProfileConstants = {
   PROFILE_CREATION: {
     AGE_MIN: 8,
     AGE_MAX: 29,
@@ -6,3 +6,5 @@ export default {
     EMAIL_REGEX: /\S+@\S+\.\S+/,
   },
 };
+
+export default youthProfileConstants;
