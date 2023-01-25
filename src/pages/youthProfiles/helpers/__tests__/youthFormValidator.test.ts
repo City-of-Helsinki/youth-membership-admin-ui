@@ -1,3 +1,5 @@
+import { format, subYears } from 'date-fns';
+
 import { Values } from '../../types/youthProfileTypes';
 import {
   AddressType,
@@ -63,10 +65,9 @@ test('user is too old', () => {
 
 describe('test if approver fields are required', () => {
   test('user is under 18 years old', () => {
-    values.birthDate = '2004-1-1';
+    values.birthDate = format(subYears(new Date(), 17), 'yyyy-MM-dd');
     values.approverEmail = '';
     const errors: ValidationErrors = youthFormValidator(values);
-
     expect(errors.approverFirstName).toEqual('validation.required');
     expect(errors.approverLastName).toEqual('validation.required');
     expect(errors.approverPhone).toEqual('validation.required');
