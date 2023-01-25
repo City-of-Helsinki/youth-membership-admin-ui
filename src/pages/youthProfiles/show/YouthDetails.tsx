@@ -15,12 +15,12 @@ import getAdditionalContactPersons from '../helpers/getAdditionalContactPersons'
 import styles from './YouthDetails.module.css';
 import getAddressesFromNode from '../helpers/getAddressesFromNode';
 
-type Label = {
+type LabelProps = {
   label: string;
   value: string | undefined | null;
 };
 
-const Label = ({ value, label }: Label) => {
+const Label = ({ value, label }: LabelProps) => {
   return (
     <div className={styles.label}>
       <p className={styles.labelTitle}>{label}</p>
@@ -33,17 +33,28 @@ type ApproverProps = {
   name: string;
   email?: string | null;
   phone?: string | null;
+  languageAtHome?: string | null;
 };
 
-const Approver = ({ name, email, phone }: ApproverProps) => {
+const Approver = ({ name, email, phone, languageAtHome }: ApproverProps) => {
   const t = useTranslate();
 
   return (
-    <div className={styles.row}>
-      <Label value={name} label={t('youthProfiles.name')} />
-      <Label value={email || ' - '} label={t('youthProfiles.email')} />
-      <Label value={phone || ' - '} label={t('youthProfiles.phone')} />
-    </div>
+    <>
+      <div className={styles.row}>
+        <Label value={name} label={t('youthProfiles.name')} />
+        <Label value={email || ' - '} label={t('youthProfiles.email')} />
+      </div>
+      <div className={styles.row}>
+        <Label value={phone || ' - '} label={t('youthProfiles.phone')} />
+        {languageAtHome && (
+          <Label
+            label={t('youthProfiles.languageAtHome')}
+            value={t(`LANGUAGE_OPTIONS.${languageAtHome}`)}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
@@ -173,10 +184,6 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
       <h3>{t('youthProfiles.extraInfo')}</h3>
       <div className={styles.row}>
         <Label value={getSchool(profile)} label={t('youthProfiles.school')} />
-        <Label
-          value={t(`LANGUAGE_OPTIONS.${profile?.youthProfile?.languageAtHome}`)}
-          label={t('youthProfiles.languageAtHome')}
-        />
       </div>
 
       <h3>{t('youthProfiles.membershipInformation')}</h3>
@@ -230,6 +237,7 @@ const YouthDetails = (props: ReactAdminComponentPropsWithId) => {
         name={getName(profile, 'approver')}
         email={profile?.youthProfile?.approverEmail}
         phone={profile?.youthProfile?.approverPhone}
+        languageAtHome={profile?.youthProfile?.languageAtHome}
       />
       {additionalContactPersons.length > 0 && (
         <p className={styles.approverDescriptions}>

@@ -8,7 +8,9 @@ export const login = async (t: TestController) => {
     .click(loginSelector.helLoginLink)
     .typeText(loginSelector.helUsername, username())
     .typeText(loginSelector.helPassword, password())
-    .click(loginSelector.helLogin)
-    .expect(navigationSelector.sideNavigation.exists)
-    .ok();
+    .click(loginSelector.helLogin);
+
+  await t.wait(1000);
+
+  await t.expect(navigationSelector.sideNavigation.exists).ok();
 };

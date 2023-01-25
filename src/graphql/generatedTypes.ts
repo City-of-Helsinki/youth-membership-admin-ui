@@ -356,6 +356,7 @@ export enum YouthLanguage {
   ENGLISH = "ENGLISH",
   ESTONIAN = "ESTONIAN",
   FINNISH = "FINNISH",
+  FRENCH = "FRENCH",
   RUSSIAN = "RUSSIAN",
   SOMALI = "SOMALI",
   SWEDISH = "SWEDISH",

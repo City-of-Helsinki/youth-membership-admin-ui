@@ -13,6 +13,7 @@ import countries from 'i18n-iso-countries';
 import styles from './YouthProfileForm.module.css';
 import {
   Language,
+  YouthLanguage,
   Profile_profile_addresses_edges_node as Address,
   Profile_profile_primaryAddress as PrimaryAddress,
 } from '../../../graphql/generatedTypes';
@@ -29,9 +30,12 @@ import FormGroupDescription from './FormGroupDescription';
 
 type Props = {
   record?: FormValues;
+  // eslint-disable-next-line react/no-unused-prop-types
   method?: string;
   save: (values: FormValues) => void;
+  // eslint-disable-next-line react/no-unused-prop-types
   saving: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
   profileID?: string;
 };
 
@@ -316,16 +320,6 @@ const YouthProfileForm = (props: Props) => {
             </div>
 
             <RadioGroupInput
-              initialValue={props?.record?.languageAtHome || Language.FINNISH}
-              label={t('youthProfiles.languageAtHome')}
-              name="languageAtHome"
-              choices={[
-                { id: Language.FINNISH, name: t('LANGUAGE_OPTIONS.FINNISH') },
-                { id: Language.ENGLISH, name: t('LANGUAGE_OPTIONS.ENGLISH') },
-                { id: Language.SWEDISH, name: t('LANGUAGE_OPTIONS.SWEDISH') },
-              ]}
-            />
-            <RadioGroupInput
               initialValue={props?.record?.photoUsageApproved || 'false'}
               name="photoUsageApproved"
               label={t('youthProfiles.photoUsage')}
@@ -372,6 +366,26 @@ const YouthProfileForm = (props: Props) => {
                 name="approverPhone"
                 className={styles.textField}
                 error={errors.approverPhone}
+              />
+            </div>
+            <div className={styles.rowContainer}>
+              <SelectInput
+                name="languageAtHome"
+                labelText={t('youthProfiles.languageAtHome')}
+                options={[
+                  YouthLanguage.FINNISH,
+                  YouthLanguage.SWEDISH,
+                  YouthLanguage.ENGLISH,
+                  YouthLanguage.FRENCH,
+                  YouthLanguage.RUSSIAN,
+                  YouthLanguage.SOMALI,
+                  YouthLanguage.ARABIC,
+                  YouthLanguage.ESTONIAN,
+                ].map((language) => ({
+                  value: language,
+                  label: t(`LANGUAGE_OPTIONS.${language}`),
+                }))}
+                className={styles.select}
               />
             </div>
             <FormGroupDescription

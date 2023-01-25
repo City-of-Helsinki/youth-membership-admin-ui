@@ -4,7 +4,7 @@ import authService, { API_TOKENS } from '../authService';
 import authorizationService from '../authorizationService';
 
 jest.mock('axios');
-jest.mock('../api/api/', () => ({
+jest.mock('../api/api', () => ({
   getRole: jest.fn().mockResolvedValue({ data: { role: 'admin' } }),
 }));
 
@@ -68,7 +68,6 @@ describe('authService', () => {
       const apiTokens = '5ed3abc5-9b65-4879-8d09-3cd8499650ef';
       const validUser = JSON.stringify({
         name: 'Mr. Louisa Tromp',
-        /* eslint-disable-next-line @typescript-eslint/camelcase */
         access_token: '5ed3abc5-9b65-4879-8d09-3cd8499650ef',
       });
 
@@ -92,11 +91,9 @@ describe('authService', () => {
 
   describe('endLogin', () => {
     axios.get.mockResolvedValue({ data: {} });
-    /* eslint-disable-next-line @typescript-eslint/camelcase */
     const access_token = 'db237bc3-e197-43de-8c86-3feea4c5f886';
     const mockUser = {
       name: 'Penelope Krajcik',
-      /* eslint-disable-next-line @typescript-eslint/camelcase */
       access_token,
     };
 
@@ -227,11 +224,9 @@ describe('authService', () => {
   });
 
   describe('fetchApiTokens', () => {
-    /* eslint-disable-next-line @typescript-eslint/camelcase */
     const access_token = 'db237bc3-e197-43de-8c86-3feea4c5f886';
     const mockUser = {
       name: 'Penelope Krajcik',
-      /* eslint-disable-next-line @typescript-eslint/camelcase */
       access_token,
     };
 

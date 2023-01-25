@@ -75,15 +75,18 @@ test('Fill in the form and submit', async (t) => {
   await t
     .typeText(registrationFormSelector.schoolName, 'TestiKoulu')
     .typeText(registrationFormSelector.schoolClass, '1C')
-    .click(registrationFormSelector.languageEnglish)
-    .click(registrationFormSelector.languageSwedish)
-    .click(registrationFormSelector.languageFinnish)
     .click(registrationFormSelector.photoUsageYes)
     .click(registrationFormSelector.photoUsageNo)
     .typeText(registrationFormSelector.approverFirstName, 'Unique')
     .typeText(registrationFormSelector.approverLastName, 'User')
     .typeText(registrationFormSelector.approverEmail, 'unique@user.fi')
-    .typeText(registrationFormSelector.approverPhone, '0501234567');
+    .typeText(registrationFormSelector.approverPhone, '0501234567')
+    .click(registrationFormSelector.languageAtHome)
+    .click(registrationFormSelector.languageAtHomeOption.withText('Englanti'))
+    .click(registrationFormSelector.languageAtHome)
+    .click(registrationFormSelector.languageAtHomeOption.withText('Ruotsi'))
+    .click(registrationFormSelector.languageAtHome)
+    .click(registrationFormSelector.languageAtHomeOption.withText('Suomi'));
 
   // Add, remove and fill additional address
   await t

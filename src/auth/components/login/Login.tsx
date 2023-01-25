@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 type Props = RouteComponentProps<
-  {},
+  Record<string, string>,
   StaticContext,
   {
     nextPathname?: string;

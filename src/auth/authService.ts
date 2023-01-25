@@ -12,7 +12,6 @@ export class AuthService {
   private userManager: UserManager;
 
   constructor() {
-    /* eslint-disable @typescript-eslint/camelcase */
     const settings: UserManagerSettings = {
       loadUserInfo: true,
       authority: configService.getConfig('REACT_APP_OIDC_AUTHORITY'),
@@ -26,7 +25,6 @@ export class AuthService {
       scope: configService.getConfig('REACT_APP_OIDC_SCOPE'),
       post_logout_redirect_uri: origin,
     };
-    /* eslint-enable @typescript-eslint/camelcase */
 
     // Show oidc debugging info in the console only while developing
     if (process.env.NODE_ENV === 'development') {

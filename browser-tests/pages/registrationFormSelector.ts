@@ -1,5 +1,7 @@
 import { Selector } from 'testcafe';
 
+const languageAtHome = Selector('select[name="languageAtHome"]');
+
 export const registrationFormSelector = {
   inputErrors: Selector('div[class^="TextInput-module_helperText"]'),
   birthDateError: Selector('.MuiBox-root > p').withText('Vaadittu'),
@@ -17,9 +19,8 @@ export const registrationFormSelector = {
   birthDateYear: Selector('input[id="year"]'),
   schoolName: Selector('input[id="schoolName"]'),
   schoolClass: Selector('input[id="schoolClass"]'),
-  languageFinnish: Selector('label').withText('Suomi'),
-  languageSwedish: Selector('label').withText('Ruotsi'),
-  languageEnglish: Selector('label').withText('Englanti'),
+  languageAtHome,
+  languageAtHomeOption: languageAtHome.find('option'),
   photoUsageYes: Selector('label').withText('Kyllä'),
   photoUsageNo: Selector('label').withText('Ei'),
   approverFirstName: Selector('input[id="approverFirstName"]'),
