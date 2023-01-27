@@ -27,22 +27,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: andersinno/kolga-setup-action@v2
 
-      - name: dump vars
-        id: dump_vars 
-        run: |
-          echo "BROWSER_TESTING_USERNAME"
-          echo ${{secrets.BROWSER_TESTING_USERNAME}} | sed 's/./& /g'
-          echo "BROWSER_TESTING_USERNAME_NO_ACCESS"
-          echo ${{secrets.BROWSER_TESTING_USERNAME_NO_ACCESS}} | sed 's/./& /g'
-          echo "BROWSER_TESTING_PASSWORD"
-          echo ${{secrets.BROWSER_TESTING_PASSWORD}} | sed 's/./& /g'
-          echo "BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID"
-          echo ${{secrets.BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID}} | sed 's/./& /g'
-          echo "BROWSER_TESTING_EXISTING_USER_FIRST_NAME"
-          echo ${{secrets.BROWSER_TESTING_EXISTING_USER_FIRST_NAME}} | sed 's/./& /g'
-          echo "BROWSER_TESTING_EXISTING_USER_LAST_NAME"
-          echo ${{secrets.BROWSER_TESTING_EXISTING_USER_LAST_NAME}} | sed 's/./& /g'
-
       - name: Build
         uses: andersinno/kolga-build-action@v2
         env:
