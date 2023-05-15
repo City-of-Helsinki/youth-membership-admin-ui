@@ -1,0 +1,11 @@
+{
+  "bootstrap-sha": "62714d3da32600a7a802b6d349cd4509851a12ff",
+  "sequential-calls": true,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "package-name": "youth-membership-admin-ui"
+    }
+  },
+  "plugins": ["sentence-case"]
+}
