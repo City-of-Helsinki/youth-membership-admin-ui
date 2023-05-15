@@ -3,15 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-## Unreleased
+## [1.3.2] - 2021-02-18
 
-### Changed
-
-- Label "Profile language" to "Preferred service language"
-- Language at home field to preferred contact language field
-- Upgraded react-scripts from branch 3 to branch 4 in order to resolve security warnings
-
-## [1.3.1] - 2020-02-18
+## [1.3.1] - 2021-02-18
 
 ### Fixed
 
