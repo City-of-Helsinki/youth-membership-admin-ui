@@ -56,3 +56,30 @@ export const openCityProfileClientId = (): string => {
 
   return process.env.BROWSER_TESTING_OPEN_CITY_PROFILE_CLIENTID;
 };
+
+
+// api variables
+const getApiBaseUrl = () => {
+  const url = process.env['BROWSER_TESTS_API_URL'] ?? '';
+
+  // API url might point to graphql, remove
+  var re = /\/graphql$/;
+  return url.replace(re, "");
+};
+
+// optional variable for API to ensure tunnistamo user accesses
+export const apiUrl = (): string => getApiBaseUrl();
+
+export const apiUsername = (): string => {
+  if (!process.env.BROWSER_TESTING_API_USERNAME) {
+    throw new Error('No BROWSER_TESTING_API_USERNAME specified');
+  }
+  return process.env.BROWSER_TESTING_API_USERNAME;
+};
+export const apiPassword = (): string => {
+  if (!process.env.BROWSER_TESTING_API_PASSWORD) {
+    throw new Error('No BROWSER_TESTING_API_PASSWORD specified');
+  }
+
+  return process.env.BROWSER_TESTING_API_PASSWORD;
+};
