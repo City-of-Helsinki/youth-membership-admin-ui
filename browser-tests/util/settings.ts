@@ -23,6 +23,10 @@ export const testUrl = (): string => getEnvOrError('BROWSER_TESTING_URL');
 // optional, this cannot set on review environment, id is different on every environment
 export const userYouthProfileId = (): string => {
   const profileId = process.env.BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID ?? '';
+  // hack for devops pipelines
+  if ( profileId == 'undefined') {
+    return '';
+  }
   return `${profileId}`;
 }
 
