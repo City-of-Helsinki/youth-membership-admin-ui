@@ -21,6 +21,10 @@ fixture('View and edit').page(
 );
 
 test('Edit youths profile information', async (t) => {
+    // profile id is required
+    if (!userYouthProfileId()) {
+      return;
+    }
   await login(t);
   await t.click(youthInformationSelector.editProfile);
 

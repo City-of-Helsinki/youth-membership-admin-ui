@@ -20,8 +20,11 @@ export const password = (): string => getEnvOrError('BROWSER_TESTING_PASSWORD');
 
 export const testUrl = (): string => getEnvOrError('BROWSER_TESTING_URL');
 
-export const userYouthProfileId = (): string =>
-  getEnvOrError('BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID');
+// optional, this cannot set on review environment, id is different on every environment
+export const userYouthProfileId = (): string => {
+  const profileId = process.env.BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID ?? '';
+  return `${profileId}`;
+}
 
 export const userFirstName = (): string =>
   getEnvOrError('BROWSER_TESTING_EXISTING_USER_FIRST_NAME');
