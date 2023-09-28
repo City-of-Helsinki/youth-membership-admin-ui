@@ -50,7 +50,9 @@ Generate static types for GraphQL queries by using the schema from the backend s
 
 The `ci` variant of `browser-test` is ran against a headless browser, making it suitable for CI environments.
 
-Browser tests are configured to run with GitHub actions during each weekday with the `browser-test:ci` command.
+Browser tests are configured to run on DevOps test and review pipelines with the `browser-test:ci` command.
+
+The `wsl2win` variant of `browser-test` is run with Wsl which uses the Windows Chrome browser.
 
 ## Setting up development environment locally with docker
 
@@ -113,6 +115,48 @@ Make sure the project is running locally and required env variables are set (you
 Execute tests with `yarn browser-test`
 
 Browser tests are ran configured to run in Travis against the cron event with the `browser-test:ci` command. Cron is configured to run once a day.
+
+### Required environment variables
+
+Proper values for browser tests environment variables can be found from youth-membership dev key vault and pipelines.
+
+- BROWSER_TESTING_USERNAME
+- BROWSER_TESTING_USERNAME_NO_ACCESS
+- BROWSER_TESTING_PASSWORD
+- BROWSER_TESTING_URL
+- BROWSER_TESTING_EXISTING_USER_FIRST_NAME
+- BROWSER_TESTING_EXISTING_USER_LAST_NAME
+
+### Optional environment variables
+
+Run the test case with an existing profile id. This is used in the DevOps test environment.
+
+- BROWSER_TESTING_EXISTING_USER_YOUTH_PROFILE_ID
+
+### Optional environment variables for local api
+
+Browser tests are capable add super user accesses for test user. This is needed on DevOps review environments for example. 
+
+If BROWSER_TESTS_API_URL is set the other API -variables must also be set.
+
+- BROWSER_TESTS_API_URL
+- BROWSER_TESTING_API_USERNAME
+- BROWSER_TESTING_API_PASSWORD
+
+### Optional environment variables for local open-city-profile
+
+Browser tests are capable add tunnistamo client id for open-city-profile if it is missing. This is needed on DevOps review environments for example. 
+
+If BROWSER_TESTING_OPEN_CITY_PROFILE_URL is set the other OPEN_CITY_PROFILE -variables must also be set.
+
+The BROWSER_TESTING_OPEN_CITY_PROFILE_CLIENTID value should be the same as the value set on tunnistamo.
+
+These are optional variables
+
+- BROWSER_TESTING_OPEN_CITY_PROFILE_URL
+- BROWSER_TESTING_OPEN_CITY_PROFILE_USERNAME
+- BROWSER_TESTING_OPEN_CITY_PROFILE_PASSWORD
+- BROWSER_TESTING_OPEN_CITY_PROFILE_CLIENTID
 
 ## Known issues
 https://github.com/City-of-Helsinki/youth-membership-admin-ui/issues
