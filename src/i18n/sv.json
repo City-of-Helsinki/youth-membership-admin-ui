@@ -3,7 +3,8 @@
     "authenticating": "Autentiserar..."
   },
   "dashboard": {
-    "title": "Jässäri admin"
+    "title": "Jässäri admin",
+    "notAvailable": "Tjänsten är inte mera i bruk"
   },
   "youthProfiles": {
     "title": "Ungdomsprofiler",
