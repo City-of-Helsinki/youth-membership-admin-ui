@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
+## [1.3.4](https://github.com/City-of-Helsinki/youth-membership-admin-ui/compare/youth-membership-admin-ui-v1.3.3...youth-membership-admin-ui-v1.3.4) (2023-10-20)
+
+
+### Bug Fixes
+
+* Service not available ([727e70c](https://github.com/City-of-Helsinki/youth-membership-admin-ui/commit/727e70c0b71de0b2a8daed63494e645b3eb73727))
+* Service not available UI ([1d1fe01](https://github.com/City-of-Helsinki/youth-membership-admin-ui/commit/1d1fe019cc6be98881a78aa82fbb812e702a00c0))
+
 ## [1.3.3](https://github.com/City-of-Helsinki/youth-membership-admin-ui/compare/youth-membership-admin-ui-v1.3.2...youth-membership-admin-ui-v1.3.3) (2023-05-15)
 
 
