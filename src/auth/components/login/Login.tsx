@@ -4,6 +4,7 @@ import { Button, Card, CardContent } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { RouteComponentProps, StaticContext } from 'react-router';
+import { Notification } from 'hds-react';
 
 import theme from '../../../common/materialUI/themeConfig';
 
@@ -40,6 +41,10 @@ const LoginPage = ({ location }: Props) => {
         <Card>
           <CardContent>
             <div className={classes.container}>
+              <Notification
+                type="error"
+                labelText={t('dashboard.notAvailable')}
+              ></Notification>
               <p>{t('dashboard.title')}</p>
               <Button
                 className={classes.button}

@@ -3,7 +3,8 @@
     "authenticating": "Authenticating..."
   },
   "dashboard": {
-    "title": "Jassari admin"
+    "title": "Jassari admin",
+    "notAvailable": "The service is not available"
   },
   "youthProfiles": {
     "title": "Youth profiles",

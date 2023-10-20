@@ -3,7 +3,8 @@
     "authenticating": "Tunnistaudutaan..."
   },
   "dashboard": {
-    "title": "Jässäri ylläpito"
+    "title": "Jässäri ylläpito",
+    "notAvailable": "Palvelu ei ole enää käytössä"
   },
   "youthProfiles": {
     "title": "Nuorisoprofiilit",
