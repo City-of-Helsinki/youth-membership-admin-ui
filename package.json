@@ -32,7 +32,7 @@
     "oidc-client": "^1.10.1",
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
-    "ra-language-english": "^3.6.1",
+    "ra-language-english": "^3.19.12",
     "ra-language-finnish": "^3.6.0",
     "ra-language-swedish": "^1.0.0",
     "react": "^16.13.1",
